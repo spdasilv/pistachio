@@ -1,0 +1,11 @@
+# [START runtime]
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT pistachio.wsgi
+
+beta_settings:
+    cloud_sql_instances: pistachio-190605:us-central1:pistachio
+
+runtime_config:
+  python_version: 3.5
+# [END runtime]
