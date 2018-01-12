@@ -19,7 +19,7 @@ $(document).ready(function() {
     $("#requestAjax").submit(function(event){
         $.ajax({
              type:"POST",
-             url:"{% url 'polls:requestAjax' %}",
+             url:"{% url 'api:requestAjax' %}",
              data: {
                         'input': [
                             {

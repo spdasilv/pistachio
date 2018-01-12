@@ -317,6 +317,6 @@ def scheduleRun(input):
 
     # Evolve population for 200 generations
     ga = GA(tourmanager, cost_matrix)
-    for j in range(0, 25):
+    for j in range(0, 50):
         pop = ga.evolvePopulation(pop)
     return pop.getFittest().plan

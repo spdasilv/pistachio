@@ -1,0 +1,76 @@
+<h1> {{ cities.name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form method='post' id ='requestAjax'>
+{% csrf_token %}
+<table id="locations">
+    <tbody>
+        {% for location in cities.locations_set.all %}
+            <tr class="location">
+                <td><input type="checkbox" class="location_active" name="interested"/><td>
+                <td><span class="location_id">{{ location.id }}</span><td>
+                <td><span class="location_name">{{ location.name }}</span><td>
+                <td><span class="location_lat">{{ location.lat }}</span><td>
+                <td><span class="location_lon">{{ location.lon }}</span><td>
+                <input type="number" class="location_duration" name="duration" min="0" max="600" value="0" disabled>
+                <input type="number" class="location_weight" name="weight" min="0" max="100" value="0" disabled>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<input type='submit' value='Generate Schedule'/>
+</form>
+
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    inputDataList = []
+    $("#requestAjax").submit(function(event){
+        inputDataList.push({
+            "id":  0,
+            "lat": 43.648709,
+            "lon": -79.385913,
+            "w": 0,
+            "t": 0
+        });
+        event.preventDefault();
+        $("tr.location").each(function(i, tr) {
+            $this = $(this);
+            if ($this.find("input.location_active").is(':checked')) {
+                inputDataList.push({
+                    "id":  $this.find("span.location_id").html(),
+                    "lat": parseFloat($this.find("span.location_lat").html()),
+                    "lon": parseFloat($this.find("span.location_lon").html()),
+                    "w": parseFloat($this.find("input.location_weight").val()),
+                    "t": parseFloat($this.find("input.location_duration").val())
+                });
+            }
+        });
+        $("#requestAjax").submit(function(event){
+        $.ajax({
+             type:"POST",
+             url:"{% url 'api:requestAjax' %}",
+             data: JSON.stringify(inputDataList),
+             success: function(result){
+                 alert('SUCCESS!\n' + JSON.stringify(result));
+                 location.reload();
+             }
+            });
+            return false;
+        });
+    });
+
+    $('.location_active').change(function () {
+        $this = $(this).closest('tr');
+        if (this.checked) {
+            $this.find("input.location_weight").prop('disabled', false);
+            $this.find("input.location_duration").prop('disabled', false);
+        } else {
+            $this.find("input.location_weight").prop('disabled', true);
+            $this.find("input.location_duration").prop('disabled', true);
+        }
+    }).change();
+});
+</script>
