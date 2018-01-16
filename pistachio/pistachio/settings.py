@@ -141,3 +141,5 @@ USE_TZ = True
 STATIC_URL = 'https://storage.googleapis.com/pistachio/static/'
 
 STATIC_ROOT = '/static/'
+
+LOGIN_REDIRECT_URL = '/api/selectCity'

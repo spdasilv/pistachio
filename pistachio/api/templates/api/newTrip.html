@@ -1,0 +1,25 @@
+{% if user.is_authenticated %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <body>
+    {% block content %}
+      <h2>Create a new trip!</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <p>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+          </p>
+        {% endfor %}
+        <button type="submit">Sign up</button>
+      </form>
+    {% endblock %}
+    </body>
+    </html>
+{% else %}
+    <p>Please Login to Utilize Application</p>
+{% endif %}
