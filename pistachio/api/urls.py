@@ -10,6 +10,12 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('newTrip/', views.newTrip, name='newTrip'),
     path('selectCity/', views.selectCityView.as_view(), name='selectCity'),
+    path('', views.indexView.as_view(), name='index'),
+    path('bidLocations/', views.bidLocationView.as_view(), name='bidLocations'),
+    path('adminGA/', views.adminGAView.as_view(), name='adminGA'),
     path('<int:pk>/createTrip/', views.createTripView.as_view(), name='createTrip'),
     path('requestAjax/', views.requestAjax, name='requestAjax'),
+    path('getTrips/', views.requestAjax, name='getTrips'),
+    path('bidAjax/', views.bidAjax, name='bidAjax'),
+    path('runGA/', views.runGA, name='runGA'),
 ]

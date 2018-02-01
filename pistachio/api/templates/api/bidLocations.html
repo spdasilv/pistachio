@@ -1,0 +1,64 @@
+{% if user.is_authenticated %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% csrf_token %}
+    <form method='post' id ='bidAjax' >
+    <p>
+        <label>Select a Trip ID:</label><br>
+        <input type="number" id="trip_id" name="trip_id" min="0" max="100" value="0"><br>
+    </p>
+    <table id="locations">
+        <tbody>
+            {% for location in locations.all %}
+                <tr class="location">
+                    <td style="display:none;"><span class="location_id">{{ location.id }}</span></td>
+                    <td><span class="location_name">{{ location.name }}</span></td>
+                    <td><span class="location_name">{{ location.description }}</span></td>
+                    <td><img src="{{ location.img_url }}"></td>
+                    <td><input name="preference" class="preference" list="preference"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <datalist id="preference">
+            <option value=2>Must Visit</option>
+            <option value=1>Nice to Visit</option>
+            <option value=0>Do not Care</option>
+        </datalist>
+    </table>
+    <input type='submit' value='Submit Preferences'/>
+    </form>
+
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#bidAjax").submit(function(event){
+            event.preventDefault();
+            inputDataList = []
+            var trip_id = $('#trip_id').val()
+            $("tr.location").each(function(i, tr) {
+                $this = $(this);
+                if (parseInt($this.find("input.preference").val()) == 1 || parseInt($this.find("input.preference").val()) == 2) {
+                    inputDataList.push({
+                        "id":  $this.find("span.location_id").html(),
+                        "bid": parseInt($this.find("input.preference").val())
+                    });
+                }
+            });
+            $.ajax({
+                 type:"POST",
+                 url:"{% url 'api:bidAjax' %}",
+                 data: JSON.stringify({
+                     "trip_id" : trip_id,
+                     "input" : inputDataList
+                 }),
+                 success: function(result){
+                     window.location.replace("{% url 'api:logout' %}");
+                 }
+                });
+                return false;
+        });
+    });
+    </script>
+{% else %}
+    <p>Please Login to Utilize Application</p>
+{% endif %}

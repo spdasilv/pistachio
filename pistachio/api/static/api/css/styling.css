@@ -1,0 +1,215 @@
+.header-container {
+    height: 75px;
+    background: white;
+    padding: 0;
+    margin:0;
+    width:100%;
+    box-shadow: 0px 2px 5px 1px rgba(230, 230, 230,0.9);
+    border-bottom:rgb(230, 230, 230);
+    display:table;
+    margin-bottom:50px;
+}
+
+.logo {
+	display:table-cell;
+	vertical-align: middle;
+    /*max-width:1140px;*/
+    /*background:yellow;*/
+}
+
+.logo img {
+	max-width:200px;
+	margin-left: 8.33%;
+    margin-right:8.33%;
+}
+
+.parent-container1 {
+    margin-left: 8.33%;
+    margin-right:8.33%;
+    margin-bottom:50px;
+    /*background:blue;*/
+}
+
+.green-button {
+    background:var(--green);
+    height:50px;
+    padding:0px 20px;
+    /*margin-top:5px;*/
+    width:inherit;
+    text-transform:uppercase;
+    color:white;
+    letter-spacing:1px;
+    border-radius:5px;
+    display:table;
+    /*-webkit-transition: all 0.25s ease;*/
+}
+
+.green-button h3 {
+    display:table-cell;
+    vertical-align: middle;
+}
+
+.green-button:hover, .green-button:active {
+    cursor:pointer;
+    background:var(--darkgreen) !important;
+    -webkit-transition: all 0.25s ease;
+}
+
+button h3 {
+    font-size:1.3em;
+}
+
+button:focus {outline:0;}
+
+.title-divider {
+    /*margin-bottom:-50px;*/
+    width:80%;
+    float:left;
+    margin-left:3%;
+    margin-top:33px;
+}
+
+.title-divider1 {
+    /*margin-bottom:-50px;*/
+    width:84%;
+    float:left;
+    margin-left:20px;
+    margin-top:33px;
+}
+
+.title-separator {
+    margin-bottom:25px !important;
+    opacity:0.4;
+    clear:both;
+}
+
+.travel-tile {
+    background:#CCC;
+    /*max-height:250px;*/
+    height:250px;
+    border-radius:10px !important;
+    /*padding:30px;*/
+    display:table;
+    /*margin-right:30px;*/
+}
+
+.travel-tile-container {
+    padding-top:45px;
+    padding-bottom:30px;
+    display:table-cell;
+    vertical-align: middle;
+    padding-left:30px;
+    padding-right:30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.travel-tile-margin {
+    margin-right:15px;
+    margin-bottom:20px;
+}
+
+
+.travel-tile .travel-location {
+    padding-top:20px;
+    text-transform:uppercase;
+    color:white;
+    letter-spacing:1px;
+    /*background:orange;*/
+    height:60px;
+    /*min-width:330px;*/
+    /*max-width:500px;*/
+}
+
+.travel-tile hr {
+    font-weight:300;
+}
+
+.travel-tile .travel-duration {
+    font-weight:400;
+    color:white;
+}
+
+.travel-tile .travel-count {
+    float:right;
+}
+
+.macau-container {
+    background:url(../img/macau.jpg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/macau.jpg);
+    background-position:center;
+    border-radius:5px !important;
+    -webkit-transition: all 0.5s ease-in;
+}
+
+.ubud-container {
+    background:url(../img/indonesia.jpg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/indonesia.jpg);
+    background-position: center;
+    background-repeat:no-repeat;
+    border-radius:5px !important;
+
+}
+
+.tokyo-container {
+    background:url(../img/tokyo.jpeg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/tokyo.jpeg);
+    background-position:center;
+    border-radius:5px !important;
+}
+
+.toronto-container {
+    background:url(../img/toronto.jpg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/toronto.jpg);
+    background-position:50% 60%;
+    border-radius:5px !important;
+}
+
+.newyork-container {
+    background:url(../img/newyork.jpeg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/newyork.jpeg);
+    background-position:center;
+    border-radius:5px !important;
+}
+
+.sydney-container {
+    background:url(../img/sydney.jpeg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/sydney.jpeg);
+    background-position:center;
+    border-radius:5px !important;
+}
+
+.london-container {
+    background:url(../img/london.jpeg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/london.jpeg);
+    background-position:right center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    border-radius:5px !important;
+}
+
+.sanfran-container {
+    background:url(../img/sanfran.jpeg);
+    background-image: linear-gradient(to bottom, rgba(70,70,70,0.5) 0%,rgba(70,70,70,0.55) 100%), url(../img/sanfran.jpeg);
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    border-radius:5px !important;
+}
+/* ================================
+SCHEDULE PAGE
+================================ */
+
+
+.schedule-container {
+    height:300px;
+    border:1px solid var(--darkgrey);
+    margin-top:50px;
+    background:white;
+}
+
+.schedule-header {
+    height:75px;
+    background:rgba(245, 245, 245,0.3);
+    border-bottom:1px solid var(--darkgrey);
+}

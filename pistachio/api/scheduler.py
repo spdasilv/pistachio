@@ -1,4 +1,5 @@
-import random
+import random, json, requests, textwrap
+from urllib.request import urlopen
 from string import ascii_uppercase
 from math import radians, cos, sin, asin, sqrt
 
@@ -300,7 +301,17 @@ def calculateCost(coordinates):
             if value1['id'] == value2['id']:
                 time_cost[(value1['id'], value2['id'])] = 0
             else:
-                time_cost[(value1['id'], value2['id'])] = round(Haversine(value1['lon'], value1['lat'], value2['lon'], value2['lat'])*(60/20))
+                if (value2['id'], value1['id']) in time_cost:
+                    time_cost[(value1['id'], value2['id'])] = time_cost[(value2['id'], value1['id'])]
+                else:
+                    distanceSearch = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + str(
+                        value1['lat']) + "," + str(value1['lon']) + "&destinations=" + str(value2['lat']) + "," + str(
+                        value2['lon']) + "&mode=driving&key=AIzaSyAbUR_7faWzM6YBbcDtBXBLOfvpGc6L_Iw"
+                    response = urlopen(distanceSearch)
+                    string = response.read().decode('utf-8')
+                    obj = json.loads(string)
+                    time = int(obj['rows'][0]['elements'][0]['duration']['value'] / 60)
+                    time_cost[(value1['id'], value2['id'])] = time
     return time_cost
 
 

@@ -1,0 +1,51 @@
+{% if user.is_authenticated %}
+{% load static %}
+<html ng-app="pistachio">
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/node_modules/angular-material/angular-material.min.css" %}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div ng-controller="mainController">
+            <div class="header-container">
+                <!-- <div class="parent-container"> -->
+                <div class="logo">
+                    <img class="img-responsive" src="{% static "api/assets/pistachio.png" %}">
+                    </img>
+                </div>
+                <!-- </div> -->
+            </div>
+
+            <!-- <ul>
+                <li>
+                    <a href="#giza">
+                        Giza
+                    </a>
+                </li>
+                <li>
+                    <a href="#china">
+                        China
+                    </a>
+                </li>
+            </ul> -->
+            <div ng-view="">
+                <!-- load page templates-->
+            </div>
+        </div>
+
+        <script src="{% static "api/js/angular.min.js" %}"></script>
+        <script src="{% static "api/js/angular-route.min.js" %}"></script>
+        <script src="{% static "api/js/angular-animate.min.js" %}"></script>
+        <script src="{% static "api/js/angular-aria.min.js" %}"></script>
+        <script src="{% static "api/js/angular-material.min.js" %}"></script>
+        <script src="{% static "api/js/pistachio.js" %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </body>
+</html>
+{% else %}
+    <p>Please Login to Utilize Application</p>
+{% endif %}

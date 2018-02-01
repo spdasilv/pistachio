@@ -1,0 +1,92 @@
+{% if user.is_superuser %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% csrf_token %}
+    <form method='post' id ='runGA'>
+    <p>
+        <label>Select a Trip ID:</label><br>
+        <input type="number" id="trip_id" name="trip_id" min="0" max="100" value="0"><br>
+    </p>
+    <input type='submit' value='Generate Schedule'/>
+    </form>
+
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#runGA").submit(function(event){
+            event.preventDefault();
+            inputDataList = []
+            var trip_id = $('#trip_id').val()
+            $.ajax({
+                 type:"POST",
+                 url:"{% url 'api:runGA' %}",
+                 data: JSON.stringify({
+                     "trip_id" : trip_id
+                 }),
+                 success: function(result){
+                     var activity_list = []
+                     data = result
+                     for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            activity_list.push(data[key])
+                        }
+                     }
+
+                     var csv = convertArrayOfObjectsToCSV({
+                         data: activity_list
+                     });
+
+                     var data, filename, link;
+
+                     if (csv == null) return;
+
+                     filename = 'export.csv';
+
+                     if (!csv.match(/^data:text\/csv/i)) {
+                         csv = 'data:text/csv;charset=utf-8,' + csv;
+                     }
+                     data = encodeURI(csv);
+
+                     link = document.createElement('a');
+                     link.setAttribute('href', data);
+                     link.setAttribute('download', filename);
+                     link.click();
+                 }
+            });
+            return false;
+        });
+    });
+    function convertArrayOfObjectsToCSV(args) {
+        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+        data = args.data || null;
+        if (data == null || !data.length) {
+            return null;
+        }
+
+        columnDelimiter = args.columnDelimiter || ',';
+        lineDelimiter = args.lineDelimiter || '\n';
+
+        keys = Object.keys(data[0]);
+
+        result = '';
+        result += keys.join(columnDelimiter);
+        result += lineDelimiter;
+
+        data.forEach(function(item) {
+            ctr = 0;
+            keys.forEach(function(key) {
+                if (ctr > 0) result += columnDelimiter;
+
+                result += item[key];
+                ctr++;
+            });
+            result += lineDelimiter;
+        });
+
+        return result;
+    }
+    </script>
+{% else %}
+    <p>Only administrators can access this page.</p>
+{% endif %}

@@ -1,0 +1,185 @@
+<html>
+{# This is base.html #}
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+    </head>
+    <body>
+        <div class="parent-container1">
+            <h2 class="main-title" style="float:left">
+                UPCOMING...FUCKING WORK
+            </h2>
+            <!-- <hr class="title-divider"/> -->
+            <div ng-controller="modalCtrl">
+             <md-button class="green-button" style="float:right" ng-click="showAddTrip($event)">
+                <h3>
+                    + Add trip
+                </h3>
+            </md-button>
+        </div>
+            <!-- <hr class="title-divider" style="margin-top:50px !important"/> -->
+            <hr class="title-separator">
+            <p style="clear:both; font-style:italic;opacity:0.4">
+                Add a trip to start planning a group trip.
+            </p>
+
+            <!-- ===================== ROW 1 of present travels ================ -->
+            <div class="row">
+                <!-- ===================== TORONTO ================ -->
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container toronto-container">
+                        <h3 class="travel-location">
+                            Toronto, Canada
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <!-- ===================== NEW YORK ================ -->
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container newyork-container">
+                        <h3 class="travel-location">
+                            New York, USA
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <!-- ===================== SYDNEY ================ -->
+                <div class="col-4 travel-tile">
+                    <div class="travel-tile-container sydney-container">
+                        <h3 class="travel-location">
+                            Sydney, Australia
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <!--------- ROW 2 of programmed travels ---->
+            <div class="row">
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container london-container">
+                        <h3 class="travel-location">
+                            London, England
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container sanfran-container">
+                        <h3 class="travel-location">
+                            San Francisco, USA
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        <div class="parent-container1">
+            <h2 class="main-title" style="float:left">
+                PAST TRIPS
+            </h2>
+            <!-- <hr class="title-divider"/> -->
+            <hr class="title-separator"/>
+            <!-- ===================== ROW 1 of travels ================ -->
+            <div class="row">
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container macau-container">
+                        <h3 class="travel-location">
+                            Macau, China
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-4 travel-tile travel-tile-margin">
+                    <div class="travel-tile-container ubud-container">
+                        <h3 class="travel-location">
+                            Ubud, Indonesia
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-4 travel-tile">
+                    <div class="travel-tile-container tokyo-container">
+                        <h3 class="travel-location">
+                            Tokyo, Japan
+                        </h3>
+                        <hr/>
+                        <h4 class="travel-duration">
+                            Date
+                            <span class="travel-count">
+                                4
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- <hr/> -->
+        </div>
+
+    </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function() {
+        $.ajax({
+                 type:"POST",
+                 url:"/api/getTrips/",
+                 data: JSON.stringify({"req":0}),
+                 success: function(result){
+                     alert('SUCCESS!\n' + JSON.stringify(result));
+                     location.reload();
+                 }
+                });
+    });
+
+  </script>
+</html>

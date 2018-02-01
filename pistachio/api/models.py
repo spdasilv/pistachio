@@ -74,10 +74,23 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class Bid(models.Model):
+    trip = models.ForeignKey('Trip', models.DO_NOTHING)
+    location = models.ForeignKey('Locations', models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    value = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'bid'
+
+
 class Cities(models.Model):
     name = models.CharField(max_length=100)
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lon = models.DecimalField(max_digits=9, decimal_places=6)
+    country = models.CharField(max_length=100)
+    img_url = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -128,6 +141,25 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class Hotels(models.Model):
+    id = models.IntegerField(primary_key=True)
+    city_id = models.IntegerField()
+    name = models.CharField(max_length=300)
+    description = models.TextField(blank=True, null=True)
+    site_url = models.CharField(max_length=500, blank=True, null=True)
+    four_square_id = models.CharField(max_length=500)
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lon = models.DecimalField(max_digits=9, decimal_places=6)
+    img_url = models.CharField(max_length=500, blank=True, null=True)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
+    price_level = models.IntegerField(blank=True, null=True)
+    types = models.CharField(max_length=500)
+
+    class Meta:
+        managed = False
+        db_table = 'hotels'
+
+
 class Locations(models.Model):
     city = models.ForeignKey(Cities, models.DO_NOTHING, blank=True, null=True)
     name = models.CharField(max_length=300)
@@ -142,6 +174,7 @@ class Locations(models.Model):
     rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
     price_level = models.IntegerField(blank=True, null=True)
     types = models.CharField(max_length=500, blank=True, null=True)
+    user_study = models.NullBooleanField()
 
     class Meta:
         managed = False
