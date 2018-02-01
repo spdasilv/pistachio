@@ -66,8 +66,8 @@ class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 
 
-class indexView(TemplateView):
-    template_name = 'api/index.html'
+class homeView(TemplateView):
+    template_name = 'api/home.html'
 
 
 @csrf_exempt
