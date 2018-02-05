@@ -1,11 +1,28 @@
-
-{% block title %}Login{% endblock %}
-
 {% block content %}
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+        {% load static %}
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+    </head>
+<div class="col-4 offset-4">
+    <div class="parent-container1">
+        <form method="post">
+            {% csrf_token %}
+            <div class="login-container" >
+                <div>
+                    {% csrf_token %}
+                    <h4 class="main-title login-title">Username</h4>
+                    <input type="text" name="username" autofocus="" maxlength="254" required="" id="id_username">
+                    <h4 class="main-title login-title">Password</h4>
+                    <input type="password" name="password" required="" id="id_password">
+                </div>
+            </div>
+            <button class="login-button" style="width:100%" type="submit"><h3 class="main-title">Log into Pistachio</h3></button>
+        </form>
+    </div>
+</div>
 {% endblock %}

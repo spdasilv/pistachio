@@ -274,11 +274,11 @@ Responsive design - defining breakpoints
     .offset-1, .offset-2, .offset-3, .offset-4, .offset-41, .offset-5, .offset-6, .offset-7, .offset-8, .offset-9, .offset-10, .offset-11, .offset-12 {
         margin-left: 0;
     }
-    
+
     body {
         font-size: 12px;
     }
- 
+
 }
 
 @media only screen and (max-width: 540px) and (min-width: 320px) {
@@ -325,8 +325,8 @@ Responsive design - defining breakpoints
         margin-left: 0;
     }
 
-  
-}   
+
+}
 
 @media only screen and (max-width: 690px) and (min-width: 541px) {
     body {

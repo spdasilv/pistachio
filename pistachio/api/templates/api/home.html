@@ -4,7 +4,7 @@
     <head>
         <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
         <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
-        <link href="{% static "api/node_modules/angular-material/angular-material.min.css" %}" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
         <div class="parent-container1">
@@ -12,14 +12,11 @@
                 UPCOMING...
             </h2>
             <!-- <hr class="title-divider"/> -->
-            <div ng-controller="modalCtrl">
-             <md-button class="green-button" style="float:right" ng-click="showAddTrip($event)">
+            <a href="#openModal" style="float:right" style="text-decoration:none;" class="green-button" style="float:right">
                 <h3>
                     + Add trip
                 </h3>
-            </md-button>
-        </div>
-            <!-- <hr class="title-divider" style="margin-top:50px !important"/> -->
+            </a>
             <hr class="title-separator">
             <p style="clear:both; font-style:italic;opacity:0.4">
                 Add a trip to start planning a group trip.
@@ -27,82 +24,30 @@
 
             <!-- ===================== ROW 1 of present travels ================ -->
             <div class="row">
-                <!-- ===================== TORONTO ================ -->
-                <div class="col-4 travel-tile travel-tile-margin">
-                    <div class="travel-tile-container toronto-container">
-                        <h3 class="travel-location">
-                            Toronto, Canada
-                        </h3>
-                        <hr/>
-                        <h4 class="travel-duration">
-                            Date
-                            <span class="travel-count">
-                                4
-                            </span>
-                        </h4>
+                {% for trip in trips.all %}
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="col-4 travel-tile">
+                    {% else %}
+                        <div class="col-4 travel-tile travel-tile-margin">
+                    {% endif %}
+                        <div class="travel-tile-container {{ trip.city.img_url }}">
+                            <h3 class="travel-location">
+                                {{ trip.city.name }}, {{ trip.city.country }}
+                            </h3>
+                            <hr/>
+                            <h4 class="travel-duration">
+                                {{ trip.start_date }} - {{ trip.end_date }}
+                                <span class="travel-count">
+                                    {{ trip.userstrip_set.count }}
+                                </span>
+                            </h4>
+                        </div>
                     </div>
-                </div>
-                <!-- ===================== NEW YORK ================ -->
-                <div class="col-4 travel-tile travel-tile-margin">
-                    <div class="travel-tile-container newyork-container">
-                        <h3 class="travel-location">
-                            New York, USA
-                        </h3>
-                        <hr/>
-                        <h4 class="travel-duration">
-                            Date
-                            <span class="travel-count">
-                                4
-                            </span>
-                        </h4>
-                    </div>
-                </div>
-                <!-- ===================== SYDNEY ================ -->
-                <div class="col-4 travel-tile">
-                    <div class="travel-tile-container sydney-container">
-                        <h3 class="travel-location">
-                            Sydney, Australia
-                        </h3>
-                        <hr/>
-                        <h4 class="travel-duration">
-                            Date
-                            <span class="travel-count">
-                                4
-                            </span>
-                        </h4>
-                    </div>
-                </div>
-            </div>
-            <!--------- ROW 2 of programmed travels ---->
-            <div class="row">
-                <div class="col-4 travel-tile travel-tile-margin">
-                    <div class="travel-tile-container london-container">
-                        <h3 class="travel-location">
-                            London, England
-                        </h3>
-                        <hr/>
-                        <h4 class="travel-duration">
-                            Date
-                            <span class="travel-count">
-                                4
-                            </span>
-                        </h4>
-                    </div>
-                </div>
-                <div class="col-4 travel-tile travel-tile-margin">
-                    <div class="travel-tile-container sanfran-container">
-                        <h3 class="travel-location">
-                            San Francisco, USA
-                        </h3>
-                        <hr/>
-                        <h4 class="travel-duration">
-                            Date
-                            <span class="travel-count">
-                                4
-                            </span>
-                        </h4>
-                    </div>
-                </div>
+                    {% if forloop.counter|divisibleby:3 %}
+                        </div>
+                        <div class="row">
+                    {%  endif %}
+                {% endfor %}
             </div>
         </div>
         <div class="parent-container1">
@@ -157,4 +102,10 @@
             </div>
         </div>
     </body>
+    <div id="openModal" class="modalDialog">
+        <div>	<a href="#close" title="Close" class="close">X</a>
+        </div>
+    </div>
+    <script>
+    </script>
 {% endblock %}

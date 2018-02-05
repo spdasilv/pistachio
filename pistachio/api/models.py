@@ -183,7 +183,7 @@ class Locations(models.Model):
 
 class Trip(models.Model):
     city = models.ForeignKey(Cities, models.DO_NOTHING, blank=True, null=True)
-    owner = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
+    owner = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
     start_date = models.DateField()
     end_date = models.DateField()
     created_at = models.DateTimeField()
@@ -203,3 +203,13 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+
+
+class UsersTrip(models.Model):
+    trip = models.ForeignKey(Trip, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
+    is_owner = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'users_trip'

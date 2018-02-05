@@ -1,3 +1,4 @@
+{% if user.is_authenticated %}
 {% load static %}
 <header>
 <div class="header-container">
@@ -10,3 +11,6 @@
     {% block content %}{% endblock %}
 <footer>
 </footer>
+{% else %}
+    <p>Please Login to Utilize Application</p>
+{% endif %}

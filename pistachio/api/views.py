@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .scheduler import scheduleRun
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-from .models import Cities, Trip, Locations, Bid
+from .models import Cities, Trip, Locations, Bid, UsersTrip
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -27,7 +27,6 @@ def signup(request):
     return render(request, 'api/signup.html', {'form': form})
 
 
-@csrf_exempt
 def newTrip(request):
     if request.method == 'POST':
         form = NewTripForm(request.POST)
@@ -40,7 +39,7 @@ def newTrip(request):
             created_at = datetime.datetime.now()
             new_trip = Trip(city_id=city_id['id'], owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at)
             new_trip.save()
-            return redirect('/api/bidLocations.html')
+            return redirect('/api/bidLocations')
     else:
         form = NewTripForm()
     return render(request, 'api/newTrip.html', {'form': form})
@@ -66,14 +65,17 @@ class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 
 
-class homeView(TemplateView):
+class homeView(generic.ListView):
     template_name = 'api/home.html'
+    context_object_name = 'trips'
+
+    def get_queryset(self):
+        return Trip.objects.filter(userstrip__user=self.request.user.id).all()
 
 
 @csrf_exempt
 def runGA(request):
     if request.is_ajax():
-        userid = request.user.id
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
         bidSum = Bid.objects.filter(trip_id=obj['trip_id']).values('location_id').annotate(Sum('value')).all()
