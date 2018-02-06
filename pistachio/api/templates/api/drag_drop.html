@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+.objects {
+    display:inline-block;
+    background-color: #FFF3CC;
+    border: #DFBC6A 1px solid;
+    width: 80px; 
+    height: 50px;
+    margin: 10px;
+    padding: 8px;
+    font-size: 18px;
+    text-align: center;
+    box-shadow: 2px 2px 2px #999;
+    cursor: move;
+    float: top;
+}
+#musthave_dropzone {
+    background-color: #EEE; 
+    border: #999 1px solid;
+    width: 280px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin:10px auto;
+    display: inline-block;
+}
+#nicetohave_dropzone {
+    background-color: #EEE; 
+    border: #999 1px solid;
+    width: 280px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin:10px auto;
+    display: inline-block;
+}
+#others_dropzone {
+    background-color: #EEE; 
+    border: #999 1px solid;
+    width: 280px; 
+    height: 200px;
+    padding: 8px;
+    font-size: 18px;
+    margin:10px auto;
+    display: inline-block;
+}
+#pool {
+    background-color: #EEE; 
+    border: #999 1px solid;
+    width: 500px; 
+    height: 300px;
+    padding: 8px;
+    font-size: 18px;
+    padding: top;
+    margin: 10px auto;
+}
+</style>
+<script>
+function _(id){
+   return document.getElementById(id);	
+}
+var droppedIn = false;
+function drag_start(event) {
+    _('app_status').innerHTML = "Dragging the "+event.target.getAttribute('id');
+    event.dataTransfer.dropEffect = "move";
+    event.dataTransfer.setData("text", event.target.getAttribute('id') );
+}
+function drag_enter(event) {
+    _('app_status').innerHTML = "You are dragging over the "+event.target.getAttribute('id');
+}
+function drag_leave(event) {
+    _('app_status').innerHTML = "You left the "+event.target.getAttribute('id');
+}
+function drag_drop(event) {
+    event.preventDefault(); /* Prevent undesirable default behavior while dropping */
+    var elem_id = event.dataTransfer.getData("text");
+    event.target.appendChild( _(elem_id) );
+    _('app_status').innerHTML = "Dropped "+elem_id+" into the "+event.target.getAttribute('id');
+    // _(elem_id).removeAttribute("draggable");
+    _(elem_id).style.cursor = "default";
+    droppedIn = true;
+}
+function drag_end(event) {
+    if(droppedIn == false){
+        _('app_status').innerHTML = "You let the "+event.target.getAttribute('id')+" go.";
+    }
+	droppedIn = false;
+}
+function readDropZone(){
+    for(var i=0; i < _("musthave_dropzone").children.length; i++){
+        alert(_("musthave_dropzone").children[i].id+" is in the must have drop zone");
+    }
+    for(var j=0; j < _("nicetohave_dropzone").children.length; j++){
+        alert(_("nicetohave_dropzone").children[j].id+" is in the nice to have drop zone");
+    }
+    for(var k=0; k < _("others_dropzone").children.length; k++){
+        alert(_("others_dropzone").children[k].id+" is in the not interested drop zone");
+    }
+    /* Run Ajax request to pass any data to your server */
+}
+</script>
+</head>
+<body>
+<h2 id="app_status">App status...</h2>
+<!-- <h1>MUST HAVE</h1> -->
+<div id="musthave_dropzone" ondrop="drag_drop(event)" ondragover="return false"> MUST HAVE</div>
+<div id="nicetohave_dropzone" ondrop="drag_drop(event)" ondragover="return false"> NICE TO HAVE</div>
+<div id="others_dropzone" ondrop="drag_drop(event)" ondragover="return false"> NOT INTERESTED</div>
+<div id="pool" ondrop="drag_drop(event)" ondragover="return false" ondragleave="drag_leave(event)">POOL
+<div id="object1" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">London</div>
+<div id="object2" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Paris</div>
+<div id="object3" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Shanghai</div>
+<div id="object4" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Sydney</div>
+<div id="object5" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Melbourne</div>
+<div id="object6" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Delhi</div>
+<div id="object7" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Prague</div>
+<div id="object8" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Lisbon</div>
+<div id="object9" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Tokyo</div>
+</div>
+<hr>
+<button onclick="readDropZone()">Get Object Data</button>
+</body>
+</html>
