@@ -13,6 +13,7 @@ urlpatterns = [
     path('', views.homeView.as_view(), name='home'),
     path('bidLocations/', views.bidLocationView.as_view(), name='bidLocations'),
     path('adminGA/', views.adminGAView.as_view(), name='adminGA'),
+    path('drag_drop/', views.dragDropView.as_view(), name='drag_drop'),
     path('<int:pk>/createTrip/', views.createTripView.as_view(), name='createTrip'),
     path('requestAjax/', views.requestAjax, name='requestAjax'),
     path('getTrips/', views.requestAjax, name='getTrips'),

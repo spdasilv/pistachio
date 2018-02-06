@@ -67,11 +67,21 @@ class adminGAView(TemplateView):
 
 class homeView(generic.ListView):
     template_name = 'api/home.html'
+    # Name object
     context_object_name = 'trips'
 
+    # Define object aka query from DB
     def get_queryset(self):
+        #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
         return Trip.objects.filter(userstrip__user=self.request.user.id).all()
 
+class dragDropView(generic.ListView):
+    template_name = 'api/drag_drop.html'
+    context_object_name = 'cities'
+
+    def get_queryset(self):
+        #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
+        return Cities.objects.all()
 
 @csrf_exempt
 def runGA(request):

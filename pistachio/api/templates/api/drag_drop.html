@@ -109,15 +109,13 @@ function readDropZone(){
 <div id="nicetohave_dropzone" ondrop="drag_drop(event)" ondragover="return false"> NICE TO HAVE</div>
 <div id="others_dropzone" ondrop="drag_drop(event)" ondragover="return false"> NOT INTERESTED</div>
 <div id="pool" ondrop="drag_drop(event)" ondragover="return false" ondragleave="drag_leave(event)">POOL
-<div id="object1" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">London</div>
-<div id="object2" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Paris</div>
-<div id="object3" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Shanghai</div>
-<div id="object4" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Sydney</div>
-<div id="object5" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Melbourne</div>
-<div id="object6" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Delhi</div>
-<div id="object7" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Prague</div>
-<div id="object8" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Lisbon</div>
-<div id="object9" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)">Tokyo</div>
+    {% for city in cities.all %}
+        {% with y=forloop.counter|stringformat:"s" %}
+        <div id="{{ 'object'|add:y }}" class="objects" draggable="true" ondragstart="drag_start(event)" ondragend="drag_end(event)"> {{ city.name}} </div>
+        {% endwith %}
+    {% endfor %}
+</div>
+
 </div>
 <hr>
 <button onclick="readDropZone()">Get Object Data</button>
