@@ -57,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/templates/api/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="102" column="14" lean-forward="true" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+            <state relative-caret-position="394">
+              <caret line="115" column="14" lean-forward="true" selection-start-line="115" selection-start-column="14" selection-end-line="115" selection-end-column="14" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#1;n#a#0;n#div#0;n#body#0;n#!!top" expanded="true" />
@@ -71,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styling.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="styling.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="238" column="14" lean-forward="false" selection-start-line="238" selection-start-column="14" selection-end-line="238" selection-end-column="14" />
+            <state relative-caret-position="-587">
+              <caret line="245" column="1" lean-forward="true" selection-start-line="245" selection-start-column="1" selection-end-line="245" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -296,6 +296,10 @@
               <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -320,6 +324,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pistachio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pistachio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -694,9 +724,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/polls/scheduler.py" />
-    <entry file="file://$PROJECT_DIR$/polls/tests.py" />
-    <entry file="file://$PROJECT_DIR$/polls/urls.py" />
     <entry file="file://$PROJECT_DIR$/polls/views.py" />
     <entry file="file://$PROJECT_DIR$/app.yaml">
       <provider selected="true" editor-type-id="text-editor">
@@ -914,23 +941,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="238" column="14" lean-forward="false" selection-start-line="238" selection-start-column="14" selection-end-line="238" selection-end-column="14" />
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/api/static/api/assets/pistachio.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/static/api/assets/pistachio_text.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/static/api/img/indonesia.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/api/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="102" column="14" lean-forward="true" selection-start-line="102" selection-start-column="14" selection-end-line="102" selection-end-column="14" />
+        <state relative-caret-position="394">
+          <caret line="115" column="14" lean-forward="true" selection-start-line="115" selection-start-column="14" selection-end-line="115" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#a#0;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#1;n#a#0;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#2;n#a#0;n#div#0;n#body#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-587">
+          <caret line="245" column="1" lean-forward="true" selection-start-line="245" selection-start-column="1" selection-end-line="245" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
