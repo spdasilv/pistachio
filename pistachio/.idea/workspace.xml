@@ -28,7 +28,7 @@
       <file leaf-file-name="drag_drop.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/templates/api/drag_drop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="1710">
               <caret line="114" column="21" lean-forward="false" selection-start-line="114" selection-start-column="21" selection-end-line="114" selection-end-column="21" />
               <folding />
             </state>
@@ -42,28 +42,6 @@
               <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <marker date="1518034243888" expanded="true" signature="2374:2516" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="2480:2516" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="2559:2751" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="2670:2751" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="2786:2825" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="2861:3218" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3016:3218" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3257:3521" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3362:3521" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3555:4716" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3581:4632" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3912:4498" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="3958:4111" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="4154:4498" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="4263:4497" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="4753:5267" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="4779:5184" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="5002:5140" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="5311:5372" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="5413:5763" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="5464:5694" ph="..." />
-                <marker date="1518034243888" expanded="true" signature="5800:5836" ph="..." />
               </folding>
             </state>
           </provider>
@@ -89,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/templates/api/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="121" column="17" lean-forward="false" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
+            <state relative-caret-position="-1440">
+              <caret line="7" column="83" lean-forward="false" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -103,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styling.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="styling.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="245" column="18" lean-forward="true" selection-start-line="245" selection-start-column="18" selection-end-line="245" selection-end-column="18" />
+            <state relative-caret-position="462">
+              <caret line="335" column="0" lean-forward="false" selection-start-line="335" selection-start-column="0" selection-end-line="335" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -117,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/api/templates/api/bidLocations.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="4" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="20" />
+              <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -137,7 +115,7 @@
         <entry file="file://$PROJECT_DIR$/api/templates/api/newTrip.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="18" column="13" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="18" selection-end-column="13" />
+              <caret line="18" column="13" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="18" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -147,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/api/templates/api/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
-              <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+              <caret line="3" column="30" lean-forward="false" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -231,8 +209,8 @@
         <option value="$PROJECT_DIR$/api/urls.py" />
         <option value="$PROJECT_DIR$/api/templates/api/drag_drop.html" />
         <option value="$PROJECT_DIR$/api/views.py" />
-        <option value="$PROJECT_DIR$/api/static/api/css/styling.css" />
         <option value="$PROJECT_DIR$/api/templates/api/home.html" />
+        <option value="$PROJECT_DIR$/api/static/api/css/styling.css" />
       </list>
     </option>
   </component>
@@ -890,7 +868,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="9" lean-forward="false" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -904,7 +881,7 @@
     <entry file="file://$PROJECT_DIR$/api/templates/api/newTrip.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="18" column="13" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="18" selection-end-column="13" />
+          <caret line="18" column="13" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="18" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -912,7 +889,7 @@
     <entry file="file://$PROJECT_DIR$/api/templates/api/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
-          <caret line="3" column="30" lean-forward="true" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+          <caret line="3" column="30" lean-forward="false" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -931,35 +908,13 @@
           <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-            <marker date="1518034243888" expanded="true" signature="2374:2516" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="2480:2516" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="2559:2751" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="2670:2751" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="2786:2825" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="2861:3218" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3016:3218" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3257:3521" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3362:3521" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3555:4716" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3581:4632" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3912:4498" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="3958:4111" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="4154:4498" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="4263:4497" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="4753:5267" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="4779:5184" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="5002:5140" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="5311:5372" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="5413:5763" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="5464:5694" ph="..." />
-            <marker date="1518034243888" expanded="true" signature="5800:5836" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/api/drag_drop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="1710">
           <caret line="114" column="21" lean-forward="false" selection-start-line="114" selection-start-column="21" selection-end-line="114" selection-end-column="21" />
           <folding />
         </state>
@@ -976,7 +931,7 @@
     <entry file="file://$PROJECT_DIR$/api/templates/api/bidLocations.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" column="4" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="20" />
+          <caret line="2" column="4" lean-forward="false" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -989,23 +944,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="335" column="0" lean-forward="false" selection-start-line="335" selection-start-column="0" selection-end-line="335" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api/templates/api/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="121" column="17" lean-forward="false" selection-start-line="121" selection-start-column="17" selection-end-line="121" selection-end-column="17" />
+        <state relative-caret-position="-1440">
+          <caret line="7" column="83" lean-forward="false" selection-start-line="7" selection-start-column="83" selection-end-line="7" selection-end-column="83" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#1;n#button#0;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/static/api/css/styling.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="245" column="18" lean-forward="true" selection-start-line="245" selection-start-column="18" selection-end-line="245" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
