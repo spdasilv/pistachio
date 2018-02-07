@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .scheduler import scheduleRun
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-from .models import Cities, Trip, Locations, Bid, UsersTrip
+from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -27,6 +27,11 @@ def signup(request):
     return render(request, 'api/signup.html', {'form': form})
 
 
+def parseFriends(friends):
+    friendList = friends.split(';')
+    return friendList
+
+
 def newTrip(request):
     if request.method == 'POST':
         form = NewTripForm(request.POST)
@@ -39,10 +44,19 @@ def newTrip(request):
             created_at = datetime.datetime.now()
             new_trip = Trip(city_id=city_id['id'], owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at)
             new_trip.save()
-            return redirect('/api/bidLocations')
+
+            new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True)
+            new_usertrip.save()
+            friends = parseFriends(form.cleaned_data.get('emails'))
+            for friend in friends:
+                user = AuthUser.objects.filter(email=friend).values('id').first()
+                new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
+                new_usertrip.save()
+
+            return redirect('/api')
     else:
         form = NewTripForm()
-    return render(request, 'api/newTrip.html', {'form': form})
+    return redirect('/api')
 
 
 class selectCityView(generic.ListView):

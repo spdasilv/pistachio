@@ -104,16 +104,16 @@
     </body>
     <div id="openModal" class="modalDialog">
         <div>	<a href="#close" title="Close" class="close">X</a>
+        <form method='post' action="{% url 'api:newTrip'%}">
+            {% csrf_token %}
             <h1>ADD TRIP</h1>
-            <hr>
-            Location <input type="text" name="Location" value = "Search locations"><br>
-            <br> Hotel <input type="text" name="Hotel" value = "Hotel & accomodation"><br>
-            <br> Date <input type="date" name="StartDate"> <input type="date" name="EndDate"><br>
-            <br> Time <input type="text" name="times"><br>
-            <input type="range" multiple value="10,80" />
-            <hr>
-            <br> Group <input type="text" name="GroupMates" value = "Groupmates"><br>
-            <br> Bid <input type="date" name="BidOpen"> <input type="date" name="BidOpen"><br>
+            Location <input type="text" name="city_choice" maxlength="200" required id="id_city_choice" /><br>
+            Start Date <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" /><br>
+            End Date <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
+            Bid Ending Date <input type="datetime-local" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" /><br>
+            Friends <input type="text" name="emails" maxlength="1000" required id="id_emails" /><br>
+            <button type="submit">Add Trip</button>
+        </form>
         </div>
     </div>
     <script>
