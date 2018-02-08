@@ -5,6 +5,7 @@
         <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
         <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script defer src="/static/api/js/fontawesome/fontawesome-all.js"></script>
     </head>
     <body>
         <div class="parent-container1">
@@ -103,18 +104,32 @@
         </div>
     </body>
     <div id="openModal" class="modalDialog">
-        <div>	<a href="#close" title="Close" class="close">X</a>
+        <div style="color: #404144;">	<a href="#close" title="Close" class="close">x</a>
         <form method='post' action="{% url 'api:newTrip'%}">
             {% csrf_token %}
             <h1>ADD TRIP</h1>
-            Location <input type="text" name="city_choice" maxlength="200" required id="id_city_choice" /><br>
-            Start Date <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" /><br>
-            End Date <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
-            Bid Ending Date <input type="datetime-local" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" /><br>
-            Friends <input type="text" name="emails" maxlength="1000" required id="id_emails" /><br>
-            <button type="submit">Add Trip</button>
+            <hr>
+            <style>
+            input[type=text]{
+                width:60%;
+                border-bottom: 1px solid white;
+            }
+            input[type=text]:focus, input[type=text]:active {
+                border-bottom: 1px solid white;
+                outline: none;
+            }
+            </style>
+            <br><i class="fas fa-map-marker-alt fa-lg"></i>  <input type="text" name="city_choice" maxlength="300" required id="id_city_choice" value="Search Locations"/><br>
+            <br><i class="fas fa-bed fa-lg"></i>  <input type="text" name="hotel" maxlength="300" required id="id_hotel" value="Search Hotel & Accommodation"/><br>
+            <br><i class="far fa-calendar fa-lg"></i>  <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" />
+            <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
+            <br><i class="far fa-clock fa-lg"></i><br>
+            <br>BID <input type="datetime-local" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" /><br>
+            <br><i class="fas fa-users fa-lg"></i> <input type="text" name="emails" maxlength="1000" required id="id_emails" value="Add Group Mates"/><br>
+            <br><button type="submit"  style="text-decoration:none;" class="green-button" style="float:right">Add Trip</button>
         </form>
         </div>
+        <!--<div><button type="submit"  style="text-decoration:none;" class="green-button" style="float:right">Add Trip</button></div>-->
     </div>
     <script>
     </script>
