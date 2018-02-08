@@ -1,0 +1,103 @@
+{% extends "api/index.html" %}
+{% block content %}
+    {% load static %}
+{% if user.is_authenticated %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% csrf_token %}
+<head>
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script defer src="/static/api/js/fontawesome/fontawesome-all.js"></script>
+    <style>
+
+        /* Style the tab */
+        .tab {
+            float: left;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width: 40%;
+            height: 800px;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            float: left;
+            padding: 0px 12px;
+            border: 1px solid #ccc;
+            width: 60%;
+            border-left: none;
+            height: 800px;
+        }
+    </style>
+    </head>
+<body>
+<div class="parent-container">
+    <div class="tab">
+    {% for act in actDetails.all %}
+         {% with y=forloop.counter|stringformat:"s" %}
+      <button class="tablinks" onclick="openActivity(event, '{{ object|add:y }}')"><img src="{{ act.img_url }}" height="30" width="30"><img>{{ act.name }}</button>
+        {% endwith %}
+        {% endfor %}
+    </div>
+     {% for act in actDetails.all %}
+         {% with y=forloop.counter|stringformat:"s" %}
+    <div id="{{ object|add:y }}" class="tabcontent">
+        {% endwith %}
+      <h3>{{ act.name }}</h3>
+        <hr>
+             <img src="{{ act.img_url }}"><img>
+             <p>HOURS: {{act.schedule}}</p>
+             <p>PRICE: {{act.price_level}}</p>
+      <p>{{ act.description }}</p>
+    </div>
+    {% endfor %}
+</div>
+    <script>
+    function openActivity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+</script>
+    </body>
+{% else %}
+    <p>Please Login to Utilize Application</p>
+{% endif %}
+{% endblock %}

@@ -74,6 +74,13 @@ class bidLocationView(generic.ListView):
     def get_queryset(self):
         return Locations.objects.filter(city_id=3).filter(user_study=True).all()
 
+class activityDetailsView(generic.ListView):
+    template_name = 'api/activityDetails.html'
+    context_object_name = 'actDetails'
+
+    def get_queryset(self):
+        return Locations.objects.filter(city_id=2).all()[0:10]
+
 
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
