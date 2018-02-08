@@ -181,6 +181,16 @@ class Locations(models.Model):
         db_table = 'locations'
 
 
+class SelectedActivities(models.Model):
+    trip = models.ForeignKey('Trip', models.DO_NOTHING)
+    location = models.ForeignKey(Locations, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'selected_activities'
+
+
 class Trip(models.Model):
     city = models.ForeignKey(Cities, models.DO_NOTHING, blank=True, null=True)
     owner = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
@@ -194,21 +204,11 @@ class Trip(models.Model):
         db_table = 'trip'
 
 
-class Users(models.Model):
-    first_name = models.CharField(max_length=100, blank=True, null=True)
-    last_name = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100)
-    password = models.CharField(max_length=200)
-
-    class Meta:
-        managed = False
-        db_table = 'users'
-
-
 class UsersTrip(models.Model):
     trip = models.ForeignKey(Trip, models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING, blank=True, null=True)
     is_owner = models.BooleanField()
+    stage = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False

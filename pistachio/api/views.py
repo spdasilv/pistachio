@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .scheduler import scheduleRun
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser
+from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedActivities
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -52,10 +52,19 @@ def newTrip(request):
                 user = AuthUser.objects.filter(email=friend).values('id').first()
                 new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
                 new_usertrip.save()
+    return redirect('/api')
 
-            return redirect('/api')
-    else:
-        form = NewTripForm()
+
+def addActivities(request):
+    if request.is_ajax():
+        body_string = request.body.decode('utf8').replace("'", '"')
+        obj = json.loads(body_string)
+        trip = Trip.objects.filter(pk=obj['trip_id']).filter(userstrip__user=request.user.id).values('id').first()
+        if 'id' in trip:
+            SelectedActivities.objects.filter(user_id=request.user.id).filter(trip_id=trip['id']).delete()
+            for activity in obj['activities']:
+                selectedActivity = SelectedActivities(trip_id=trip['id'], user_id=request.user.id, location_id=activity['id'])
+                selectedActivity.save()
     return redirect('/api')
 
 
