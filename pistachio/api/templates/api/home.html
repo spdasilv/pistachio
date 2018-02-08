@@ -106,37 +106,42 @@
     <div id="openModal" class="modalDialog" style="overflow:scroll;">
         <div style="color: #404144;">	<a href="#close" title="Close" class="close">x</a>
         <form method='post' action="{% url 'api:newTrip'%}">
-            {% csrf_token %}
-            <style>
-            input[type=text]{
-                width:70%;
-                border-bottom: 1px solid white;
-            }
-            input[type=text]:focus, input[type=text]:active {
-                border-bottom: 1px solid white;
-                outline: none;
-            }
-            .modalDialog > div {
-                padding: 5px 65px 13px 65px;
-            }
-            hr.divider {
-                margin-left: -65px;
-                margin-right: -65px;
-                border-color: #f4f6f9;
-                opacity: 0.5;
-            }
-            </style>
-            <h1>ADD TRIP</h1>
-            <hr class="divider"/>
-            <br><i class="fas fa-map-marker-alt fa-lg" style="margin-right:15px;"></i>  <input type="text" name="city_choice" maxlength="300" required id="id_city_choice" value="Search Locations"/><br>
-            <br><i class="fas fa-bed fa-lg" style="margin-right:15px;"></i>  <input type="text" name="hotel" maxlength="300" required id="id_hotel" value="Search Hotel & Accommodation"/><br>
-            <br><i class="far fa-calendar fa-lg" style="margin-right:15px;"></i>  <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" />
-            <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
-            <br><i class="far fa-clock fa-lg" style="margin-right:15px;"></i><br>
-            <br><hr class="divider" style="opacity:0.3"/>
-            <br><i class="fas fa-users fa-lg" style="margin-right:15px;"></i> <input type="text" name="emails" maxlength="1000" required id="id_emails" value="Add Group Mates"/><br>
-            <br>BID <input type="datetime-local" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-left:15px;"/><br>
-            <br><button type="submit"  style="text-decoration:none;" class="green-button" style="float:right" >CREATE TRIP</button>
+            <div>
+                {% csrf_token %}
+                <style>
+                input[type=text]{
+                    width:70%;
+                    border-bottom: 1px solid white;
+                }
+                input[type=text]:focus, input[type=text]:active {
+                    border-bottom: 1px solid white;
+                    outline: none;
+                }
+                .modalDialog > div {
+                    padding: 5px 65px 13px 65px;
+                }
+                hr.divider {
+                    margin-left: -65px;
+                    margin-right: -65px;
+                    border-color: #f4f6f9;
+                    opacity: 0.5;
+                }
+                </style>
+                <h1>ADD TRIP</h1>
+                <hr class="divider"/>
+                <br><i class="fas fa-map-marker-alt fa-lg" style="margin-right:15px;"></i>  <input type="text" name="city_choice" maxlength="300" required id="id_city_choice" value="Search Locations"/><br>
+                <br><i class="fas fa-bed fa-lg" style="margin-right:15px;"></i>  <input type="text" name="hotel" maxlength="300" required id="id_hotel" value="Search Hotel & Accommodation"/><br>
+                <br><i class="far fa-calendar fa-lg" style="margin-right:15px;"></i>  <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" />
+                <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
+                <br><i class="far fa-clock fa-lg" style="margin-right:15px;"></i><br>
+                <br><hr class="divider" style="opacity:0.3"/>
+                <br><i class="fas fa-users fa-lg" style="margin-right:15px;"></i> <input type="text" name="emails" maxlength="1000" required id="id_emails" value="Add Group Mates"/><br>
+                <br>BID <input type="datetime-local" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-left:15px;"/><br>
+                <br>
+            </div>
+            <div style="display: flex;align-items: center;justify-content: center;">
+            	<button type="submit"  style="text-decoration:none;" class="green-button" style="float:right" style="text-align: center;">CREATE TRIP</button>
+            </div>
         </form>
         </div>
     </div>
