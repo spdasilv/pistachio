@@ -5,9 +5,11 @@
 :root {
     --silver: rgb(245, 245, 245);
     --darkgrey: #CCC;
+    --darkergrey:#979797;
     --green: #92D234;
     --darkgreen:#68AF02;
     --gold:#F5A623;
+    --darkgold:#B98939;
 }
 
 
