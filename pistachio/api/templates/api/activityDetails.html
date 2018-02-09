@@ -98,10 +98,10 @@
     <div class="internalTab">
     {% for act in actDetails.all %}
          {% with y=forloop.counter|stringformat:"s" %}
-      <button class="tablinks" onclick="openActivity(event, '{{ object|add:y }}')"><img src="{{ act.img_url }}" height="30" width="30"><img> {{ act.name }}</button>
+      <button class="tablinks" onclick="openActivity(event, '{{ "object_"|add:y }}')"><img src="{{ act.img_url }}" height="30" width="30"><img> {{ act.name }}</button>
     {% endwith %}
     {% endfor %}
-</div>
+    </div>
 </div>
 
 <div id="Picks" class="tabcontent">

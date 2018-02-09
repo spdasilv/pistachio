@@ -6,6 +6,12 @@
         <img class="img-responsive" src="{% static "api/assets/pistachio.png" %}">
         </img>
     </div>
+    <a href="{% url 'api:logout' %}" class="logout-button">
+        <h4>
+            Logout
+        </h4>
+    </a>
+    </button>
 </div>
 </header>
     {% block content %}{% endblock %}
