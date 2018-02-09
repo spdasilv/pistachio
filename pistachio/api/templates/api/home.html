@@ -33,15 +33,16 @@
                     {% endif %}
                         <div class="travel-tile-container {{ trip.city.img_url }}">
                             <h3 class="travel-location">
-                                {{ trip.city.name }}, {{ trip.city.country }}
+                                <a href="{% url 'api:activityDetails' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
                             </h3>
                             <hr/>
                             <h4 class="travel-duration">
                                 {{ trip.start_date }} - {{ trip.end_date }}
                                 <span class="travel-count">
-                                    <a href="{% url 'api:activityDetails' trip.id %}">TRAVEL</a>
+                                    GROUP SIZE: {{ trip.userstrip_set.count }}
                                 </span>
                             </h4>
+                            <hr/>
                         </div>
                     </div>
                     {% if forloop.counter|divisibleby:3 %}
@@ -128,12 +129,12 @@
             </style>
             <h1>ADD TRIP</h1>
             <hr class="divider"/>
-            <br><i class="fas fa-map-marker-alt fa-lg" style="margin-right:15px;"></i>  <input type="text" name="city_choice" maxlength="300" required id="id_city_choice" value="Search Locations"/><br>
+            <br><i class="fas fa-map-marker-alt fa-lg" style="margin-right:15px;"></i>  <input type="text" name="city_choice" maxlength="300" required id="id_city_choice"/><br>
             <br><i class="far fa-calendar fa-lg" style="margin-right:15px;"></i>  <input type="date" name="start_date" value="2018-02-07" required id="id_start_date" />
             <input type="date" name="end_date" value="2018-02-07" required id="id_end_date" /><br>
             <br><i class="far fa-clock fa-lg" style="margin-right:15px;"></i><br>
             <br><hr class="divider" style="opacity:0.3"/>
-            <br><i class="fas fa-users fa-lg" style="margin-right:15px;"></i> <input type="text" name="emails" maxlength="1000" required id="id_emails" value="Add Group Mates"/><br>
+            <br><i class="fas fa-users fa-lg" style="margin-right:15px;"></i> <input type="text" name="emails" maxlength="1000" required id="id_emails"/><br>
             <br>BID <input type="datetime" name="bidding_ends" required id="id_bidding_ends" style="margin-left:15px;"/><br>
             <br><button type="submit"  style="text-decoration:none;" class="green-button" style="float:right" >CREATE TRIP</button>
         </form>
