@@ -52,6 +52,8 @@ def newTrip(request):
                 user = AuthUser.objects.filter(email=friend).values('id').first()
                 new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
                 new_usertrip.save()
+        else:
+            error = form.errors
     return redirect('/api')
 
 
@@ -82,6 +84,14 @@ class bidLocationView(generic.ListView):
 
     def get_queryset(self):
         return Locations.objects.filter(city_id=3).filter(user_study=True).all()
+
+class activityDetailsView(generic.ListView):
+    template_name = 'api/activityDetails.html'
+    context_object_name = 'actDetails'
+
+    def get_queryset(self):
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
+        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
 
 
 class adminGAView(TemplateView):
