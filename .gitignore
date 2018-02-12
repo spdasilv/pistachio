@@ -1,1 +1,6 @@
 pistachio/.idea/
+pistachio/__pycache__
+*.pyc
+*.pyc
+pistachio/api/migrations/__pycache__/0001_initial.cpython-35.pyc
+pistachio/api/migrations/__pycache__/__init__.cpython-35.pyc
