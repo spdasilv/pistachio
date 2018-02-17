@@ -95,6 +95,15 @@ class activityDetailsView(generic.ListView):
         return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
 
 
+class selectActivitiesView(generic.ListView):
+    template_name = 'api/selectActivities.html'
+    context_object_name = 'actDetails'
+
+    def get_queryset(self):
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
+        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
+
+
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 

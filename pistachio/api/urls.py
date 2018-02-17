@@ -15,6 +15,7 @@ urlpatterns = [
     path('adminGA/', views.adminGAView.as_view(), name='adminGA'),
     path('drag_drop/', views.dragDropView.as_view(), name='drag_drop'),
     path('<int:pk>/activityDetails/', views.activityDetailsView.as_view(), name='activityDetails'),
+    path('<int:pk>/selectActivities/', views.selectActivitiesView.as_view(), name='selectActivities'),
     path('<int:pk>/createTrip/', views.createTripView.as_view(), name='createTrip'),
     path('requestAjax/', views.requestAjax, name='requestAjax'),
     path('getTrips/', views.requestAjax, name='getTrips'),

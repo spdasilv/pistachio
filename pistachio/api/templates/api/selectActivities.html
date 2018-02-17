@@ -1,0 +1,292 @@
+{% load static %}
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static "api/js/fontawesome-all.js" %}"></script>
+    </head>
+    <body>
+        <!-- HEADER -->
+        <div class="header-container">
+            <!-- <div class="parent-container"> -->
+            <div class="logo">
+                <img class="img-responsive" src="{% static "api/assets/pistachio.png" %}">
+                </img>
+            </div>
+            <!-- </div> -->
+            <button class="logout-button">
+                <h4>
+                    LOGOUT
+                </h4>
+            </button>
+        </div>
+        <!------- -->
+        <div class="parent-container1">
+            <h5 class="sub-title">
+                <a href="home.html">
+                    ⫷   Back to home
+                </a>
+            </h5>
+            <!-- <h2 class="main-title">
+                Trip to Giza
+            </h2> -->
+            <h2 class="main-title" style="float:left">
+                TRIP TO GIZA
+            </h2>
+            <!-- <hr class="title-divider"/> -->
+                <button class="gold-button" style="float:right">
+                    <h3>
+                        Submit
+                    </h3>
+                </button>
+                <hr>
+                    <div class="box-container">
+                        <div class="left-box">
+                            <div class="box-header">
+                                <ul>
+                                    <h4>
+                                        <li>
+                                            <!-- <a href=""> -->
+                                                Suggested
+                                            <!-- </a> -->
+                                        </li>
+                                         <li>
+                                            <!--<a href="">-->
+                                                <!--Your Picks-->
+                                            <!--</a>-->
+                                        </li>
+                                    </h4>
+                                </ul>
+                            </div>
+                            <!-- tiles on the left side of the container -->
+                    <div class="tile">
+                    <button class="tablinks" onclick="openActivity(event, 'Sao Jorge Castle')" id="defaultOpen">
+                        <!-- <div class="bookmarked-trip"></div> -->
+                        <div class="tile-img" style="">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/LisbonCastle.jpg/1200px-LisbonCastle.jpg" height="110px" width="100px">
+                        </div>
+                        <div class="tile-text" style="">
+                                    <h4>
+                                        Sao Jorge Castle
+                                    </h4>
+                                    <p>
+                                        Historic, Castle, Museum
+                                    </p>
+                                    <div class="tile-ratings">
+                                        <div class="tile-stars">
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                        </div>
+                                        <div class="tile-ratings-text">
+                                            <p>
+                                                4.5/5
+                                            </p>
+                                        </div>
+                                    </div>
+                        </div>
+                    </button>
+                    </div>
+                    <div class="tile">
+                    <button class="tablinks" onclick="openActivity(event, 'Lisbon Oceanarium')">
+                        <div class="bookmarked-trip"  style="display:none;"></div>
+                        <div class="tile-img" style="">
+                            <img src="https://lisbon-portugal-guide.com/images/750/lisbon-oceanarium-sharks.jpg" height="110px" width="100px">
+                        </div>
+                        <div class="tile-text" style="">
+                                    <h4>
+                                        Lisbon Oceanarium
+                                    </h4>
+                                    <p>
+                                        Amusement Park, Aquarium
+                                    </p>
+                                    <div class="tile-ratings">
+                                        <div class="tile-stars">
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                        </div>
+                                        <div class="tile-ratings-text">
+                                            <p>
+                                                4.5/5
+                                            </p>
+                                        </div>
+                                    </div>
+                        </div>
+                    </button>
+                    </div>
+                    <div class="tile">
+                    <button class="tablinks" onclick=" openActivity(event, 'Belem Tower')" onclick="ShowDiv()">
+                        <div id="location_1" class="bookmarked-trip"  style="display:none;"></div>
+                        <div class="tile-img" style="">
+                            <img src="https://lh5.googleusercontent.com/-qx-R9z6LjV0/WLlj05nhmaI/AAAAAAAFLQY/ve0d2iPb6IYuOnWe7DyhQA5znpBfncBRQCLIBGAYYCw/w240-h160-k-no/" height="110px" width="100px">
+                        </div>
+                        <div class="tile-text" style="">
+                                    <h4>
+                                       Belem Tower
+                                    </h4>
+                                    <p>
+                                        Historic, Cultural
+                                    </p>
+                                    <div class="tile-ratings">
+                                        <div class="tile-stars">
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                            <i class="far fa-star">
+                                            </i>
+                                        </div>
+                                        <div class="tile-ratings-text">
+                                            <p>
+                                                4.5/5
+                                            </p>
+                                        </div>
+                                    </div>
+                        </div>
+                    </button>
+                    </div>
+                    </div>
+                        <div class="right-box">
+                            <div class="attraction" id = "Sao Jorge Castle">
+                                <!--title-->
+                                <h1 class="attraction-title" style="float:left">
+                                    Sao Jorge Castle
+                                </h1>
+                                <!-- for remove button, use grey-button class-->
+                                <button class="green-button" style="float:right">
+                                    <h3>
+                                        ADD
+                                    </h3>
+                                </button>
+                                <hr style="size:1px"/>
+                                <!-- content-->
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/LisbonCastle.jpg/1200px-LisbonCastle.jpg" width="200" height="100"></img>
+                                    </div>
+                                    <div class="col-5">
+                                        <h4>DETAILS</h4>
+                                        <p>Hours</p>
+                                        <p>Price</p>
+                                    </div>
+                                </div>
+                                <p>Sao Jorge Castle is a Moorish castle occupying a commanding hilltop overlooking the historic centre of the Portuguese city of Lisbon and Tagus River</p>
+                            </div>
+                            <div class="attraction" id = "Lisbon Oceanarium">
+                                <!--title-->
+                                <h1 class="attraction-title" style="float:left">
+                                    Lisbon Oceanarium
+                                </h1>
+                                <!-- for remove button, use grey-button class-->
+                                <button class="green-button" style="float:right">
+                                    <h3>
+                                        ADD
+                                    </h3>
+                                </button>
+                                <hr style="size:1px"/>
+                                <!-- content-->
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img src="https://lisbon-portugal-guide.com/images/750/lisbon-oceanarium-sharks.jpg" width="200" height="100"></img>
+                                    </div>
+                                    <div class="col-5">
+                                        <h4>DETAILS</h4>
+                                        <p>Hours</p>
+                                        <p>Price</p>
+                                    </div>
+                                </div>
+                                <p>The Lisbon Oceanarium is an oceanarium in Lisbon, Portugal. It is located in the Parque das Nações, which was the exhibition grounds for the Expo '98. It is the largest indoor aquarium in Europe.</p>
+                            </div>
+                            <div class="attraction" id = "Belem Tower">
+                                <!--title-->
+                                <h1 class="attraction-title" style="float:left">
+                                    Belem Tower
+                                </h1>
+                                <!-- for remove button, use grey-button class-->
+                                <button class="green-button" style="float:right">
+                                    <h3>
+                                        ADD
+                                    </h3>
+                                </button>
+                                <hr style="size:1px"/>
+                                <!-- content-->
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img src="https://lh5.googleusercontent.com/-qx-R9z6LjV0/WLlj05nhmaI/AAAAAAAFLQY/ve0d2iPb6IYuOnWe7DyhQA5znpBfncBRQCLIBGAYYCw/w240-h160-k-no/" width="200" height="100"></img>
+                                    </div>
+                                    <div class="col-5">
+                                        <h4>DETAILS</h4>
+                                        <p>Hours</p>
+                                        <p>Price</p>
+                                    </div>
+                                </div>
+                                <p>Belem Tower or the Tower of St Vincent is a fortified tower located in the civil parish of Santa Maria de Belém in the municipality of Lisbon, Portugal.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <hr/> -->
+                </hr>
+            </div>
+        </div>
+    </body>
+<script>
+function openActivity(evt, activityName) {
+    var i, attraction, tablinks;
+    attraction = document.getElementsByClassName("attraction");
+    for (i = 0; i < attraction.length; i++) {
+        attraction[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(activityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+ $(document).ready(function(){
+                $(".green-button").click(function(){
+                    if ( $(this).attr('class') == 'green-button') {
+                        $(this).html('<h3>Remove</h3>');
+                        $(this).removeClass('green-button');
+                        $(this).addClass('grey-button');
+                        document.getElementById("location_1").setAttribute("style", "display:block;");
+                    } else {
+                        $(this).html('<h3>Add</h3>');
+                        $(this).removeClass('grey-button');
+                        $(this).addClass('green-button');
+                        document.getElementById("location_1").setAttribute("style", "display:none;")
+                    }
+                });
+
+            });
+</script>
+</html>
