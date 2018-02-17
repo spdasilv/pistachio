@@ -10,6 +10,7 @@ from django.db.models import Sum
 from django.views.generic.base import TemplateView
 import json
 import datetime
+from ast import literal_eval as make_tuple
 
 
 def signup(request):
@@ -134,12 +135,20 @@ def runGA(request):
             }
             for bid in bidSum.iterator():
                 location = locations.get(pk=bid['location_id'])
+                times = location.schedule.replace("[","")
+                times = times.replace("]", "")
+                times_list = times.split("),")
+                schedule = {}
+                for day in times_list:
+                    day_info = make_tuple(day+')')
+                    schedule[day_info[0]] = (day_info[1], day_info[2])
                 dict[bid['location_id']] = {
                     'id': bid['location_id'],
                     'lat': location.lat,
                     'lon': location.lon,
                     'w': bid['value__sum'],
-                    't': location.visit_time
+                    't': location.visit_time,
+                    'schedule': schedule
                 }
         schedule = scheduleRun(dict)
         results = generateResponse(schedule, locations)

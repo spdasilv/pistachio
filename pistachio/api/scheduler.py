@@ -44,13 +44,14 @@ class InterestPoint:
 
 # Let each bucket represent each day. This class stores the overall detail of the points visited for a given day.
 class Bucket:
+    week_day = None
     timeUsed = 0
     start_time = None
     end_time = None
     totalWeight = 0
     plan = None
 
-    def __init__(self, start_time, end_time):
+    def __init__(self, start_time, end_time, week_day):
         self.start_time = start_time
         self.end_time = end_time
         self.plan = []
