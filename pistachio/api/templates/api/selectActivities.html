@@ -12,6 +12,11 @@
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="{% static "api/js/fontawesome-all.js" %}"></script>
+            <style type="text/css">
+              .checked {
+                    color: orange;
+                }
+            </style>
         </head>
         <body>
             <div class="parent-container1">
@@ -20,11 +25,8 @@
                         ⫷   Back to home
                     </a>
                 </h5>
-                <!-- <h2 class="main-title">
-                    Trip to Giza
-                </h2> -->
                 <h2 class="main-title" style="float:left">
-                    TRIP TO GIZA
+                    TRIP TO 
                 </h2>
                 <!-- <hr class="title-divider"/> -->
                     <button class="gold-button" style="float:right">
@@ -63,22 +65,11 @@
                                     </p>
                                     <div class="tile-ratings">
                                         <div class="tile-stars">
-                                            <i class="far fa-star">
-                                            </i>
-                                            <i class="far fa-star">
-                                            </i>
-                                            <i class="far fa-star">
-                                            </i>
-                                            <i class="far fa-star">
-                                            </i>
-                                            <i class="far fa-star">
-                                            </i>
+                                            <span class="stars" data-rating="{{ act.rating }}" data-num-stars="10" ></span>
                                         </div>
                                         <div class="tile-ratings-text">
-                                            <p>
-                                               {{ act.rating }}/10
-                                            </p>
-                                        </div>
+                                               <h5>{{ act.rating }}/10</h5><p></p>
+                                    </div>
                             </div>
                             </div>
                     </div>
@@ -139,7 +130,7 @@
         evt.currentTarget.className += " active";
     }
 
-     $(document).ready(function(bookmark){
+     $(document).ready(function(){
                     $(".green-button").click(function(){
                         if ( $(this).attr('class') == 'green-button') {
                             $(this).html('<h3>Remove</h3>');
@@ -155,6 +146,25 @@
                     });
 
                 });
+     $.fn.stars = function() {
+        return $(this).each(function() {
+
+            var rating = $(this).data("rating");
+
+            var numStars = $(this).data("numStars");
+
+            var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
+
+            var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
+        
+            var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
+
+            $(this).html(fullStar + halfStar + noStar);
+
+        });
+    }
+
+    $('.stars').stars();
     </script>
     </html>
     {% endblock %}
