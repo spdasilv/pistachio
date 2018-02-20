@@ -6,7 +6,7 @@
     display:inline-block;
     background-color: #FFF3CC;
     border: #DFBC6A 1px solid;
-    width: 80px; 
+    width: 80px;
     height: 50px;
     margin: 10px;
     padding: 8px;
@@ -17,9 +17,9 @@
     float: top;
 }
 #musthave_dropzone {
-    background-color: #EEE; 
+    background-color: #EEE;
     border: #999 1px solid;
-    width: 280px; 
+    width: 280px;
     height: 200px;
     padding: 8px;
     font-size: 18px;
@@ -27,9 +27,9 @@
     display: inline-block;
 }
 #nicetohave_dropzone {
-    background-color: #EEE; 
+    background-color: #EEE;
     border: #999 1px solid;
-    width: 280px; 
+    width: 280px;
     height: 200px;
     padding: 8px;
     font-size: 18px;
@@ -37,9 +37,9 @@
     display: inline-block;
 }
 #others_dropzone {
-    background-color: #EEE; 
+    background-color: #EEE;
     border: #999 1px solid;
-    width: 280px; 
+    width: 280px;
     height: 200px;
     padding: 8px;
     font-size: 18px;
@@ -47,9 +47,9 @@
     display: inline-block;
 }
 #pool {
-    background-color: #EEE; 
+    background-color: #EEE;
     border: #999 1px solid;
-    width: 500px; 
+    width: 500px;
     height: 300px;
     padding: 8px;
     font-size: 18px;
@@ -59,7 +59,7 @@
 </style>
 <script>
 function _(id){
-   return document.getElementById(id);	
+   return document.getElementById(id);
 }
 var droppedIn = false;
 function drag_start(event) {
@@ -86,7 +86,7 @@ function drag_end(event) {
     if(droppedIn == false){
         _('app_status').innerHTML = "You let the "+event.target.getAttribute('id')+" go.";
     }
-	droppedIn = false;
+    droppedIn = false;
 }
 function readDropZone(){
     for(var i=0; i < _("musthave_dropzone").children.length; i++){
