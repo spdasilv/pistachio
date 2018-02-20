@@ -10,25 +10,21 @@ from math import radians, cos, sin, asin, sqrt
 # Let T_OPEN be the opening time of a location.
 # Let T_CLOSE be the closing time of a location.
 class InterestPoint:
-    def __init__(self, w, t, id, name=None, t_open=None, t_close=None):
+    def __init__(self, w, t, id, schedule):
         self.w = w
         self.t = t
         self.id = id
-        self.name = None
-        self.t_open = None
-        self.t_close = None
-        if t_open is not None:
-            self.t_open = t_open
-        else:
-            self.t_open = 540
-        if t_close is not None:
-            self.t_close = t_close
-        else:
-            self.t_close = 1080
-        if name is not None:
-            self.name = name
-        else:
-            self.name = ''.join(random.choice(ascii_uppercase) for i in range(8))
+        self.t_open = {}
+        self.t_close = {}
+
+        for i in range(0, 7):
+            day = i + 1
+            if day in schedule:
+                self.t_open[day] = schedule[day][0]
+                self.t_close[day] = schedule[day][1]
+            else:
+                self.t_open[day] = 540
+                self.t_close[day] = 1080
 
     def getW(self):
         return self.w
@@ -51,9 +47,10 @@ class Bucket:
     totalWeight = 0
     plan = None
 
-    def __init__(self, start_time, end_time, week_day):
+    def __init__(self, weekday, start_time, end_time):
         self.start_time = start_time
         self.end_time = end_time
+        self.week_day = weekday
         self.plan = []
 
     def getTime(self, index):
@@ -94,7 +91,8 @@ class TourManager():
 
 # The Tour is responsible for generating the schedules randomly as well as calculating the fittness scores for each schedule.
 class Tour:
-    def __init__(self, tourmanager, timeCosts, tour=None):
+    def __init__(self, tourmanager, timeCosts, days, tour=None):
+        self.days = days
         self.plan = []
         self.timeCosts = timeCosts
         self.tourmanager = tourmanager
@@ -145,21 +143,21 @@ class Tour:
         if self.score == 0:
             tourScore = 0
             buckets = []
-            for i in range(0, 2):
-                buckets.append(Bucket(540, 1080))
+            for key, value in self.days.items():
+                buckets.append(Bucket(value['weekday'], value['start'], value['end']))
             removed = set()
             for bucket in buckets:
                 previousPoint = self.base
                 for pointIndex in range(0, self.tourSize()):
                     currentPoint = self.getPoint(pointIndex)
-                    if currentPoint.name in removed:
+                    if currentPoint.id in removed:
                         continue
-                    if bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)] + currentPoint.t + self.timeCosts[(currentPoint.id, self.base.id)] <= bucket.end_time and bucket.start_time <= currentPoint.t_open <= bucket.end_time and currentPoint.t_close <= bucket.end_time:
+                    if bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)] + currentPoint.t + self.timeCosts[(currentPoint.id, self.base.id)] <= bucket.end_time and bucket.start_time <= currentPoint.t_open[bucket.week_day] <= bucket.end_time and currentPoint.t_close[bucket.week_day] <= bucket.end_time:
                         bucket.incrementWeight(currentPoint.w)
                         bucket.addToPlan(currentPoint.id, bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)])
                         bucket.incrementTime(currentPoint.t + self.timeCosts[(previousPoint.id, currentPoint.id)])
                         previousPoint = currentPoint
-                        removed.add(currentPoint.name)
+                        removed.add(currentPoint.id)
                     else:
                         continue
                 tourScore += bucket.totalWeight
@@ -176,15 +174,16 @@ class Tour:
 
 # Initializes and manages population information.
 class Population:
-    def __init__(self, tourmanager, populationSize, initialise, cost_matrix):
+    def __init__(self, tourmanager, populationSize, initialise, cost_matrix, days):
         self.cost_matrix = cost_matrix
         self.tours = []
+        self.days = days
         for i in range(0, populationSize):
             self.tours.append(None)
 
         if initialise:
             for i in range(0, populationSize):
-                newTour = Tour(tourmanager, self.cost_matrix)
+                newTour = Tour(tourmanager, self.cost_matrix, self.days)
                 newTour.generateIndividual()
                 self.saveTour(i, newTour)
 
@@ -210,6 +209,9 @@ class Population:
     def populationSize(self):
         return len(self.tours)
 
+    def buckets(self):
+        return self.days
+
 # The core of the GA Solution. This class is responsible for generating new populations.
 # To generate a new generation for a population a tournament selection evolution is performed.
 # Tournament selection ensures that only the fittest schedules evolve to the next generation.
@@ -223,7 +225,7 @@ class GA:
         self.elitism = True
 
     def evolvePopulation(self, pop):
-        newPopulation = Population(self.tourmanager, pop.populationSize(), False, self.cost_matrix)
+        newPopulation = Population(self.tourmanager, pop.populationSize(), False, self.cost_matrix,  pop.buckets())
         elitismOffset = 0
         if self.elitism:
             newPopulation.saveTour(0, pop.getFittest())
@@ -232,7 +234,7 @@ class GA:
         for i in range(elitismOffset, newPopulation.populationSize()):
             parent1 = self.tournamentSelection(pop)
             parent2 = self.tournamentSelection(pop)
-            child = self.crossover(parent1, parent2)
+            child = self.crossover(parent1, parent2, pop.buckets())
             newPopulation.saveTour(i, child)
 
         for i in range(elitismOffset, newPopulation.populationSize()):
@@ -240,8 +242,8 @@ class GA:
 
         return newPopulation
 
-    def crossover(self, parent1, parent2):
-        child = Tour(self.tourmanager, self.cost_matrix)
+    def crossover(self, parent1, parent2, buckets):
+        child = Tour(self.tourmanager, self.cost_matrix, buckets)
 
         startPos = int(random.random() * parent1.tourSize())
         endPos = int(random.random() * parent1.tourSize())
@@ -274,7 +276,7 @@ class GA:
                 tour.setPoint(tourPos1, point2)
 
     def tournamentSelection(self, pop):
-        tournament = Population(self.tourmanager, self.tournamentSize, False, self.cost_matrix)
+        tournament = Population(self.tourmanager, self.tournamentSize, False, self.cost_matrix, pop.buckets())
         for i in range(0, self.tournamentSize):
             randomId = int(random.random() * pop.populationSize())
             tournament.saveTour(i, pop.getTour(randomId))
@@ -316,19 +318,19 @@ def calculateCost(coordinates):
     return time_cost
 
 
-def scheduleRun(input):
+def scheduleRun(input, days):
     cost_matrix = calculateCost(input)
-    tourmanager = TourManager(InterestPoint(0, 0, 0), cost_matrix)
+    tourmanager = TourManager(InterestPoint(input[0]['w'], input[0]['t'], input[0]['id'], input[0]['schedule']), cost_matrix)
     for key in input:
         if input[key]['id'] == 0:
             continue
-        point = InterestPoint(input[key]['w'], input[key]['t'], input[key]['id'])
+        point = InterestPoint(input[key]['w'], input[key]['t'], input[key]['id'], input[key]['schedule'])
         tourmanager.addPoint(point)
     # Initialize population
-    pop = Population(tourmanager, 120, True, cost_matrix)
+    pop = Population(tourmanager, 120, True, cost_matrix, days)
 
     # Evolve population for 200 generations
     ga = GA(tourmanager, cost_matrix)
-    for j in range(0, 50):
+    for j in range(0, 51):
         pop = ga.evolvePopulation(pop)
     return pop.getFittest().plan
