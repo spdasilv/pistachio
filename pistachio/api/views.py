@@ -126,11 +126,32 @@ class dragDropView(generic.ListView):
         #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
         return Cities.objects.all()
 
+def hourTomin(date):
+    offset = 0
+    if date[0] == '+':
+        offset = 1440
+        date = date[1:]
+    hour = int(date[0] + date[1])
+    mins = int(date[2] + date[3])
+    totalmins = hour*60 + mins + offset
+    return totalmins
+
+
 @csrf_exempt
 def runGA(request):
     if request.is_ajax():
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
+        tripInfo = Trip.objects.filter(pk=obj['trip_id']).values('start_date', 'end_date').first()
+        tripStart = tripInfo['start_date']
+        tripEnd = tripInfo['end_date']
+        tripLenght = (tripEnd - tripStart).days + 1
+        days = {}
+        for i in range(0, tripLenght):
+            days[i] = {'weekday': (tripStart + datetime.timedelta(days=i)).weekday() + 1,
+                       'start': 540,
+                       'end': 1080
+                       }
         bidSum = Bid.objects.filter(trip_id=obj['trip_id']).values('location_id').annotate(Sum('value')).all()
         locations = Locations.objects.filter(city_id=3).filter(user_study=True).all()
         if bidSum.exists():
@@ -140,17 +161,30 @@ def runGA(request):
                 'lat': 51.495099,
                 'lon': -0.183834,
                 'w': 0,
-                't': 0
+                't': 0,
+                'schedule': {
+                    1: (0, 1440),
+                    2: (0, 1440),
+                    3: (0, 1440),
+                    4: (0, 1440),
+                    5: (0, 1440),
+                    6: (0, 1440),
+                    7: (0, 1440)
+                }
             }
             for bid in bidSum.iterator():
                 location = locations.get(pk=bid['location_id'])
-                times = location.schedule.replace("[","")
-                times = times.replace("]", "")
-                times_list = times.split("),")
+                times = location.schedule
                 schedule = {}
-                for day in times_list:
-                    day_info = make_tuple(day+')')
-                    schedule[day_info[0]] = (day_info[1], day_info[2])
+                if times != '':
+                    times_list = times.split(";")
+                    for i, day in enumerate(times_list):
+                        if i < len(times_list) - 1:
+                            day_string = day.strip()
+                        else:
+                            day_string = day.strip()
+                        day_info = make_tuple(day_string)
+                        schedule[day_info[0]] = (hourTomin(day_info[1]), hourTomin(day_info[2]))
                 dict[bid['location_id']] = {
                     'id': bid['location_id'],
                     'lat': location.lat,
@@ -159,7 +193,7 @@ def runGA(request):
                     't': location.visit_time,
                     'schedule': schedule
                 }
-        schedule = scheduleRun(dict)
+        schedule = scheduleRun(dict, days)
         results = generateResponse(schedule, locations)
         response = {"response": results}
     else:
