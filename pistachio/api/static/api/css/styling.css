@@ -383,7 +383,6 @@ BUCKET PAGE
 /* ================================
 LOGIN PAGE
 ================================ */
-
 .login-container {
     background: white;
     width:100%;
@@ -401,13 +400,27 @@ LOGIN PAGE
 input[type=text] {
     border: none;
     border-bottom: 1px solid var(--darkgrey);
+    height: 5%;
+    background: none;
+    width: 100%;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    color: var(--darkergrey);
+}
+input[type=text]:focus, input[type=text]:active {
+    border-bottom: 1px solid black;
+    outline: none;
+}
+input[type=password] {
+    border: none;
+    border-bottom: 1px solid var(--darkgrey);
     height: 100%;
     background: none;
     width: 100%;
     margin-top: -5px;
     margin-bottom: 10px;
 }
-input[type=text]:focus, input[type=text]:active {
+input[type=password]:focus, input[type=password]:active {
     border-bottom: 1px solid black;
     outline: none;
 }
@@ -419,23 +432,45 @@ input, select, textarea {
 .login-title {
     opacity: 0.8;
 }
-.green-button {
+.login-button {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-top: 10px;
-    margin-bottom:15px;
+    margin-top: 20px;
     padding: 0 20px;
     border-radius: 2px;
     background: var(--green);
     color: white;
     letter-spacing: 2px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 9px 0 rgba(0,0,0,0.10);
 }
-.green-button:active, .green-button:hover {
+.login-button:active, .login-button:hover {
     cursor: pointer;
     background: var(--darkgreen) !important;
+    -webkit-transition: all 0.25s ease;
+}
+
+.green-button {
+    background:var(--green);
+    height:50px;
+    padding:0px 20px;
+    /*margin-top:5px;*/
+    width:inherit;
+    text-transform:uppercase;
+    color:white;
+    letter-spacing:1px;
+    border-radius:5px;
+    display:table;
+    /*-webkit-transition: all 0.25s ease;*/
+}
+
+.green-button h3 {
+    display:table-cell;
+    vertical-align: middle;
+}
+
+.green-button:hover, .green-button:active {
+    cursor:pointer;
+    background:var(--darkgreen) !important;
     -webkit-transition: all 0.25s ease;
 }
 
