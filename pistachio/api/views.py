@@ -120,11 +120,11 @@ class homeView(generic.ListView):
 
 class dragDropView(generic.ListView):
     template_name = 'api/drag_drop.html'
-    context_object_name = 'cities'
+    context_object_name = 'actDetails'
 
     def get_queryset(self):
-        #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
-        return Cities.objects.all()
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
+        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=9).all().order_by('-rating')
 
 def hourTomin(date):
     offset = 0
