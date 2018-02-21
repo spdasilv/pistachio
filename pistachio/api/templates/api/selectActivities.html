@@ -1,0 +1,170 @@
+    {% extends "api/index.html" %}
+    {% block content %}
+        {% load static %}
+    <html>
+        <head>
+            <meta content="width=device-width, initial-scale=1" name="viewport"/>
+            <title>
+            </title>
+            <meta content="width=device-width, initial-scale=1" name="viewport"/>
+            <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+            <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="{% static "api/js/fontawesome-all.js" %}"></script>
+            <style type="text/css">
+              .checked {
+                    color: orange;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="parent-container1">
+                <h5 class="sub-title">
+                    <a href="home.html">
+                        ⫷   Back to home
+                    </a>
+                </h5>
+                <h2 class="main-title" style="float:left">
+                    TRIP TO 
+                </h2>
+                <!-- <hr class="title-divider"/> -->
+                    <button class="gold-button" style="float:right">
+                        <h3>
+                            Submit
+                        </h3>
+                    </button>
+                    <hr>
+                        <div class="box-container">
+                            <div class="left-box" style="overflow-y:auto;">
+                                <div class="box-header">
+                                    <ul>
+                                        <h4>
+                                            <li>
+                                                    Suggested
+                                            </li>
+                                             <li>
+                                                    <!--Your Picks-->
+                                            </li>
+                                        </h4>
+                                    </ul>
+                                </div>
+                    <!-- tiles on the left side of the container --> 
+                    {% for act in actDetails.all %}
+                    {% with y=forloop.counter|stringformat:"s" %}
+                    <div class="tile">
+                    <button class="tablinks" onclick="openActivity(event, '{{ "object_"|add:y }}')">
+                        <div id="{{ act.id }}" class="bookmarked-trip"  style="display:none;"></div>
+                        <div class="tile-img" style=""><img src="{{ act.img_url }}" height="110" width="90"></div>
+                        <div class="tile-text" style="">
+                                    <h4>
+                                        {{ act.name }}
+                                    </h4>
+                                    <p>
+                                        {{act.types }}
+                                    </p>
+                                    <div class="tile-ratings">
+                                        <div class="tile-stars">
+                                            <span class="stars" data-rating="{{ act.rating }}" data-num-stars="10" ></span>
+                                        </div>
+                                        <div class="tile-ratings-text">
+                                               <h5>{{ act.rating }}/10</h5><p></p>
+                                    </div>
+                            </div>
+                            </div>
+                    </div>
+                    </button>
+                    {% endwith %}
+                    {% endfor %}
+                    </div>
+                    <!-- </div> -->
+                    <div class="right-box">
+                    {% for act in actDetails.all %}
+                    {% with y=forloop.counter|stringformat:"s" %}
+                        <div class="attraction" id = '{{ "object_"|add:y }}' style="display:none;">
+                                <!--title-->
+                                <h1 class="attraction-title" style="float:left">
+                                    {{ act.name }}
+                                </h1>
+                                <!-- for remove button, use grey-button class-->
+                                <button class="green-button" style="float:right" value="{{ act.id }}">
+                                    <h3>
+                                        ADD
+                                    </h3>
+                                </button>
+                                <hr style="size:1px"/>
+                                <!-- content-->
+                                <div class="row">
+                                    <div class="col-7">
+                                        <img src="{{ act.img_url }}" width="300" height="200"></img>
+                                    </div>
+                                    <div class="col-5">
+                                        <h4>{{act.schedule}}</h4>
+                                        <p>Hours</p>
+                                        <p>Price</p>
+                                    </div>
+                                </div>
+                                <p>{{act.description}}</p>
+                            </div>
+                     {% endwith %}
+                    {% endfor %}
+                    </div>
+                    </div>
+                    <!-- <hr/> -->
+                </hr>
+            </div>
+        </div>
+    </body>
+<script>
+    function openActivity(evt, activityName) {
+        var i, attraction, tablinks;
+        attraction = document.getElementsByClassName("attraction");
+        for (i = 0; i < attraction.length; i++) {
+            attraction[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(activityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+     $(document).ready(function(){
+                    $(".green-button").click(function(){
+                        if ( $(this).attr('class') == 'green-button') {
+                            $(this).html('<h3>Remove</h3>');
+                            $(this).removeClass('green-button');
+                            $(this).addClass('grey-button');
+                            document.getElementById($(this).val()).setAttribute("style", "display:block;");
+                        } else {
+                            $(this).html('<h3>Add</h3>');
+                            $(this).removeClass('grey-button');
+                            $(this).addClass('green-button');
+                            document.getElementById($(this).val()).setAttribute("style", "display:none;")
+                        }
+                    });
+
+                });
+     $.fn.stars = function() {
+        return $(this).each(function() {
+
+            var rating = $(this).data("rating");
+
+            var numStars = $(this).data("numStars");
+
+            var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
+
+            var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
+        
+            var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
+
+            $(this).html(fullStar + halfStar + noStar);
+
+        });
+    }
+
+    $('.stars').stars();
+    </script>
+    </html>
+    {% endblock %}

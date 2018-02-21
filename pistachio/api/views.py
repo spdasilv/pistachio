@@ -10,6 +10,7 @@ from django.db.models import Sum
 from django.views.generic.base import TemplateView
 import json
 import datetime
+from ast import literal_eval as make_tuple
 
 
 def signup(request):
@@ -94,6 +95,15 @@ class activityDetailsView(generic.ListView):
         return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
 
 
+class selectActivitiesView(generic.ListView):
+    template_name = 'api/selectActivities.html'
+    context_object_name = 'actDetails'
+
+    def get_queryset(self):
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
+        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
+
+
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 
@@ -110,17 +120,38 @@ class homeView(generic.ListView):
 
 class dragDropView(generic.ListView):
     template_name = 'api/drag_drop.html'
-    context_object_name = 'cities'
+    context_object_name = 'actDetails'
 
     def get_queryset(self):
-        #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
-        return Cities.objects.all()
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
+        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=9).all().order_by('-rating')
+
+def hourTomin(date):
+    offset = 0
+    if date[0] == '+':
+        offset = 1440
+        date = date[1:]
+    hour = int(date[0] + date[1])
+    mins = int(date[2] + date[3])
+    totalmins = hour*60 + mins + offset
+    return totalmins
+
 
 @csrf_exempt
 def runGA(request):
     if request.is_ajax():
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
+        tripInfo = Trip.objects.filter(pk=obj['trip_id']).values('start_date', 'end_date').first()
+        tripStart = tripInfo['start_date']
+        tripEnd = tripInfo['end_date']
+        tripLenght = (tripEnd - tripStart).days + 1
+        days = {}
+        for i in range(0, tripLenght):
+            days[i] = {'weekday': (tripStart + datetime.timedelta(days=i)).weekday() + 1,
+                       'start': 540,
+                       'end': 1080
+                       }
         bidSum = Bid.objects.filter(trip_id=obj['trip_id']).values('location_id').annotate(Sum('value')).all()
         locations = Locations.objects.filter(city_id=3).filter(user_study=True).all()
         if bidSum.exists():
@@ -130,18 +161,39 @@ def runGA(request):
                 'lat': 51.495099,
                 'lon': -0.183834,
                 'w': 0,
-                't': 0
+                't': 0,
+                'schedule': {
+                    1: (0, 1440),
+                    2: (0, 1440),
+                    3: (0, 1440),
+                    4: (0, 1440),
+                    5: (0, 1440),
+                    6: (0, 1440),
+                    7: (0, 1440)
+                }
             }
             for bid in bidSum.iterator():
                 location = locations.get(pk=bid['location_id'])
+                times = location.schedule
+                schedule = {}
+                if times != '':
+                    times_list = times.split(";")
+                    for i, day in enumerate(times_list):
+                        if i < len(times_list) - 1:
+                            day_string = day.strip()
+                        else:
+                            day_string = day.strip()
+                        day_info = make_tuple(day_string)
+                        schedule[day_info[0]] = (hourTomin(day_info[1]), hourTomin(day_info[2]))
                 dict[bid['location_id']] = {
                     'id': bid['location_id'],
                     'lat': location.lat,
                     'lon': location.lon,
                     'w': bid['value__sum'],
-                    't': location.visit_time
+                    't': location.visit_time,
+                    'schedule': schedule
                 }
-        schedule = scheduleRun(dict)
+        schedule = scheduleRun(dict, days)
         results = generateResponse(schedule, locations)
         response = {"response": results}
     else:
