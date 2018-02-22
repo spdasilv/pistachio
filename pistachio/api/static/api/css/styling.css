@@ -1,3 +1,7 @@
+.x-icon {
+    width:75%;
+}
+
 .header-container {
     height: 75px;
     background: white;
@@ -363,6 +367,61 @@ margin-top:20px;
     font-size:0.9em;
 }
 
+.green-button-submit {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 0 20px;
+    border-radius: 2px;
+    background: var(--green);
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.10);
+}
+.green-button-submit:active, .green-button-submit:hover {
+    cursor: pointer;
+    background: var(--darkgreen) !important;
+    -webkit-transition: all 0.25s ease;
+}
+p.SubmitAttTxt {
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--darkergrey);
+    text-align: center;
+}
+p.SubmitAttDate {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--gold);
+}
+.modalSubmitAtt>div {
+    padding: 25px 55px 33px 55px !important;
+    /*padding:100px !important;*/
+}
+hr.divider {
+    width:95%;
+/*    margin-left: -55px;
+    margin-right: -55px;*/
+    border-color: var(--darkgrey);
+    opacity: 0.7;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.openModal {
+    overflow: scroll;
+}
+.openModal div {
+    color: #404144;
+    width: 500px !important;
+    padding:100px;
+    margin-left:5%;
+    margin-right:5%;
+}
+
 /* ================================
 BUCKET PAGE
 ================================ */
@@ -523,17 +582,17 @@ input, select, textarea {
     left: 0;
     background: rgba(0, 0, 0, 0.8);
     z-index: 99999;
-    opacity:0;
+    opacity: 0;
     -webkit-transition: opacity 400ms ease-in;
     -moz-transition: opacity 400ms ease-in;
     transition: opacity 400ms ease-in;
     pointer-events: none;
 }
 .modalDialog:target {
-    opacity:1;
+    opacity: 1;
     pointer-events: auto;
 }
-.modalDialog > div {
+.modalDialog>div {
     width: 525px;
     position: relative;
     margin: 10% auto;

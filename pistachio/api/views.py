@@ -58,27 +58,6 @@ def newTrip(request):
     return redirect('/api')
 
 
-def addActivities(request):
-    if request.is_ajax():
-        body_string = request.body.decode('utf8').replace("'", '"')
-        obj = json.loads(body_string)
-        trip = Trip.objects.filter(pk=obj['trip_id']).filter(userstrip__user=request.user.id).values('id').first()
-        if 'id' in trip:
-            SelectedActivities.objects.filter(user_id=request.user.id).filter(trip_id=trip['id']).delete()
-            for activity in obj['activities']:
-                selectedActivity = SelectedActivities(trip_id=trip['id'], user_id=request.user.id, location_id=activity['id'])
-                selectedActivity.save()
-    return redirect('/api')
-
-
-class selectCityView(generic.ListView):
-    template_name = 'api/selectCity.html'
-    context_object_name = 'cities'
-
-    def get_queryset(self):
-        return Cities.objects.all()
-
-
 class bidLocationView(generic.ListView):
     template_name = 'api/bidLocations.html'
     context_object_name = 'locations'
@@ -86,23 +65,24 @@ class bidLocationView(generic.ListView):
     def get_queryset(self):
         return Locations.objects.filter(city_id=3).filter(user_study=True).all()
 
-class activityDetailsView(generic.ListView):
-    template_name = 'api/activityDetails.html'
+class dragDropView(generic.ListView):
+    template_name = 'api/drag_drop.html'
     context_object_name = 'actDetails'
 
     def get_queryset(self):
-        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
-        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
+        return Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).filter(rating__gte=9).all().order_by('-rating')
 
 
-class selectActivitiesView(generic.ListView):
+class selectActivitiesView(generic.DetailView):
     template_name = 'api/selectActivities.html'
-    context_object_name = 'actDetails'
+    model = Trip
 
-    def get_queryset(self):
-        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
-        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by('-rating')
-
+    def get_context_data(self, *, object_list=None, **kwargs):
+        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('id', 'city_id').first()
+        context = super(selectActivitiesView, self).get_context_data(**kwargs)
+        context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by(
+            '-rating')
+        return context
 
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
@@ -118,13 +98,6 @@ class homeView(generic.ListView):
         #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
         return Trip.objects.filter(userstrip__user=self.request.user.id).all()
 
-class dragDropView(generic.ListView):
-    template_name = 'api/drag_drop.html'
-    context_object_name = 'actDetails'
-
-    def get_queryset(self):
-        trip = Trip.objects.filter(pk=self.kwargs['pk']).values('city_id').first()
-        return Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=9).all().order_by('-rating')
 
 def hourTomin(date):
     offset = 0
@@ -217,27 +190,21 @@ def bidAjax(request):
     return JsonResponse(results)
 
 
-class createTripView(generic.DetailView):
-    model = Cities
-    template_name = 'api/createTrip.html'
-
-
 @csrf_exempt
-def requestAjax(request):
-    id = request.user.id
+def addActivitiesAjax(request):
     if request.is_ajax():
+        result = {'response': None}
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
-        obj_dict = convertToDict(obj)
-        schedule = scheduleRun(obj_dict)
-        results = generateResponse(schedule)
-    else:
-        results = "ERROR"
-    return JsonResponse(results)
-
-@csrf_exempt
-def getTrips(request):
-    return JsonResponse({"key": 0})
+        userInTrip = UsersTrip.objects.filter(trip_id=obj['trip_id']).filter(user_id=request.user.id).first()
+        if userInTrip is not None:
+            SelectedActivities.objects.filter(user_id=request.user.id).filter(trip_id=obj['trip_id']).delete()
+            for activity in obj['activities']:
+                selectedActivity = SelectedActivities(trip_id=obj['trip_id'],
+                                                      user_id=request.user.id, location_id=activity)
+                selectedActivity.save()
+        result['response'] = 1
+        return JsonResponse(result)
 
 
 def convertToDict(list):

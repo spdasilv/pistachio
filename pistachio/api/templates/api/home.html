@@ -33,7 +33,7 @@
                     {% endif %}
                         <div class="travel-tile-container {{ trip.city.img_url }}">
                             <h3 class="travel-location">
-                                <a href="{% url 'api:activityDetails' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                <a href="{% url 'api:selectActivities' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
                             </h3>
                             <hr/>
                             <h4 class="travel-duration">
@@ -204,15 +204,14 @@
                 <i class="far fa-calendar fa-lg iconAddTrip" style="margin-left:3px;"></i>  <input class="inputAddTrip" type="date" name="start_date" required id="id_start_date"/>
                 <input class="inputAddTrip" type="date" name="end_date" required id="id_end_date" style="margin-left:45px;"/><br>
                 <i class="far fa-clock fa-lg iconAddTrip" style="margin-left:2px;margin-top:30px;margin-bottom:30px;"></i><input type="range" min="0" max="24" value="12" class="slider inputAddTrip" id="myRange"><br/>
-                <hr class="divider" style="opacity:0.3"/>
                 <i class="fas fa-users fa-lg iconAddTrip" style="margin-left:-6px;margin-top:30px;font-size: 35px;"></i> <textarea class="inputAddTrip" name="emails" maxlength="1000" required id="id_emails">Add Group Mates</textarea><br>
                 <div class="iconAddTrip" style="margin-top:30px;margin-left:1px;display: inline;font-size: 18px;">BID</div> <input class="inputAddTrip" type="datetime" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-top:30px;margin-left:-4px;width:78%;"/><br>
                 <br>
             </div>
+        </form>
             <div style="display: flex;position: absolute;top:595px;left:37%;">
             	<button type="submit"  style="text-decoration:none;border-color:var(--darkergrey);" class="green-button" style="float:right" style="text-align: center;">CREATE TRIP</button>
             </div>
-        </form>
         </div>
     </div>
 {% endblock %}
