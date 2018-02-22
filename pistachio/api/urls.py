@@ -10,6 +10,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('', views.homeView.as_view(), name='home'),
     path('newTrip/', views.newTrip, name='newTrip'),
+    path('getHotels/', views.getHotels, name='getHotels'),
     path('bidLocations/', views.bidLocationView.as_view(), name='bidLocations'),
     path('adminGA/', views.adminGAView.as_view(), name='adminGA'),
     path('<int:pk>/drag_drop/', views.dragDropView.as_view(), name='drag_drop'),

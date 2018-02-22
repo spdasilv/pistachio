@@ -207,11 +207,13 @@
                     <option value="{{ city.id }}">{{ city.name }}</option>
                 {%  endfor %}
                 </select> <br>
-                <i class="fas fa-bed fa-lg iconAddTrip"></i>  <input class="inputAddTrip" type="text" name="hotel" maxlength="300" required id="id_hotel" value="Search Hotel & Accommodation" /><br>
+                <i class="fas fa-bed fa-lg iconAddTrip"></i>  <select class="inputAddTrip" name="hotel" maxlength="300"
+                                                                      required id="id_hotel" value="Search Hotel & Accommodation" />
+                <option value="" disabled selected>Select Hotel</option>
+                </select> <br>
                 <i class="far fa-calendar fa-lg iconAddTrip" style="margin-left:3px;"></i>  <input class="inputAddTrip" type="date" name="start_date" required id="id_start_date"/>
                 <input class="inputAddTrip" type="date" name="end_date" required id="id_end_date" style="margin-left:45px;"/><br>
                 <i class="far fa-clock fa-lg iconAddTrip" style="margin-left:2px;margin-top:30px;margin-bottom:30px;"></i><input type="range" min="0" max="24" value="12" class="slider inputAddTrip" id="myRange"><br/>
-                <hr class="divider" style="opacity:0.3"/>
                 <i class="fas fa-users fa-lg iconAddTrip" style="margin-left:-6px;margin-top:30px;font-size: 35px;"></i> <textarea class="inputAddTrip" name="emails" maxlength="1000" required id="id_emails">Add Group Mates</textarea><br>
                 <div class="iconAddTrip" style="margin-top:30px;margin-left:1px;display: inline;font-size: 18px;">BID</div> <input class="inputAddTrip" type="datetime" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-top:30px;margin-left:-4px;width:78%;"/><br>
                 <br>
@@ -226,6 +228,28 @@
         $("#id_city_choice").change(function () {
             var city_id = this.value;
 
+            $.ajax({
+                type:"POST",
+                url:"{% url 'api:getHotels' %}",
+                data: JSON.stringify({
+                 "city_id" : city_id
+                }),
+                success: function(result){
+                    $('#id_hotel')
+                        .find('option')
+                        .remove()
+                        .end()
+                        .append('<option value="" disabled selected>Select Hotel</option>')
+                        .val('whatever')
+                    ;
+                    for (var i = 0; i < result.response.length; ++i) {
+                        $('#id_hotel').append($('<option>', {
+                            value: result.response[i].id,
+                            text : result.response[i].name
+                        }));
+                    }
+                }
+            });
         });
     </script>
 {% endblock %}

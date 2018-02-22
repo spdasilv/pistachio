@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .scheduler import scheduleRun
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedActivities
+from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedActivities, Hotels
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -184,6 +184,22 @@ def bidAjax(request):
             bid = Bid(trip_id=int(obj['trip_id']), location_id=int(key), user_id=user_id, value=int(value['bid']))
             bid.save()
         results = {"response": "THANK YOU"}
+    else:
+        results = {"response": "ERROR"}
+    return JsonResponse(results)
+
+
+@csrf_exempt
+def getHotels(request):
+    if request.is_ajax():
+        body_string = request.body.decode('utf8').replace("'", '"')
+        obj = json.loads(body_string)
+        city_id = obj['city_id']
+        hotels = Hotels.objects.filter(city_id=city_id).all()
+        hotels_response = []
+        for hotel in hotels:
+            hotels_response.append({'id': hotel.id, 'name': hotel.name})
+        results = {"response": hotels_response}
     else:
         results = {"response": "ERROR"}
     return JsonResponse(results)

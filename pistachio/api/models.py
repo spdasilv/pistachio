@@ -142,18 +142,10 @@ class DjangoSession(models.Model):
 
 
 class Hotels(models.Model):
-    id = models.IntegerField(primary_key=True)
-    city_id = models.IntegerField()
-    name = models.CharField(max_length=300)
-    description = models.TextField(blank=True, null=True)
-    site_url = models.CharField(max_length=500, blank=True, null=True)
-    four_square_id = models.CharField(max_length=500)
-    lat = models.DecimalField(max_digits=9, decimal_places=6)
-    lon = models.DecimalField(max_digits=9, decimal_places=6)
-    img_url = models.CharField(max_length=500, blank=True, null=True)
-    rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
-    price_level = models.IntegerField(blank=True, null=True)
-    types = models.CharField(max_length=500)
+    name = models.CharField(max_length=100, blank=True, null=True)
+    city = models.ForeignKey(Cities, models.DO_NOTHING, blank=True, null=True)
+    lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    lon = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
 
     class Meta:
         managed = False
