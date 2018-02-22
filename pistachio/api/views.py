@@ -37,13 +37,13 @@ def newTrip(request):
     if request.method == 'POST':
         form = NewTripForm(request.POST)
         if form.is_valid():
-            city_id = Cities.objects.filter(name=form.cleaned_data.get('city_choice')).values('id').first()
+            city_id = int(form.cleaned_data.get('city_choice'))
             owner_id = request.user.id
             start_date = form.cleaned_data.get('start_date')
             end_date = form.cleaned_data.get('end_date')
             bidding_ends = form.cleaned_data.get('bidding_ends')
             created_at = datetime.datetime.now()
-            new_trip = Trip(city_id=city_id['id'], owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at)
+            new_trip = Trip(city_id=city_id, owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at)
             new_trip.save()
 
             new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True)
@@ -90,13 +90,12 @@ class adminGAView(TemplateView):
 
 class homeView(generic.ListView):
     template_name = 'api/home.html'
-    # Name object
-    context_object_name = 'trips'
+    model = Cities
 
-    # Define object aka query from DB
-    def get_queryset(self):
-        #pulling from table TRIP, filtering over table usertrip column user that equals self.request.user.id (active user)
-        return Trip.objects.filter(userstrip__user=self.request.user.id).all()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(homeView, self).get_context_data(**kwargs)
+        context['trips'] = Trip.objects.filter(userstrip__user=self.request.user.id).all()
+        return context
 
 
 def hourTomin(date):
