@@ -65,12 +65,14 @@ class bidLocationView(generic.ListView):
     def get_queryset(self):
         return Locations.objects.filter(city_id=3).filter(user_study=True).all()
 
-class dragDropView(generic.ListView):
+class dragDropView(generic.DetailView):
     template_name = 'api/drag_drop.html'
-    context_object_name = 'actDetails'
+    model = Trip
 
-    def get_queryset(self):
-        return Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).filter(rating__gte=9).all().order_by('-rating')
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(dragDropView, self).get_context_data(**kwargs)
+        context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).filter(rating__gte=9).all().order_by('-rating')
+        return context
 
 
 class selectActivitiesView(generic.DetailView):
@@ -183,9 +185,9 @@ def bidAjax(request):
         for key, value in bids.items():
             bid = Bid(trip_id=int(obj['trip_id']), location_id=int(key), user_id=user_id, value=int(value['bid']))
             bid.save()
-        results = {"response": "THANK YOU"}
+        results = {"response": 1}
     else:
-        results = {"response": "ERROR"}
+        results = {"response": 2}
     return JsonResponse(results)
 
 

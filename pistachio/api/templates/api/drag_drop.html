@@ -3,184 +3,272 @@
         {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
-<link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-<style>
-* {
-    box-sizing: border-box;
-}
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
 
-.main{
-    max-width: 1400px;
-    margin: auto;
-    font-family: Roboto, -apple-system, sans-serif;
-}
+    .main{
+        max-width: 1400px;
+        margin: auto;
+        font-family: Roboto, -apple-system, sans-serif;
+    }
 
-h1 {
-    font-size: 50px;
-}
+    h1 {
+        font-size: 50px;
+    }
 
-.polaroid-row {
-    margin: 8px -16px;
-}
+    .polaroid-row {
+        margin: 8px -16px;
+    }
 
-/* Add padding BETWEEN each column */
-.polaroid-row,
-.polaroid-row > .polaroid-column {
-    padding: 8px;
-}
+    /* Add padding BETWEEN each column */
+    .polaroid-row,
+    .polaroid-row > .polaroid-column {
+        padding: 8px;
+    }
 
-/* Create four equal columns that floats next to each other */
-.polaroid-column {
-    float: left;
-    width: 25%;
-}
+    /* Create four equal columns that floats next to each other */
+    .polaroid-column {
+        float: left;
+        width: 25%;
+    }
 
-/* Clear floats after rows */ 
-.polaroid-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
+    /* Clear floats after rows */
+    .polaroid-row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-/* content */
-.content {
-background: #e8ebee;
-  border-radius: .75em;
-      -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
-      filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
-    padding: 10px;
-}
-/* =============================================
-* RADIO BUTTONS
-=============================================== */
+    /* content */
+    .content {
+    background: #e8ebee;
+      border-radius: .75em;
+          -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+          filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+        padding: 10px;
+    }
+    /* =============================================
+    * RADIO BUTTONS
+    =============================================== */
 
-.radios label {
-    cursor: pointer;
-    position: relative;
-}
+    .radios label {
+        cursor: pointer;
+        position: relative;
+    }
 
-.radios label + label {
-    margin-left: 15px;
-}
+    .radios label + label {
+        margin-left: 15px;
+    }
 
-input[type="radio"] {
-    opacity: 0; /* hidden but still tabable */
-    position: absolute;
-}
+    input[type="radio"] {
+        opacity: 0; /* hidden but still tabable */
+        position: absolute;
+    }
 
-input[type="radio"] + span {
-    font-family: 'Material Icons';
-    color:#606060;
-    border-radius: 50%;
-    padding: 12px;
-    transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-}
+    input[type="radio"] + span {
+        font-family: 'Material Icons';
+        color:#606060;
+        border-radius: 50%;
+        padding: 12px;
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+    }
 
-input[type="radio"]:checked + span {
-    color: #D9E7FD;
-  background-color: #989898;
-}
+    input[type="radio"]:checked + span {
+        color: #D9E7FD;
+      background-color: #989898;
+    }
 
-input[type="radio"]:focus + span {
-    color: #fff;
-}
+    input[type="radio"]:focus + span {
+        color: #fff;
+    }
 
-.radios label:hover::before {
-    content: attr(for);
-    font-family: Roboto, -apple-system, sans-serif;
-    text-transform: capitalize;
-    font-size: 11px;
-    position: absolute;
-    bottom: 170%;
-    left: 0;
-    right: 0;
-    opacity: 0.75;
-    background-color: #323232;
-    color: #fff;    
-    padding: 4px;
-    border-radius: 3px;
-    display: block;
-}
-/* =============================================
-* CENTERING, CONTAINER STYLING
-=============================================== */
+    .radios label:hover::before {
+        content: attr(for);
+        font-family: Roboto, -apple-system, sans-serif;
+        text-transform: capitalize;
+        font-size: 11px;
+        position: absolute;
+        bottom: 170%;
+        left: 0;
+        right: 0;
+        opacity: 0.75;
+        background-color: #323232;
+        color: #fff;
+        padding: 4px;
+        border-radius: 3px;
+        display: block;
+    }
+    /* =============================================
+    * CENTERING, CONTAINER STYLING
+    =============================================== */
 
-.radios {
-    text-align: center;
-    margin 0 auto;
-}
+    .radios {
+        text-align: center;
+        margin 0 auto;
+    }
 
-.container {
-    margin: 0 auto;
-}
+    .container {
+        margin: 0 auto;
+    }
 
-body {
-    height: 100%;
-    align-items: center;
-    text-align: center;
-}
+    body {
+        height: 100%;
+        align-items: center;
+        text-align: center;
+    }
 
-/* =============================================
-* TOOLTIP
-=============================================== */
-</style>
-</head>
-<body>
-
-<!-- MAIN (Center Gallery) -->
-<div class="main">
-        <div class="popup">
-        <label class="material-icons">
-            <input onclick="myFunction()" type="radio" checked/>
-            <span>&#xE8D2;</span>
-        </label>
-        <!-- <span class="popuptext" id="myPopup">
-            <div class="material-icons">
-            <span>&#xE877; <p>MUST VISIT<</span>
-            <span>&#xE876; INTERESTED, IF TIME</span>
-            <span>&#xE5CD; NOT AT ALL</span>
+    /* =============================================
+    * TOOLTIP
+    =============================================== */
+    </style>
+    </head>
+    <body>
+        <!-- MAIN (Center Gallery) -->
+        <div class="main">
+            <h5 class="sub-title">
+                <a href="{% url 'api:home' %}">
+                    ⫷   Back to home
+                </a>
+            </h5>
+            <h2 class="main-title" style="float:left">
+                TRIP TO {{ trip.city.name }}
+            </h2>
+            <a class="gold-button" href="#openModal" style="float:right">
+                <h3>
+                    Submit
+                </h3>
+            </a>
+            <hr>
+            <div class="popup">
+                <label class="material-icons">
+                    <input onclick="myFunction()" type="radio" checked/>
+                    <span>&#xE8D2;</span>
+                </label>
+            <!-- <span class="popuptext" id="myPopup">
+                <div class="material-icons">
+                <span>&#xE877; <p>MUST VISIT<</span>
+                <span>&#xE876; INTERESTED, IF TIME</span>
+                <span>&#xE5CD; NOT AT ALL</span>
+                </div>
+            </span> -->
             </div>
-        </span> -->
+        <!-- Gallery Grid -->
+            <div class="polaroid-row">
+                {% for act in actDetails.all %}
+                    {% with y=forloop.counter|stringformat:"s" %}
+                        <div class="polaroid-column">
+                            <div class="content">
+                                <img src="{{ act.img_url }}" alt="image" style="width:100%">
+                                <h3>{{act.name}}</h3>
+                                <p>{{act.types}}</p>
+                                <form action="">
+                                    <div class="radio">
+                                        <label for="{{ "musthave_"|add:y }}" class="material-icons">
+                                            <input class="preference" type="radio" name="bucket" id="{{ "must_have__"|add:y }}" value="{{act.id}}"/>
+                                            <span>&#xE877;</span>
+                                        </label>
+                                        <label for="{{ "nicehave_"|add:y }}" class="material-icons">
+                                            <input class="preference" type="radio" name="bucket" id="{{ "nice_have__"|add:y }}" value="{{act.id}}"/>
+                                            <span>&#xE876;</span>
+                                        </label>
+                                        <label for="{{ "other_"|add:y }}" class="material-icons">
+                                            <input class="preference" type="radio" name="bucket" id="{{ "other__"|add:y }}" value="{{act.id}}" checked/>
+                                            <span>&#xE5CD;</span>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            <!-- END GRID -->
+            </div>
+        <!-- END MAIN -->
         </div>
-<!-- Gallery Grid -->
-<div class="polaroid-row">
-{% for act in actDetails.all %}
-{% with y=forloop.counter|stringformat:"s" %}
-  <div class="polaroid-column">
-    <div class="content">
-      <img src="{{ act.img_url }}" alt="image" style="width:100%">
-      <h3>{{act.name}}</h3>
-      <p>{{act.types}}</p>
-        <form action="">
-        <div class="radio">
-       <label for="{{ "musthave_"|add:y }}" class="material-icons">
-            <input type="radio" name="bucket" id="{{ "musthave_"|add:y }}" value="musthave"/>
-            <span>&#xE877;</span>
-        </label>                                
-        <label for="{{ "nicehave_"|add:y }}" class="material-icons">
-            <input type="radio" name="bucket" id="{{ "nicehave_"|add:y }}" value="nicehave"/>
-            <span>&#xE876;</span>
-        </label>
-        <label for="{{ "other_"|add:y }}" class="material-icons">
-            <input type="radio" name="bucket" id="{{ "other_"|add:y }}" value="other" checked/>
-            <span>&#xE5CD;</span>
-        </label>
-    </div>
-    </form>
-    </div>
-  </div>
-  {% endwith %}
-  {% endfor %}
-<!-- END GRID -->
-</div>
-<!-- END MAIN -->
-</div>
-</body>
+        <div class="modalDialog modalSubmitAtt" id="openModal">
+            <div>
+                <a class="close" href="#close" title="Close">
+                    <img src="{% static "api/assets/x-icon.png" %}" class="x-icon">
+                </a>
+                <h2 style="margin-top:45px;text-align: center;font-size: 29px;">
+                    SUBMIT ATTRACTIONS
+                </h2>
+                <p class="SubmitAttTxt">
+                    Check back between:
+                </p>
+                <p class="SubmitAttDate">
+                    Jun 18 - Jun 25
+                </p>
+                <p class="SubmitAttTxt">
+                    to cast your final decision on your team's activities.
+                </p>
+                <hr class="divider"/>
+                <p class="SubmitAttTxt" style="font-style:italic">
+                    Until then, feel free to come back and edit your choices (add anything you might've missed, remove anything you don't want anymore, etc.).
+                <br/><br/>
+                    Check the progress bar on your dashboard to see where the team is.
+                </p>
+            </div>
+            <button class="green-button-submit" style="margin-top:-150px" onclick="submitActivities();">
+                <h3>
+                    SUBMIT
+                </h3>
+            </button>
+        </div>
+    </body>
+    <script>
+        function submitActivities() {
+            inputDataList = []
+
+            $('.preference').each(function() {
+                if (!$(this).is(':checked')) {
+                    return true;
+                }
+                var choice = $(this).attr('id').split("__");
+                if (choice[0] == 'must_have') {
+                    inputDataList.push({
+                        "id":  $(this).attr('value'),
+                        "bid": 2
+                    });
+                }
+                else if (choice[0] == 'nice_have') {
+                    inputDataList.push({
+                        "id":  $(this).attr('value'),
+                        "bid": 1
+                    });
+                }
+                else {
+                    inputDataList.push({
+                        "id":  $(this).attr('value'),
+                        "bid": 0
+                    });
+                }
+            });
+
+            $.ajax({
+                type:"POST",
+                url:"{% url 'api:bidAjax' %}",
+                data: JSON.stringify({
+                     "trip_id" : {{ trip.id }},
+                     "input" : inputDataList
+                 }),
+                success: function(result){
+                    if (result['response'] == 1) {
+                        window.location.replace("{% url 'api:home' %}");
+                    }
+                }
+            });
+        }
+    </script>
 </html>
 {% endblock %}
