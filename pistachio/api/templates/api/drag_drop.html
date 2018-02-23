@@ -5,8 +5,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
-            <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+<link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+<link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 <style>
 * {
     box-sizing: border-box;
@@ -15,30 +17,31 @@
 .main{
     max-width: 1400px;
     margin: auto;
+    font-family: Roboto, -apple-system, sans-serif;
 }
 
 h1 {
     font-size: 50px;
 }
 
-.rowy {
+.polaroid-row {
     margin: 8px -16px;
 }
 
 /* Add padding BETWEEN each column */
-.rowy,
-.rowy > .columny {
+.polaroid-row,
+.polaroid-row > .polaroid-column {
     padding: 8px;
 }
 
 /* Create four equal columns that floats next to each other */
-.columny {
+.polaroid-column {
     float: left;
     width: 25%;
 }
 
 /* Clear floats after rows */ 
-.rowy:after {
+.polaroid-row:after {
     content: "";
     display: table;
     clear: both;
@@ -46,86 +49,129 @@ h1 {
 
 /* content */
 .content {
-    background: #e8ebee;
-      border-radius: .75em;
+background: #e8ebee;
+  border-radius: .75em;
       -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
       filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
     padding: 10px;
+}
+/* =============================================
+* RADIO BUTTONS
+=============================================== */
+
+.radios label {
+    cursor: pointer;
+    position: relative;
+}
+
+.radios label + label {
+    margin-left: 15px;
+}
+
+input[type="radio"] {
+    opacity: 0; /* hidden but still tabable */
+    position: absolute;
+}
+
+input[type="radio"] + span {
+    font-family: 'Material Icons';
+    color:#606060;
+    border-radius: 50%;
+    padding: 12px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+    color: #D9E7FD;
+  background-color: #989898;
+}
+
+input[type="radio"]:focus + span {
+    color: #fff;
+}
+
+.radios label:hover::before {
+    content: attr(for);
+    font-family: Roboto, -apple-system, sans-serif;
+    text-transform: capitalize;
+    font-size: 11px;
+    position: absolute;
+    bottom: 170%;
+    left: 0;
+    right: 0;
+    opacity: 0.75;
+    background-color: #323232;
+    color: #fff;    
+    padding: 4px;
+    border-radius: 3px;
+    display: block;
+}
+/* =============================================
+* CENTERING, CONTAINER STYLING
+=============================================== */
+
+.radios {
+    text-align: center;
+    margin 0 auto;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+body {
+    height: 100%;
+    align-items: center;
     text-align: center;
 }
 
-/*input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-label {
-  position: relative;
-  display: inline-block;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  padding-left: 30px;
-  padding-right: 10px;
-  line-height: 36px;
-  cursor: pointer;
-}
-label::before {
-  content: " ";
-  position: absolute;
-  top: 6px;
-  left: 0;
-  display: block;
-  width: 24px;
-  height: 24px;
-  border: 2px solid;
-  border-radius: 4px;
-  z-index: -1;
-}
-input[type="radio"] + label::before {
-  border-radius: 18px;
-}
-/* Checked 
-input[type="checkbox"]:checked + label,
-input[type="radio"]:checked + label {
-  padding-left: 10px;
-  color: #fff;
-}
-input[type="checkbox"]:checked + label::before,
-input[type="radio"]:checked + label::before {
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background:#40E0D0;
-}
-/* Transition 
-label,
-label::before {
-  -webkit-transition: .25s all ease;
-  -o-transition: .25s all ease;
-  transition: .25s all ease;
-}*/*/*/
-
+/* =============================================
+* TOOLTIP
+=============================================== */
 </style>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
 
-<!-- MAIN (Center website) -->
+<!-- MAIN (Center Gallery) -->
 <div class="main">
-
-<!-- Portfolio Gallery Grid -->
-<div class="rowy">
+        <div class="popup">
+        <label class="material-icons">
+            <input onclick="myFunction()" type="radio" checked/>
+            <span>&#xE8D2;</span>
+        </label>
+        <!-- <span class="popuptext" id="myPopup">
+            <div class="material-icons">
+            <span>&#xE877; <p>MUST VISIT<</span>
+            <span>&#xE876; INTERESTED, IF TIME</span>
+            <span>&#xE5CD; NOT AT ALL</span>
+            </div>
+        </span> -->
+        </div>
+<!-- Gallery Grid -->
+<div class="polaroid-row">
 {% for act in actDetails.all %}
 {% with y=forloop.counter|stringformat:"s" %}
-  <div class="columny">
+  <div class="polaroid-column">
     <div class="content">
       <img src="{{ act.img_url }}" alt="image" style="width:100%">
       <h5>{{act.name}}</h5>
       <p>{{act.types}}</p>
-       <form action="">
-          <input type="radio" name="bucket" value="must"> Must Have<br>
-          <input type="radio" name="bucket" value="nice"> Nice to Have<br>
-          <input type="radio" name="bucket" value="other"> No
+        <form action="">
+        <div class="radio">
+       <label for="{{ "musthave_"|add:y }}" class="material-icons">
+            <input type="radio" name="bucket" id="{{ "musthave_"|add:y }}" value="musthave"/>
+            <span>&#xE877;</span>
+        </label>                                
+        <label for="{{ "nicehave_"|add:y }}" class="material-icons">
+            <input type="radio" name="bucket" id="{{ "nicehave_"|add:y }}" value="nicehave"/>
+            <span>&#xE876;</span>
+        </label>
+        <label for="{{ "other_"|add:y }}" class="material-icons">
+            <input type="radio" name="bucket" id="{{ "other_"|add:y }}" value="other" checked/>
+            <span>&#xE5CD;</span>
+        </label>
+    </div>
     </form>
     </div>
   </div>
@@ -133,10 +179,8 @@ label::before {
   {% endfor %}
 <!-- END GRID -->
 </div>
-
 <!-- END MAIN -->
 </div>
-
 </body>
 </html>
 {% endblock %}
