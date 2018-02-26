@@ -168,6 +168,9 @@ class Locations(models.Model):
     types = models.CharField(max_length=500, blank=True, null=True)
     user_study = models.NullBooleanField()
 
+    def stars(self):
+        return int(round(self.rating / 2))
+
     class Meta:
         managed = False
         db_table = 'locations'
