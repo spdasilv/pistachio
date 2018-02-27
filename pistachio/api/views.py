@@ -65,12 +65,12 @@ class bidLocationView(generic.ListView):
     def get_queryset(self):
         return Locations.objects.filter(city_id=3).filter(user_study=True).all()
 
-class dragDropView(generic.DetailView):
-    template_name = 'api/drag_drop.html'
+class votingView(generic.DetailView):
+    template_name = 'api/voting.html'
     model = Trip
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(dragDropView, self).get_context_data(**kwargs)
+        context = super(votingView, self).get_context_data(**kwargs)
         context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).filter(rating__gte=9).all().order_by('-rating')
         return context
 

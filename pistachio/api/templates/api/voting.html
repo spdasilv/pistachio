@@ -8,123 +8,12 @@
     <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
     <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="{% static "api/js/fontawesome-all.js" %}"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
     * {
         box-sizing: border-box;
-    }
-
-    .main{
-        max-width: 1400px;
-        margin: auto;
-        font-family: Roboto, -apple-system, sans-serif;
-    }
-
-    h1 {
-        font-size: 50px;
-    }
-
-    .polaroid-row {
-        margin: 8px -16px;
-    }
-
-    /* Add padding BETWEEN each column */
-    .polaroid-row,
-    .polaroid-row > .polaroid-column {
-        padding: 8px;
-    }
-
-    /* Create four equal columns that floats next to each other */
-    .polaroid-column {
-        float: left;
-        width: 25%;
-    }
-
-    /* Clear floats after rows */
-    .polaroid-row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    /* content */
-    .content {
-    background: #e8ebee;
-      border-radius: .75em;
-          -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
-          filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
-        padding: 10px;
-    }
-    /* =============================================
-    * RADIO BUTTONS
-    =============================================== */
-
-    .radios label {
-        cursor: pointer;
-        position: relative;
-    }
-
-    .radios label + label {
-        margin-left: 15px;
-    }
-
-    input[type="radio"] {
-        opacity: 0; /* hidden but still tabable */
-        position: absolute;
-    }
-
-    input[type="radio"] + span {
-        font-family: 'Material Icons';
-        color:#606060;
-        border-radius: 50%;
-        padding: 12px;
-        transition: all 0.4s;
-        -webkit-transition: all 0.4s;
-    }
-
-    input[type="radio"]:checked + span {
-        color: #D9E7FD;
-      background-color: #989898;
-    }
-
-    input[type="radio"]:focus + span {
-        color: #fff;
-    }
-
-    .radios label:hover::before {
-        content: attr(for);
-        font-family: Roboto, -apple-system, sans-serif;
-        text-transform: capitalize;
-        font-size: 11px;
-        position: absolute;
-        bottom: 170%;
-        left: 0;
-        right: 0;
-        opacity: 0.75;
-        background-color: #323232;
-        color: #fff;
-        padding: 4px;
-        border-radius: 3px;
-        display: block;
-    }
-    /* =============================================
-    * CENTERING, CONTAINER STYLING
-    =============================================== */
-
-    .radios {
-        text-align: center;
-        margin 0 auto;
-    }
-
-    .container {
-        margin: 0 auto;
-    }
-
-    body {
-        height: 100%;
-        align-items: center;
-        text-align: center;
     }
 
     /* =============================================
@@ -133,35 +22,33 @@
     </style>
     </head>
     <body>
-        <!-- MAIN (Center Gallery) -->
-        <div class="main">
-            <h5 class="sub-title">
-                <a href="{% url 'api:home' %}">
-                    ⫷   Back to home
+     <div class="parent-container1">
+                <h5 class="sub-title">
+                    <a href="{% url 'api:home' %}">
+                        ⫷   Back to home
+                    </a>
+                </h5>
+                <h2 class="main-title" style="float:left">
+                    TRIP TO {{ trip.city.name }}
+                </h2>
+                <a class="gold-button" href="#openModal" style="float:right">
+                    <h3>
+                        Submit
+                    </h3>
                 </a>
-            </h5>
-            <h2 class="main-title" style="float:left">
-                TRIP TO {{ trip.city.name }}
-            </h2>
-            <a class="gold-button" href="#openModal" style="float:right">
-                <h3>
-                    Submit
-                </h3>
-            </a>
-            <hr>
-            <div class="popup">
-                <label class="material-icons">
-                    <input onclick="myFunction()" type="radio" checked/>
-                    <span>&#xE8D2;</span>
-                </label>
-            <!-- <span class="popuptext" id="myPopup">
-                <div class="material-icons">
-                <span>&#xE877; <p>MUST VISIT<</span>
-                <span>&#xE876; INTERESTED, IF TIME</span>
-                <span>&#xE5CD; NOT AT ALL</span>
-                </div>
-            </span> -->
-            </div>
+                <hr>
+        </div>
+        <!-- MAIN (Center Gallery) -->
+        <div class="voting-main">
+        <label class="material-icons"> <p>Must Have</p> </label>
+            <input type="radio"/>
+            <span> &#xE838; </span>
+        <label class="material-icons"><p>Interested, If there's time</p></label>
+            <input type="radio"/>
+            <span> &#xE839; </span>
+        <label class="material-icons"><p>Not Interested</p></label>
+            <input type="radio"/>
+            <span> &#xE83A; </span>
         <!-- Gallery Grid -->
             <div class="polaroid-row">
                 {% for act in actDetails.all %}
@@ -169,21 +56,27 @@
                         <div class="polaroid-column">
                             <div class="content">
                                 <img src="{{ act.img_url }}" alt="image" style="width:100%">
-                                <h3>{{act.name}}</h3>
-                                <p>{{act.types}}</p>
+                                <div class="content-text">
+                                    <h3>{{act.name}}</h3>
+                                    <p>{{act.types}}</p> 
+                                </div>
+                                <div class="tile-ratings">
+                                    <span class="stars" data-rating="{{ act.stars }}" data-num-stars="5"></span>
+                                    <h5></h5>
+                                </div>
                                 <form action="">
-                                    <div class="radio">
+                                    <div class="radios"> 
                                         <label for="{{ "musthave_"|add:y }}" class="material-icons">
-                                            <input class="preference" type="radio" name="bucket" id="{{ "must_have__"|add:y }}" value="{{act.id}}"/>
-                                            <span>&#xE838;</span>
+                                            <input type="radio" name="bucket" id="{{ "musthave_"|add:y }}" value="{{act.id}}"/>
+                                            <span> &#xE838; </span>
                                         </label>
                                         <label for="{{ "nicehave_"|add:y }}" class="material-icons">
-                                            <input class="preference" type="radio" name="bucket" id="{{ "nice_have__"|add:y }}" value="{{act.id}}"/>
-                                            <span>&#xE839;</span>
+                                            <input type="radio" name="bucket" id="{{ "nicehave_"|add:y }}" value="{{act.id}}"/>
+                                            <span> &#xE839; </span>
                                         </label>
                                         <label for="{{ "other_"|add:y }}" class="material-icons">
-                                            <input class="preference" type="radio" name="bucket" id="{{ "other__"|add:y }}" value="{{act.id}}" checked/>
-                                            <span>&#xE83A;</span>
+                                            <input type="radio" name="bucket" id="{{ "other_"|add:y }}" value="{{act.id}}" checked/>
+                                            <span> &#xE83A; </span>
                                         </label>
                                     </div>
                                 </form>
@@ -269,6 +162,25 @@
                 }
             });
         }
+        $.fn.stars = function() {
+            return $(this).each(function() {
+
+                var rating = $(this).data("rating");
+
+                var numStars = $(this).data("numStars");
+
+                var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
+
+                var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
+
+                var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
+
+                $(this).html(fullStar + halfStar + noStar);
+
+            });
+        }
+
+        $('.stars').stars();
     </script>
 </html>
 {% endblock %}
