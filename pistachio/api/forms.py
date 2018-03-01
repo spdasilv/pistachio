@@ -16,8 +16,9 @@ class SignUpForm(UserCreationForm):
 
 
 class NewTripForm(forms.Form):
-    city_choice = forms.CharField(label='Select a location', max_length=200)
-    start_date = forms.DateField(label='Select a start date', initial=datetime.date.today)
-    end_date = forms.DateField(label='Select an end date', initial=datetime.date.today)
-    bidding_ends = forms.DateTimeField(label='Select bid end date')
-    emails = forms.CharField(label='Invite your friends', max_length=1000)
+    city_choice = forms.CharField(max_length=200)
+    hotel_choice = forms.CharField(max_length=200)
+    start_date = forms.DateField(initial=datetime.date.today)
+    end_date = forms.DateField(initial=datetime.date.today)
+    bidding_ends = forms.DateTimeField(required=False)
+    emails = forms.CharField(max_length=1000, required=False)

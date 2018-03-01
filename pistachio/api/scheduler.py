@@ -152,7 +152,11 @@ class Tour:
                     currentPoint = self.getPoint(pointIndex)
                     if currentPoint.id in removed:
                         continue
-                    if bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)] + currentPoint.t + self.timeCosts[(currentPoint.id, self.base.id)] <= bucket.end_time and bucket.start_time <= currentPoint.t_open[bucket.week_day] <= bucket.end_time and currentPoint.t_close[bucket.week_day] <= bucket.end_time:
+                    activity_start = bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)]
+                    activity_end = activity_start + currentPoint.t
+                    if activity_end + self.timeCosts[(currentPoint.id, self.base.id)] <= bucket.end_time \
+                            and currentPoint.t_open[bucket.week_day] <= activity_start \
+                            and activity_end <= currentPoint.t_close[bucket.week_day]:
                         bucket.incrementWeight(currentPoint.w)
                         bucket.addToPlan(currentPoint.id, bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)])
                         bucket.incrementTime(currentPoint.t + self.timeCosts[(previousPoint.id, currentPoint.id)])

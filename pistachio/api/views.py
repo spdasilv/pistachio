@@ -38,12 +38,13 @@ def newTrip(request):
         form = NewTripForm(request.POST)
         if form.is_valid():
             city_id = int(form.cleaned_data.get('city_choice'))
+            hotel_id = int(form.cleaned_data.get('hotel_choice'))
             owner_id = request.user.id
             start_date = form.cleaned_data.get('start_date')
             end_date = form.cleaned_data.get('end_date')
             bidding_ends = form.cleaned_data.get('bidding_ends')
             created_at = datetime.datetime.now()
-            new_trip = Trip(city_id=city_id, owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at)
+            new_trip = Trip(city_id=city_id, owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at, hotel_id=hotel_id)
             new_trip.save()
 
             new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True)
@@ -51,8 +52,9 @@ def newTrip(request):
             friends = parseFriends(form.cleaned_data.get('emails'))
             for friend in friends:
                 user = AuthUser.objects.filter(email=friend).values('id').first()
-                new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
-                new_usertrip.save()
+                if user is not None:
+                    new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
+                    new_usertrip.save()
         else:
             error = form.errors
     return redirect('/api')
@@ -82,8 +84,8 @@ class selectActivitiesView(generic.DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         trip = Trip.objects.filter(pk=self.kwargs['pk']).values('id', 'city_id').first()
         context = super(selectActivitiesView, self).get_context_data(**kwargs)
-        context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).all().order_by(
-            '-rating')
+        context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).exclude(
+            description='NA').all().order_by('-rating')
         return context
 
 class adminGAView(TemplateView):
@@ -116,9 +118,9 @@ def runGA(request):
     if request.is_ajax():
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
-        tripInfo = Trip.objects.filter(pk=obj['trip_id']).values('start_date', 'end_date').first()
-        tripStart = tripInfo['start_date']
-        tripEnd = tripInfo['end_date']
+        tripInfo = Trip.objects.filter(pk=obj['trip_id']).first()
+        tripStart = tripInfo.start_date
+        tripEnd = tripInfo.end_date
         tripLenght = (tripEnd - tripStart).days + 1
         days = {}
         for i in range(0, tripLenght):
@@ -127,13 +129,14 @@ def runGA(request):
                        'end': 1080
                        }
         bidSum = Bid.objects.filter(trip_id=obj['trip_id']).values('location_id').annotate(Sum('value')).all()
-        locations = Locations.objects.filter(city_id=3).filter(user_study=True).all()
+        locations = Locations.objects.filter(city_id=tripInfo.city_id).all()
         if bidSum.exists():
+            hotel = tripInfo.hotel
             dict = {}
             dict[0] = {
                 'id': 0,
-                'lat': 51.495099,
-                'lon': -0.183834,
+                'lat': hotel.lat,
+                'lon': hotel.lon,
                 'w': 0,
                 't': 0,
                 'schedule': {
@@ -148,6 +151,9 @@ def runGA(request):
             }
             for bid in bidSum.iterator():
                 location = locations.get(pk=bid['location_id'])
+                avg_time = location.visit_time
+                if avg_time is None:
+                    avg_time = 35
                 times = location.schedule
                 schedule = {}
                 if times != '':
@@ -164,7 +170,7 @@ def runGA(request):
                     'lat': location.lat,
                     'lon': location.lon,
                     'w': bid['value__sum'],
-                    't': location.visit_time,
+                    't': avg_time,
                     'schedule': schedule
                 }
         schedule = scheduleRun(dict, days)

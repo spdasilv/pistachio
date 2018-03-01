@@ -193,6 +193,7 @@ class Trip(models.Model):
     end_date = models.DateField()
     created_at = models.DateTimeField()
     bidding_ends = models.DateTimeField(blank=True, null=True)
+    hotel = models.ForeignKey(Hotels, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
