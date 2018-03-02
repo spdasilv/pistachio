@@ -105,7 +105,13 @@
         </div>
     </body>
     <div id="openModal" class="modalDialog modalDialogAddTrip" style="overflow:scroll;">
-        <div style="color: #404144;">	<a href="#close" title="Close" class="close">x</a>
+        <div style="color: #404144;">
+        	<!-- <a href="#close" title="Close" class="close">x</a> -->
+
+            <a class="close" href="#close" title="Close">
+                    <img src="{% static "api/assets/x-icon.png" %}" class="x-icon">
+                </a>
+
         <form method='post' action="{% url 'api:newTrip'%}">
             {% csrf_token %}
             <div>
@@ -218,8 +224,8 @@
                 <div class="iconAddTrip" style="margin-top:30px;margin-left:1px;display: inline;font-size: 18px;">BID</div> <input class="inputAddTrip" type="datetime" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-top:30px;margin-left:-4px;width:78%;"/><br>
                 <br>
             </div>
-            <div style="display: flex;position: absolute;top:595px;left:37%;">
-            	<button type="submit"  style="text-decoration:none;border-color:var(--darkergrey);" class="green-button" style="float:right" style="text-align: center;">CREATE TRIP</button>
+            <div style="display: flex;position: absolute;top:550px;left:37%;">
+            	<button type="submit"  style="text-decoration:none;border-color:var(--darkergrey);" class="green-button" style="float:right" style="text-align: center;"><h3>CREATE TRIP</h3></button>
             </div>
         </form>
         </div>
