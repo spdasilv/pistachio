@@ -195,7 +195,7 @@ def bidAjax(request):
             userInTrip.save(update_fields=['stage'])
             tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
             trip = Trip.objects.filter(pk=obj['trip_id']).first()
-            trip.stage = tripLevel['stage_min']
+            trip.stage = tripLevel['stage__min']
             trip.save(update_fields=['stage'])
     else:
         results = {"response": 2}

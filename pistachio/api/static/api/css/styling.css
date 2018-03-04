@@ -615,3 +615,115 @@ a {
 a {
     color: white;
 }
+
+/* ================================
+VOTING PAGE
+================================ */
+
+.voting-main{
+    max-width: 1400px;
+    margin: auto;
+    font-family: Roboto, -apple-system, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.polaroid-row {
+    margin: 8px -16px;
+}
+
+/* Add padding BETWEEN each column */
+.polaroid-row,
+.polaroid-row > .polaroid-column {
+    padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.polaroid-column {
+    float: left;
+    width: 25%;
+}
+
+/* Clear floats after rows */
+.polaroid-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* content */
+.content {
+background: #e8ebee;
+border-radius: .75em;
+      -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+      filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+padding: 10px;
+text-align: center;
+}
+.content-text h3 {
+    text-transform: uppercase;
+    letter-spacing:0.5px;
+}
+.content-text p {
+font-size:0.9em;
+font-style:italic;
+}
+.label{
+font-size:0.9em;
+font-style:italic;
+}
+/* =============================================
+* RADIO BUTTONS
+=============================================== */
+
+.radios label {
+    cursor: pointer;
+    position: relative;
+}
+
+.radios label + label {
+    margin-left: 15px;
+}
+
+input[type="radio"] {
+    opacity: 0; /* hidden but still tabable */
+    position: absolute;
+}
+
+input[type="radio"] + span {
+    font-family: 'Material Icons';
+    color:#606060;
+    border-radius: 50%;
+    padding: 12px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+    color: #D9E7FD;
+  background-color: #989898;
+}
+
+input[type="radio"]:focus + span {
+    color: #fff;
+}
+
+/* =============================================
+* CENTERING, CONTAINER STYLING
+=============================================== */
+
+.radios {
+    text-align: center;
+    margin 0 auto;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.checked {
+        color: orange;
+}
