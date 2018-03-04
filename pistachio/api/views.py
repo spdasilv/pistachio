@@ -193,7 +193,7 @@ def bidAjax(request):
             results = {"response": 1}
             userInTrip.stage = 3
             userInTrip.save(update_fields=['stage'])
-            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            tripLevel = UsersTrip.objects.filter(trip_id=obj['trip_id']).all().aggregate(Min('stage'))
             trip = Trip.objects.filter(pk=obj['trip_id']).first()
             trip.stage = tripLevel['stage__min']
             trip.save(update_fields=['stage'])
@@ -233,7 +233,7 @@ def addActivitiesAjax(request):
                 selectedActivity.save()
             userInTrip.stage = 2
             userInTrip.save(update_fields=['stage'])
-            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            tripLevel = UsersTrip.objects.filter(trip_id=obj['trip_id']).all().aggregate(Min('stage'))
             trip = Trip.objects.filter(pk=obj['trip_id']).first()
             trip.stage = tripLevel['stage__min']
             trip.save(update_fields=['stage'])
