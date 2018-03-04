@@ -6,7 +6,7 @@ from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedA
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from django.db.models import Sum
+from django.db.models import Sum, Min, Max, Avg
 from django.views.generic.base import TemplateView
 import json
 import datetime
@@ -44,7 +44,8 @@ def newTrip(request):
             end_date = form.cleaned_data.get('end_date')
             bidding_ends = form.cleaned_data.get('bidding_ends')
             created_at = datetime.datetime.now()
-            new_trip = Trip(city_id=city_id, owner_id=owner_id, start_date=start_date, end_date=end_date, bidding_ends=bidding_ends, created_at=created_at, hotel_id=hotel_id)
+            new_trip = Trip(city_id=city_id, owner_id=owner_id, start_date=start_date, end_date=end_date,
+                            bidding_ends=bidding_ends, created_at=created_at, hotel_id=hotel_id, stage=1)
             new_trip.save()
 
             new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True)
@@ -53,10 +54,8 @@ def newTrip(request):
             for friend in friends:
                 user = AuthUser.objects.filter(email=friend).values('id').first()
                 if user is not None:
-                    new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False)
+                    new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False, stage=1)
                     new_usertrip.save()
-        else:
-            error = form.errors
     return redirect('/api')
 
 
@@ -73,7 +72,7 @@ class votingView(generic.DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(votingView, self).get_context_data(**kwargs)
-        context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).filter(rating__gte=9).all().order_by('-rating')
+        context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).all()
         return context
 
 
@@ -87,6 +86,7 @@ class selectActivitiesView(generic.DetailView):
         context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).exclude(
             description='NA').all().order_by('-rating')
         return context
+
 
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
@@ -175,9 +175,6 @@ def runGA(request):
                 }
         schedule = scheduleRun(dict, days)
         results = generateResponse(schedule, locations)
-        response = {"response": results}
-    else:
-        response = {"response": "ERROR"}
     return JsonResponse(results)
 
 
@@ -187,11 +184,19 @@ def bidAjax(request):
         user_id = request.user.id
         body_string = request.body.decode('utf8').replace("'", '"')
         obj = json.loads(body_string)
-        bids = convertToDict(obj['input'])
-        for key, value in bids.items():
-            bid = Bid(trip_id=int(obj['trip_id']), location_id=int(key), user_id=user_id, value=int(value['bid']))
-            bid.save()
-        results = {"response": 1}
+        userInTrip = UsersTrip.objects.filter(trip_id=obj['trip_id']).filter(user_id=request.user.id).first()
+        if userInTrip is not None:
+            bids = convertToDict(obj['input'])
+            for key, value in bids.items():
+                bid = Bid(trip_id=int(obj['trip_id']), location_id=int(key), user_id=user_id, value=int(value['bid']))
+                bid.save()
+            results = {"response": 1}
+            userInTrip.stage = 3
+            userInTrip.save(update_fields=['stage'])
+            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            trip = Trip.objects.filter(pk=obj['trip_id']).first()
+            trip.stage = tripLevel['stage__min']
+            trip.save(update_fields=['stage'])
     else:
         results = {"response": 2}
     return JsonResponse(results)
@@ -226,6 +231,13 @@ def addActivitiesAjax(request):
                 selectedActivity = SelectedActivities(trip_id=obj['trip_id'],
                                                       user_id=request.user.id, location_id=activity)
                 selectedActivity.save()
+            userInTrip.stage = 2
+            userInTrip.save(update_fields=['stage'])
+            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            trip = Trip.objects.filter(pk=obj['trip_id']).first()
+            trip.stage = tripLevel['stage__min']
+            trip.save(update_fields=['stage'])
+
         result['response'] = 1
         return JsonResponse(result)
 

@@ -23,7 +23,6 @@
                 Add a trip to start planning a group trip.
             </p>
 
-            <!-- ===================== ROW 1 of present travels ================ -->
             <div class="row">
                 {% for trip in trips.all %}
                     {% if forloop.counter|divisibleby:3 %}
@@ -33,7 +32,13 @@
                     {% endif %}
                         <div class="travel-tile-container {{ trip.city.img_url }}">
                             <h3 class="travel-location">
-                                <a href="{% url 'api:selectActivities' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {%  if trip.stage == 1 %}
+                                    <a href="{% url 'api:selectActivities' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {%  elif trip.stage == 2 %}
+                                    <a href="{% url 'api:voting' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {% else %}
+                                    {{ trip.city.name }}, {{ trip.city.country }}
+                                {% endif %}
                             </h3>
                             <hr/>
                             <h4 class="travel-duration">
@@ -224,7 +229,7 @@
                 <div class="iconAddTrip" style="margin-top:30px;margin-left:1px;display: inline;font-size: 18px;">BID</div> <input class="inputAddTrip" type="datetime" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-top:30px;margin-left:-4px;width:78%;"/><br>
                 <br>
             </div>
-            <div style="display: flex;position: absolute;top:550px;left:37%;">
+            <div style="display: flex;position: absolute;top:595px;left:32%;">
             	<button type="submit"  style="text-decoration:none;border-color:var(--darkergrey);" class="green-button" style="float:right" style="text-align: center;"><h3>CREATE TRIP</h3></button>
             </div>
         </form>

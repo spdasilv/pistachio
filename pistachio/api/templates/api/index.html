@@ -1,6 +1,10 @@
 {% if user.is_authenticated %}
 {% load static %}
 <header>
+<head>
+    <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+</head>
 <div class="header-container">
     <div class="logo">
         <img class="img-responsive" src="{% static "api/assets/pistachio.png" %}">

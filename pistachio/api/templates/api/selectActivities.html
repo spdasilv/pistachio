@@ -1,14 +1,13 @@
-    {% extends "api/index.html" %}
-    {% block content %}
-        {% load static %}
+{% extends "api/index.html" %}
+{% block content %}
+{% if trip.stage == 1 %}
+    {% load static %}
     <html>
         <head>
             <meta content="width=device-width, initial-scale=1" name="viewport"/>
             <title>
             </title>
             <meta content="width=device-width, initial-scale=1" name="viewport"/>
-            <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
-            <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <script src="{% static "api/js/fontawesome-all.js" %}"></script>
@@ -217,4 +216,7 @@
         $('.stars').stars();
     </script>
 </html>
+{% else %}
+    ACCESS DENIED
+{% endif %}
 {% endblock %}
