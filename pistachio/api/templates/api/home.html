@@ -23,7 +23,6 @@
                 Add a trip to start planning a group trip.
             </p>
 
-            <!-- ===================== ROW 1 of present travels ================ -->
             <div class="row">
                 {% for trip in trips.all %}
                     {% if forloop.counter|divisibleby:3 %}
@@ -33,7 +32,13 @@
                     {% endif %}
                         <div class="travel-tile-container {{ trip.city.img_url }}">
                             <h3 class="travel-location">
-                                <a href="{% url 'api:selectActivities' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {%  if trip.stage == 1 %}
+                                    <a href="{% url 'api:selectActivities' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {%  elif trip.stage == 2 %}
+                                    <a href="{% url 'api:voting' trip.id %}">{{ trip.city.name }}, {{ trip.city.country }}</a>
+                                {% else %}
+                                    {{ trip.city.name }}, {{ trip.city.country }}
+                                {% endif %}
                             </h3>
                             <hr/>
                             <h4 class="travel-duration">

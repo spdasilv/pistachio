@@ -1,186 +1,183 @@
-  {% extends "api/index.html" %}
-    {% block content %}
-        {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="{% static "api/js/fontawesome-all.js" %}"></script>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    /* =============================================
-    * TOOLTIP
-    =============================================== */
-    </style>
-    </head>
-    <body>
-     <div class="parent-container1">
-                <h5 class="sub-title">
-                    <a href="{% url 'api:home' %}">
-                        ⫷   Back to home
+{% extends "api/index.html" %}
+{% block content %}
+{% if trip.stage == 2 %}
+    {% load static %}
+    <html>
+        <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="{% static "api/js/fontawesome-all.js" %}"></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <style>
+        * {
+            box-sizing: border-box;
+        }
+        </style>
+        </head>
+        <body>
+         <div class="parent-container1">
+                    <h5 class="sub-title">
+                        <a href="{% url 'api:home' %}">
+                            ⫷   Back to home
+                        </a>
+                    </h5>
+                    <h2 class="main-title" style="float:left">
+                        TRIP TO {{ trip.city.name }}
+                    </h2>
+                    <a class="gold-button" href="#openModal" style="float:right">
+                        <h3>
+                            Submit
+                        </h3>
                     </a>
-                </h5>
-                <h2 class="main-title" style="float:left">
-                    TRIP TO {{ trip.city.name }}
-                </h2>
-                <a class="gold-button" href="#openModal" style="float:right">
-                    <h3>
-                        Submit
-                    </h3>
-                </a>
-                <hr>
-        </div>
-        <!-- MAIN (Center Gallery) -->
-        <div class="voting-main">
-        <label class="material-icons"> <p>Must Have</p> </label>
-            <input type="radio"/>
-            <span> &#xE838; </span>
-        <label class="material-icons"><p>Interested, If there's time</p></label>
-            <input type="radio"/>
-            <span> &#xE839; </span>
-        <label class="material-icons"><p>Not Interested</p></label>
-            <input type="radio"/>
-            <span> &#xE83A; </span>
-        <!-- Gallery Grid -->
-            <div class="polaroid-row">
-                {% for act in actDetails.all %}
-                    {% with y=forloop.counter|stringformat:"s" %}
-                        <div class="polaroid-column">
-                            <div class="content">
-                                <img src="{{ act.img_url }}" alt="image" style="width:100%">
-                                <div class="content-text">
-                                    <h3>{{act.name}}</h3>
-                                    <p>{{act.types}}</p> 
-                                </div>
-                                <div class="tile-ratings">
-                                    <span class="stars" data-rating="{{ act.stars }}" data-num-stars="5"></span>
-                                    <h5></h5>
-                                </div>
-                                <form action="">
-                                    <div class="radios"> 
-                                        <label for="{{ "must_have__"|add:y }}" class="material-icons">
-                                            <input class="preference"  type="radio" name="bucket" id="{{ "must_have__"|add:y }}" value="{{act.id}}"/>
-                                            <span> &#xE838; </span>
-                                        </label>
-                                        <label for="{{ "nice_have__"|add:y }}" class="material-icons">
-                                            <input class="preference"  type="radio" name="bucket" id="{{ "nice_have__"|add:y }}" value="{{act.id}}"/>
-                                            <span> &#xE839; </span>
-                                        </label>
-                                        <label for="{{ "other__"|add:y }}" class="material-icons">
-                                            <input class="preference"  type="radio" name="bucket" id="{{ "other__"|add:y }}" value="{{act.id}}" checked/>
-                                            <span> &#xE83A; </span>
-                                        </label>
+                    <hr>
+            </div>
+            <!-- MAIN (Center Gallery) -->
+            <div class="voting-main">
+            <label class="material-icons"> <p>Must Have</p> </label>
+                <input type="radio"/>
+                <span> &#xE838; </span>
+            <label class="material-icons"><p>Interested, If there's time</p></label>
+                <input type="radio"/>
+                <span> &#xE839; </span>
+            <label class="material-icons"><p>Not Interested</p></label>
+                <input type="radio"/>
+                <span> &#xE83A; </span>
+            <!-- Gallery Grid -->
+                <div class="polaroid-row">
+                    {% for act in actDetails.all %}
+                        {% with y=forloop.counter|stringformat:"s" %}
+                            <div class="polaroid-column">
+                                <div class="content">
+                                    <img src="{{ act.img_url }}" alt="image" style="width:100%">
+                                    <div class="content-text">
+                                        <h3>{{act.name}}</h3>
+                                        <p>{{act.types}}</p>
                                     </div>
-                                </form>
+                                    <div class="tile-ratings">
+                                        <span class="stars" data-rating="{{ act.stars }}" data-num-stars="5"></span>
+                                        <h5></h5>
+                                    </div>
+                                    <form action="">
+                                        <div class="radios">
+                                            <label for="{{ "must_have__"|add:y }}" class="material-icons">
+                                                <input class="preference"  type="radio" name="bucket" id="{{ "must_have__"|add:y }}" value="{{act.id}}"/>
+                                                <span> &#xE838; </span>
+                                            </label>
+                                            <label for="{{ "nice_have__"|add:y }}" class="material-icons">
+                                                <input class="preference"  type="radio" name="bucket" id="{{ "nice_have__"|add:y }}" value="{{act.id}}"/>
+                                                <span> &#xE839; </span>
+                                            </label>
+                                            <label for="{{ "other__"|add:y }}" class="material-icons">
+                                                <input class="preference"  type="radio" name="bucket" id="{{ "other__"|add:y }}" value="{{act.id}}" checked/>
+                                                <span> &#xE83A; </span>
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-            <!-- END GRID -->
+                        {% endwith %}
+                    {% endfor %}
+                <!-- END GRID -->
+                </div>
+            <!-- END MAIN -->
             </div>
-        <!-- END MAIN -->
-        </div>
-        <div class="modalDialog modalSubmitAtt" id="openModal">
-            <div>
-                <a class="close" href="#close" title="Close">
-                    <img src="{% static "api/assets/x-icon.png" %}" class="x-icon">
-                </a>
-                <h2 style="margin-top:45px;text-align: center;font-size: 29px;">
-                    SUBMIT ATTRACTIONS
-                </h2>
-                <p class="SubmitAttTxt">
-                    Check back between:
-                </p>
-                <p class="SubmitAttDate">
-                    Jun 18 - Jun 25
-                </p>
-                <p class="SubmitAttTxt">
-                    to cast your final decision on your team's activities.
-                </p>
-                <hr class="divider"/>
-                <p class="SubmitAttTxt" style="font-style:italic">
-                    Until then, feel free to come back and edit your choices (add anything you might've missed, remove anything you don't want anymore, etc.).
-                <br/><br/>
-                    Check the progress bar on your dashboard to see where the team is.
-                </p>
+            <div class="modalDialog modalSubmitAtt" id="openModal">
+                <div>
+                    <a class="close" href="#close" title="Close">
+                        <img src="{% static "api/assets/x-icon.png" %}" class="x-icon">
+                    </a>
+                    <h2 style="margin-top:45px;text-align: center;font-size: 29px;">
+                        SUBMIT ATTRACTIONS
+                    </h2>
+                    <p class="SubmitAttTxt">
+                        Check back between:
+                    </p>
+                    <p class="SubmitAttDate">
+                        Jun 18 - Jun 25
+                    </p>
+                    <p class="SubmitAttTxt">
+                        to cast your final decision on your team's activities.
+                    </p>
+                    <hr class="divider"/>
+                    <p class="SubmitAttTxt" style="font-style:italic">
+                        Until then, feel free to come back and edit your choices (add anything you might've missed, remove anything you don't want anymore, etc.).
+                    <br/><br/>
+                        Check the progress bar on your dashboard to see where the team is.
+                    </p>
+                </div>
+                <button class="green-button-submit" style="margin-top:-150px" onclick="submitActivities();">
+                    <h3>
+                        SUBMIT
+                    </h3>
+                </button>
             </div>
-            <button class="green-button-submit" style="margin-top:-150px" onclick="submitActivities();">
-                <h3>
-                    SUBMIT
-                </h3>
-            </button>
-        </div>
-    </body>
-    <script>
-        function submitActivities() {
-            inputDataList = []
+        </body>
+        <script>
+            function submitActivities() {
+                inputDataList = []
 
-            $('.preference').each(function() {
-                if (!$(this).is(':checked')) {
-                    return true;
-                }
-                var choice = $(this).attr('id').split("__");
-                if (choice[0] == 'must_have') {
-                    inputDataList.push({
-                        "id":  $(this).attr('value'),
-                        "bid": 2
-                    });
-                }
-                else if (choice[0] == 'nice_have') {
-                    inputDataList.push({
-                        "id":  $(this).attr('value'),
-                        "bid": 1
-                    });
-                }
-                else {
-                    inputDataList.push({
-                        "id":  $(this).attr('value'),
-                        "bid": 0
-                    });
-                }
-            });
-
-            $.ajax({
-                type:"POST",
-                url:"{% url 'api:bidAjax' %}",
-                data: JSON.stringify({
-                     "trip_id" : {{ trip.id }},
-                     "input" : inputDataList
-                 }),
-                success: function(result){
-                    if (result['response'] == 1) {
-                        window.location.replace("{% url 'api:home' %}");
+                $('.preference').each(function() {
+                    if (!$(this).is(':checked')) {
+                        return true;
                     }
-                }
-            });
-        }
-        $.fn.stars = function() {
-            return $(this).each(function() {
+                    var choice = $(this).attr('id').split("__");
+                    if (choice[0] == 'must_have') {
+                        inputDataList.push({
+                            "id":  $(this).attr('value'),
+                            "bid": 2
+                        });
+                    }
+                    else if (choice[0] == 'nice_have') {
+                        inputDataList.push({
+                            "id":  $(this).attr('value'),
+                            "bid": 1
+                        });
+                    }
+                    else {
+                        inputDataList.push({
+                            "id":  $(this).attr('value'),
+                            "bid": 0
+                        });
+                    }
+                });
 
-                var rating = $(this).data("rating");
+                $.ajax({
+                    type:"POST",
+                    url:"{% url 'api:bidAjax' %}",
+                    data: JSON.stringify({
+                         "trip_id" : {{ trip.id }},
+                         "input" : inputDataList
+                     }),
+                    success: function(result){
+                        if (result['response'] == 1) {
+                            window.location.replace("{% url 'api:home' %}");
+                        }
+                    }
+                });
+            }
+            $.fn.stars = function() {
+                return $(this).each(function() {
 
-                var numStars = $(this).data("numStars");
+                    var rating = $(this).data("rating");
 
-                var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
+                    var numStars = $(this).data("numStars");
 
-                var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
+                    var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
 
-                var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
+                    var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
 
-                $(this).html(fullStar + halfStar + noStar);
+                    var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
 
-            });
-        }
+                    $(this).html(fullStar + halfStar + noStar);
 
-        $('.stars').stars();
-    </script>
-</html>
+                });
+            }
+
+            $('.stars').stars();
+        </script>
+    </html>
+{% else %}
+    ACCESS DENIED
+{% endif %}
 {% endblock %}
