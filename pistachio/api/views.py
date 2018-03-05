@@ -113,6 +113,22 @@ def hourTomin(date):
     return totalmins
 
 
+def minToHour(min):
+    hour = int(min/60)
+    hour_str = ''
+    if hour < 10:
+        hour_str += '0'
+    hour_str += str(hour)
+
+    minutes_str = ''
+    minutes = min - hour*60
+    if min < 10:
+        minutes_str += '0'
+    minutes_str += str(minutes)
+
+    return hour_str + ':' + minutes_str
+
+
 @csrf_exempt
 def runGA(request):
     if request.is_ajax():
@@ -174,7 +190,7 @@ def runGA(request):
                     'schedule': schedule
                 }
         schedule = scheduleRun(dict, days)
-        results = generateResponse(schedule, locations)
+        results = generateResponse(schedule, locations, tripStart)
     return JsonResponse(results)
 
 
@@ -249,10 +265,17 @@ def convertToDict(list):
     return dict
 
 
-def generateResponse(schedule, locations):
+def generateResponse(schedule, locations, start_date):
     response = {}
     for i, bucket in enumerate(schedule):
+        response[str(start_date + datetime.timedelta(days=i))] = {}
         for j, activity in enumerate(bucket.plan):
             location = locations.get(pk=activity[0])
-            response[location.id] = {'activity_name': location.name}
+            response[str(start_date + datetime.timedelta(days=i))]['activity_' + str(j)] = {
+                'activity_name': location.name,
+                'activity_start': minToHour(activity[1]),
+                'activity_duration': minToHour(activity[2]),
+                'activity_lat': activity[3],
+                'activity_lon': activity[4]
+            }
     return response
