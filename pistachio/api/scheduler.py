@@ -10,10 +10,12 @@ from math import radians, cos, sin, asin, sqrt
 # Let T_OPEN be the opening time of a location.
 # Let T_CLOSE be the closing time of a location.
 class InterestPoint:
-    def __init__(self, w, t, id, schedule):
+    def __init__(self, w, t, id, schedule, lat, lon):
         self.w = w
         self.t = t
         self.id = id
+        self.lat = lat
+        self.lon = lon
         self.t_open = {}
         self.t_close = {}
 
@@ -65,8 +67,8 @@ class Bucket:
     def incrementWeight(self, weight):
         self.totalWeight += weight
 
-    def addToPlan(self, id, time):
-        self.plan.append((id, time))
+    def addToPlan(self, id, start_time, activity_time, lon, lat):
+        self.plan.append((id, start_time, activity_time, lon, lat))
 
 # The TourManager hold information about all available locations and the distance costs.
 class TourManager():
@@ -158,7 +160,7 @@ class Tour:
                             and currentPoint.t_open[bucket.week_day] <= activity_start \
                             and activity_end <= currentPoint.t_close[bucket.week_day]:
                         bucket.incrementWeight(currentPoint.w)
-                        bucket.addToPlan(currentPoint.id, bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)])
+                        bucket.addToPlan(currentPoint.id, bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)], currentPoint.t, currentPoint.lat, currentPoint.lon)
                         bucket.incrementTime(currentPoint.t + self.timeCosts[(previousPoint.id, currentPoint.id)])
                         previousPoint = currentPoint
                         removed.add(currentPoint.id)
@@ -324,11 +326,11 @@ def calculateCost(coordinates):
 
 def scheduleRun(input, days):
     cost_matrix = calculateCost(input)
-    tourmanager = TourManager(InterestPoint(input[0]['w'], input[0]['t'], input[0]['id'], input[0]['schedule']), cost_matrix)
+    tourmanager = TourManager(InterestPoint(input[0]['w'], input[0]['t'], input[0]['id'], input[0]['schedule'], input[0]['lat'], input[0]['lon']), cost_matrix)
     for key in input:
         if input[key]['id'] == 0:
             continue
-        point = InterestPoint(input[key]['w'], input[key]['t'], input[key]['id'], input[key]['schedule'])
+        point = InterestPoint(input[key]['w'], input[key]['t'], input[key]['id'], input[key]['schedule'], input[key]['lat'], input[key]['lon'])
         tourmanager.addPoint(point)
     # Initialize population
     pop = Population(tourmanager, 120, True, cost_matrix, days)

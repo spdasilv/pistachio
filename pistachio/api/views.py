@@ -92,6 +92,11 @@ class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 
 
+class generateSchedule(generic.DetailView):
+    template_name = 'api/generateSchedule.html'
+    model = Trip
+
+
 class homeView(generic.ListView):
     template_name = 'api/home.html'
     model = Cities
@@ -111,6 +116,22 @@ def hourTomin(date):
     mins = int(date[2] + date[3])
     totalmins = hour*60 + mins + offset
     return totalmins
+
+
+def minToHour(min):
+    hour = int(min/60)
+    hour_str = ''
+    if hour < 10:
+        hour_str += '0'
+    hour_str += str(hour)
+
+    minutes_str = ''
+    minutes = min - hour*60
+    if min < 10:
+        minutes_str += '0'
+    minutes_str += str(minutes)
+
+    return hour_str + ':' + minutes_str
 
 
 @csrf_exempt
@@ -174,7 +195,7 @@ def runGA(request):
                     'schedule': schedule
                 }
         schedule = scheduleRun(dict, days)
-        results = generateResponse(schedule, locations)
+        results = generateResponse(schedule, locations, tripStart)
     return JsonResponse(results)
 
 
@@ -193,7 +214,7 @@ def bidAjax(request):
             results = {"response": 1}
             userInTrip.stage = 3
             userInTrip.save(update_fields=['stage'])
-            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            tripLevel = UsersTrip.objects.filter(trip_id=obj['trip_id']).all().aggregate(Min('stage'))
             trip = Trip.objects.filter(pk=obj['trip_id']).first()
             trip.stage = tripLevel['stage__min']
             trip.save(update_fields=['stage'])
@@ -233,7 +254,7 @@ def addActivitiesAjax(request):
                 selectedActivity.save()
             userInTrip.stage = 2
             userInTrip.save(update_fields=['stage'])
-            tripLevel = UsersTrip.objects.all().aggregate(Min('stage'))
+            tripLevel = UsersTrip.objects.filter(trip_id=obj['trip_id']).all().aggregate(Min('stage'))
             trip = Trip.objects.filter(pk=obj['trip_id']).first()
             trip.stage = tripLevel['stage__min']
             trip.save(update_fields=['stage'])
@@ -249,10 +270,17 @@ def convertToDict(list):
     return dict
 
 
-def generateResponse(schedule, locations):
+def generateResponse(schedule, locations, start_date):
     response = {}
     for i, bucket in enumerate(schedule):
+        response[str(start_date + datetime.timedelta(days=i))] = {}
         for j, activity in enumerate(bucket.plan):
             location = locations.get(pk=activity[0])
-            response[location.id] = {'activity_name': location.name}
+            response[str(start_date + datetime.timedelta(days=i))]['activity_' + str(j)] = {
+                'activity_name': location.name,
+                'activity_start': minToHour(activity[1]),
+                'activity_duration': minToHour(activity[2]),
+                'activity_lat': activity[3],
+                'activity_lon': activity[4]
+            }
     return response

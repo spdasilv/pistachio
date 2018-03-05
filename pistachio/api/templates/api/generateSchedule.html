@@ -1,33 +1,17 @@
-<html>
+{% extends "api/index.html" %}
+{% block content %}
+{% if trip.stage == 3 %}
+    {% load static %}
+    <html>
     <head>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
-        <title>
-        </title>
-        <link href="../css/style.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="css/grid.css" rel="stylesheet" type="text/css"/> -->
-        <link href="../css/styling.css" rel="stylesheet" type="text/css"/>
-        <script src="../js/fontawesome/fontawesome-all.js">
-        </script>
+        <script src="../js/fontawesome/fontawesome-all.js"></script>
     </head>
     <body>
-        <!-- HEADER -->
-        <div class="header-container">
-            <!-- <div class="parent-container"> -->
-            <div class="logo">
-                <img class="img-responsive" src="../assets/pistachio.png">
-                </img>
-            </div>
-            <!-- </div> -->
-            <button class="logout-button">
-                <h4>
-                    LOGOUT
-                </h4>
-            </button>
-        </div>
         <!------- -->
         <div class="parent-container1">
             <h5 class="sub-title">
-                <a href="home.html">
+                <a href="{% url 'api:home' %}">
                     ⫷   Back to home
                 </a>
             </h5>
@@ -35,7 +19,7 @@
                 Trip to Giza
             </h2> -->
             <h2 class="main-title" style="float:left">
-                TRIP TO GIZA
+                TRIP TO {{ trip.city.name }}
             </h2>
             <!-- <hr class="title-divider"/> -->
             <div>
@@ -78,3 +62,7 @@
         </div>
     </body>
 </html>
+{% else %}
+    ACCESS DENIED
+{% endif %}
+{% endblock %}
