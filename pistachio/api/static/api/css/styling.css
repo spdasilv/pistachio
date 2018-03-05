@@ -249,11 +249,13 @@ FRAMES FOR PAGES
     margin-top: 20px;
 }
 .schedule-header {
-    width: 100%;
+    width: calc(100% + 3px);
     border-right: 0px;
+    margin-top:-1px;
+    margin-left:-1px;
+
 }
-.schedule-header ul {
-    /*background:blue;*/
+./*schedule-header ul {
     text-align: left;
     margin-left: 10px;
     margin-right: 150px;
@@ -268,7 +270,7 @@ FRAMES FOR PAGES
 
 .schedule-header a:hover, .schedule-header a:focus {
     color: var(--green) !important;
-}
+}*/
 .tile {
     background: var(--silver);
     height: 150px;
