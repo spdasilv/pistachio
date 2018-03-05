@@ -92,6 +92,11 @@ class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
 
 
+class generateSchedule(generic.DetailView):
+    template_name = 'api/generateSchedule.html'
+    model = Trip
+
+
 class homeView(generic.ListView):
     template_name = 'api/home.html'
     model = Cities

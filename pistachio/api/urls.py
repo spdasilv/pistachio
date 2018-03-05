@@ -13,6 +13,7 @@ urlpatterns = [
     path('getHotels/', views.getHotels, name='getHotels'),
     path('bidLocations/', views.bidLocationView.as_view(), name='bidLocations'),
     path('adminGA/', views.adminGAView.as_view(), name='adminGA'),
+    path('<int:pk>/generateSchedule/', views.generateSchedule.as_view(), name='generateSchedule'),
     path('<int:pk>/voting/', views.votingView.as_view(), name='voting'),
     path('<int:pk>/selectActivities/', views.selectActivitiesView.as_view(), name='selectActivities'),
     path('bidAjax/', views.bidAjax, name='bidAjax'),
