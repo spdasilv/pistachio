@@ -123,6 +123,14 @@
             {% csrf_token %}
             <div>
                 <style>
+                .styled-select select {
+                   background: transparent;
+                   border: 0px;
+                   font-size: 13px;
+                   font-weight: normal;
+                   font-style:italic;
+                   color: var(--darkergrey);
+                }
                 input.inputAddTrip[type=text]{
                     width:70%;
                     border-bottom: 1px solid white;
@@ -182,16 +190,16 @@
                 .modalDialogAddTrip > div {
                     padding: 5px 55px 13px 55px;
                 }
-                hr.divider {
+                hr.dividerModal {
                     margin-left: -55px;
                     margin-right: -55px;
-                    border-color: #f4f6f9;
+                    border-color: #D8D8D8;
                     opacity: 0.5;
                 }
                 .iconAddTrip{
                     font-size: 23px;
                     margin-right:40px;
-                    margin-top:20px;
+                    margin-top:35px;
                     color:var(--darkergrey);
                 }
                 textarea{
@@ -211,22 +219,25 @@
                     padding-top:12px;
                 }
                 </style>
-                <h1 style="margin-top:45px;">ADD TRIP</h1>
-                <hr class="divider"/>
-                <i class="fas fa-map-marker-alt fa-lg iconAddTrip" style="margin-top:37px;margin-left:4px;"></i>  <select  class="inputAddTrip" name=
+                <h1 style="margin-top:30px;font-size:40px;">ADD TRIP</h1>
+                <hr class="dividerModal"/>
+                <div style = "display:inline-block;"><i class="fas fa-map-marker-alt fa-lg iconAddTrip" style="margin-top:37px;margin-left:4px;"></i></div>
+                <div class="styled-select" style = "display:inline-block;width:80%;margin-left:-10px;"><select  class="inputAddTrip" name=
                     "city_choice" required id="id_city_choice" style="margin-left:5px;">
                 <option value="" disabled selected>Select City</option>
                 {% for city in cities_list.all %}
                     <option value="{{ city.id }}">{{ city.name }}</option>
                 {%  endfor %}
-                </select> <br>
-                <i class="fas fa-bed fa-lg iconAddTrip"></i>  <select class="inputAddTrip" name="hotel_choice" maxlength="300"
+                </select></div> <br>
+                <i class="fas fa-bed fa-lg iconAddTrip" ></i>
+                <div class="styled-select" style = "display:inline-block;width:80%;margin-left:-10px;"><select class="inputAddTrip" name="hotel_choice" maxlength="300"
                                                                       required id="id_hotel" value="Search Hotel & Accommodation" />
                 <option value="" disabled selected>Select Hotel</option>
-                </select> <br>
+                </select></div> <br>
                 <i class="far fa-calendar fa-lg iconAddTrip" style="margin-left:3px;"></i>  <input class="inputAddTrip" type="date" name="start_date" required id="id_start_date"/>
                 <input class="inputAddTrip" type="date" name="end_date" required id="id_end_date" style="margin-left:45px;"/><br>
                 <i class="far fa-clock fa-lg iconAddTrip" style="margin-left:2px;margin-top:30px;margin-bottom:30px;"></i><input type="range" min="0" max="24" value="12" class="slider inputAddTrip" id="myRange"><br/>
+                <hr class="dividerModal" style="margin-top:15px;"/>
                 <i class="fas fa-users fa-lg iconAddTrip" style="margin-left:-6px;margin-top:30px;font-size: 35px;"></i> <textarea class="inputAddTrip" name="emails" maxlength="1000" id="id_emails">Add Group Mates</textarea><br>
                 <div class="iconAddTrip" style="margin-top:30px;margin-left:1px;display: inline;font-size: 18px;">BID</div> <input class="inputAddTrip" type="datetime" name="bidding_ends" value="2018-02-14 14:09:59" required id="id_bidding_ends" style="margin-top:30px;margin-left:-4px;width:78%;"/><br>
                 <br>
