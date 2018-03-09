@@ -176,6 +176,32 @@ class Locations(models.Model):
         db_table = 'locations'
 
 
+class ScheduleDetails(models.Model):
+    schedule = models.ForeignKey('Schedules', models.DO_NOTHING, blank=True, null=True)
+    activity = models.ForeignKey(Locations, models.DO_NOTHING, blank=True, null=True)
+    activity_order = models.IntegerField(blank=True, null=True)
+    activity_name = models.CharField(max_length=200, blank=True, null=True)
+    activity_starts = models.CharField(max_length=50, blank=True, null=True)
+    activity_ends = models.CharField(max_length=50, blank=True, null=True)
+    activity_lat = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    activity_lon = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+
+    class Meta:
+        ordering = ['activity_order']
+        managed = False
+        db_table = 'schedule_details'
+
+
+class Schedules(models.Model):
+    trip = models.ForeignKey('Trip', models.DO_NOTHING, blank=True, null=True)
+    day = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['day']
+        managed = False
+        db_table = 'schedules'
+
+
 class SelectedActivities(models.Model):
     trip = models.ForeignKey('Trip', models.DO_NOTHING)
     location = models.ForeignKey(Locations, models.DO_NOTHING)
