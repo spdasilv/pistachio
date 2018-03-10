@@ -22,7 +22,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('/api/bidLocations')
+            return redirect('/api/login')
     else:
         form = SignUpForm()
     return render(request, 'api/signup.html', {'form': form})

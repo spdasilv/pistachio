@@ -1,7 +1,24 @@
-{% block title %}See you!{% endblock %}
-
 {% block content %}
-  <h2>Logged out</h2>
-  <p>You have been successfully logged out.</p>
-  <p><a href="{% url 'api:login' %}">Log in</a> again.</p>
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+        {% load static %}
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+    </head>
+<div class="col-4 offset-4">
+    <div class="parent-container1">
+            <div class="login-container" >
+                <div>
+                    <h4 class="main-title login-title" style="text-align: center;">See you soon!</h4>
+                    <h4 class="main-title login-title" style="text-align: center;">You have been successfully logged out.</h4>
+                </div>
+            </div>
+            <a href="{% url 'api:login' %}">
+            	<button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Log in Again</h3></button>
+            </a>
+    </div>
+</div>
 {% endblock %}

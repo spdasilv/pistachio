@@ -21,5 +21,20 @@
 <footer>
 </footer>
 {% else %}
-    <p>Please Login to Utilize Application</p>
+<head>
+    <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+</head>
+    <div class="col-4 offset-4">
+    <div class="parent-container1">
+            <div class="login-container" >
+                <div>
+                    <h4 class="main-title login-title" style="text-align: center;">You need to login.</h4>
+                </div>
+            </div>
+            <a href="{% url 'api:login' %}">
+                <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Log into Pistachio</h3></button>
+            </a>
+    </div>
+</div>
 {% endif %}
