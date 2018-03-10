@@ -15,6 +15,16 @@
               .checked {
                     color: orange;
                 }
+
+                th, td {
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 2px;
+                background: transparent;
+                font-size: 14px;
+                font-weight: normal;
+                color: var(--darkergrey);
+                }
+              
             </style>
         </head>
         <body>
@@ -79,9 +89,9 @@
                         {% with y=forloop.counter|stringformat:"s" %}
                             <div class="attraction" id = '{{ "object_"|add:y }}' style="display:none;">
                                     <!--title-->
-                                    <h1 class="attraction-title" style="float:left">
+                                    <h2 class="attraction-title" style="float:left">
                                         {{ act.name }}
-                                    </h1>
+                                    </h2>
                                     <!-- for remove button, use grey-button class-->
                                     <button class="green-button" style="float:right" value="{{ act.id }}">
                                         <h3>
@@ -95,8 +105,8 @@
                                             <img src="{{ act.img_url }}" width="300" height="200"></img>
                                         </div>
                                         <div class="col-5">
-                                            <h4>{{act.schedule}}</h4>
                                             <p>Hours</p>
+                                            <p id = "demo"></p>
                                             <p>Price</p>
                                         </div>
                                     </div>
@@ -195,28 +205,58 @@
                         });
 
                     });
-         $.fn.stars = function() {
-            return $(this).each(function() {
 
-                var rating = $(this).data("rating");
+          $.fn.stars = function() {
+                return $(this).each(function() {
 
-                var numStars = $(this).data("numStars");
+                    var rating = $(this).data("rating");
 
-                var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
+                    var numStars = $(this).data("numStars");
 
-                var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
+                    var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star checked"></i>');
 
-                var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
+                    var halfStar = ((rating%1 != 0)) ?'<i class="fa fa-star" aria-hidden="true"></i>': '';
 
-                $(this).html(fullStar + halfStar + noStar);
+                    var noStar = new Array(Math.floor(numStars + 1 - rating)).join('<i class="fa fa-star"></i>');
 
-            });
-        }
+                    $(this).html(fullStar + halfStar + noStar);
+
+                });
+            }
 
         $('.stars').stars();
+
+        $(document).ready(function(){
+                    var sch =  "(2, '1000', '1730'); (4, '1000', '1730'); (5, '1000', '1730'); (6, '1000', '1730'); (7, '1000', '1730'); (3, '1000', '2030')";
+                    sch = sch.replace(/[''()+]/g, '');
+                    var hours = new Array();
+                    hours = sch.split(";");
+                    var ven_hour = new Array ();
+                    for (var i = 0; i < hours.length; i++) {
+                        var temp = hours[i].split(",");
+                        day = dayOfWeekAsString(parseInt(temp[0]));
+                        temp[1] = temp[1].replace(/(.{2})$/,':$1');
+                        var open = temp[1];
+                        temp[2] = temp[2].replace(/(.{2})$/,':$1');
+                        var close = temp[2];
+                        var ven_hour_temp = day.concat(" -  ",open," ", "to", " ", close);
+                        ven_hour.push(ven_hour_temp);
+                    }
+                    var $table = $( "<table></table>" );
+                    for ( var i = 0; i < ven_hour.length; i++ ) {
+                        var $line = $( "<tr></tr>" );
+                        $line.append( $( "<td></td>" ).html( ven_hour[i] ) );
+                        $table.append( $line );
+                    }
+                    $table.appendTo( $( "#demo" ) );
+                   // document.getElementById("demo").innerHTML = ven_hour;
+                   function dayOfWeekAsString(dayIndex) {
+                      return ["","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][dayIndex];
+                    }
+        });
     </script>
 </html>
 {% else %}
-    ACCESS DENIED
+ACCESS DENIED
 {% endif %}
 {% endblock %}

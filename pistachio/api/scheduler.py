@@ -320,7 +320,7 @@ def calculateCost(coordinates):
                     string = response.read().decode('utf-8')
                     obj = json.loads(string)
                     time = int(obj['rows'][0]['elements'][0]['duration']['value'] / 60)
-                    time_cost[(value1['id'], value2['id'])] = time
+                    time_cost[(value1['id'], value2['id'])] = time + 20
     return time_cost
 
 
@@ -335,7 +335,7 @@ def scheduleRun(input, days):
     # Initialize population
     pop = Population(tourmanager, 120, True, cost_matrix, days)
 
-    # Evolve population for 200 generations
+    # Evolve population for 51 generations
     ga = GA(tourmanager, cost_matrix)
     for j in range(0, 51):
         pop = ga.evolvePopulation(pop)

@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .scheduler import scheduleRun
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
-from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedActivities, Hotels
+from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedActivities, Hotels, ScheduleDetails, Schedules
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
@@ -22,7 +22,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('/api/bidLocations')
+            return redirect('/api/login')
     else:
         form = SignUpForm()
     return render(request, 'api/signup.html', {'form': form})
@@ -127,7 +127,7 @@ def minToHour(min):
 
     minutes_str = ''
     minutes = min - hour*60
-    if min < 10:
+    if minutes < 10:
         minutes_str += '0'
     minutes_str += str(minutes)
 
@@ -195,7 +195,7 @@ def runGA(request):
                     'schedule': schedule
                 }
         schedule = scheduleRun(dict, days)
-        results = generateResponse(schedule, locations, tripStart)
+        results = generateResponse(schedule, locations, tripStart, obj['trip_id'])
     return JsonResponse(results)
 
 
@@ -270,12 +270,19 @@ def convertToDict(list):
     return dict
 
 
-def generateResponse(schedule, locations, start_date):
+def generateResponse(schedule, locations, start_date, trip_id):
     response = {}
     for i, bucket in enumerate(schedule):
+        schedule = Schedules(trip_id=trip_id, day=start_date + datetime.timedelta(days=i))
+        schedule.save()
         response[str(start_date + datetime.timedelta(days=i))] = {}
         for j, activity in enumerate(bucket.plan):
             location = locations.get(pk=activity[0])
+            schedule_detail = ScheduleDetails(schedule_id=schedule.id, activity_id=location.id, activity_order=j,
+                                              activity_name=location.name, activity_starts=minToHour(activity[1]),
+                                              activity_ends=minToHour(activity[1] + activity[2]),
+                                              activity_lat=activity[3], activity_lon=activity[4])
+            schedule_detail.save()
             response[str(start_date + datetime.timedelta(days=i))]['activity_' + str(j)] = {
                 'activity_name': location.name,
                 'activity_start': minToHour(activity[1]),

@@ -5,9 +5,11 @@
     <html>
     <head>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
-        <script src="../js/fontawesome/fontawesome-all.js"></script>
+        <link href="{% static "api/css/style_calendar.css" %}" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static "api/js/fontawesome-all.js" %}"></script>
+        <script src="{% static "api/js/modernizr.js" %}"></script>
+        <script src="{% static "api/js/main.js" %}"></script>
 
         <style>
         .tab {
@@ -174,16 +176,83 @@
 
                             <!-- Tab links -->
                         <div class="tab box-header schedule-header">
-                          <button class="tablinks" onclick="openCity(event, 'Overview')"><h4>Overview</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day1')" id="submit"><h4>Day 1</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day2')"><h4>Day 2</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day3')"><h4>Day 3</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Overview')"><h4>Overview</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day1')"><h4>Day 1</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day2')"><h4>Day 2</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day3')"><h4>Day 3</h4></button>
                         </div>
 
                         <!-- Tab content -->
                         <div id="Overview" class="tabcontent">
                           <h2>Overview</h2>
-                          <p>Calendar here</p>
+                          <div class="cd-schedule loading">
+                            <div class="timeline">
+                            <ul><li><span>08:00</span></li>
+                            <li><span>08:30</span></li>
+                            <li><span>09:00</span></li>
+                            <li><span>09:30</span></li>
+                            <li><span>10:00</span></li>
+                            <li><span>10:30</span></li>
+                            <li><span>11:00</span></li>
+                            <li><span>11:30</span></li>
+                            <li><span>12:00</span></li>
+                            <li><span>12:30</span></li>
+                            <li><span>13:00</span></li>
+                            <li><span>13:30</span></li>
+                            <li><span>14:00</span></li>
+                            <li><span>14:30</span></li>
+                            <li><span>15:00</span></li>
+                            <li><span>15:30</span></li>
+                            <li><span>16:00</span></li>
+                            <li><span>16:30</span></li>
+                            <li><span>17:00</span></li>
+                            <li><span>17:30</span></li>
+                            <li><span>18:00</span></li>
+                            </ul>
+                            </div> <!-- .timeline -->
+
+                            <div class="events">
+                            <ul>
+                            {% for schedule in trip.schedules_set.all %}
+                                <li class="events-group">
+                                <div class="top-info"><span>{{ schedule.day }}</span></div>
+                                <ul>
+                                    {% for detail in schedule.scheduledetails_set.all %}
+                                        <li class="single-event" data-start="{{ detail.activity_starts }}"
+                                            data-end="{{ detail.activity_ends }} "
+                                            data-content="event-{{ detail.activity_id }}"
+                                            data-event="event-{{ forloop.counter }}">
+                                        <a href="#0">
+                                        <em class="event-name">{{ detail.activity_name }}</em>
+                                        </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            </div>
+
+                            <div class="event-modal">
+                            <header class="header">
+                            <div class="content">
+                            <span class="event-date"></span>
+                            <h3 class="event-name"></h3>
+                            </div>
+
+                            <div class="header-bg"></div>
+                            </header>
+
+                            <div class="body">
+                            <div class="event-info"></div>
+                            <div class="body-bg"></div>
+                            </div>
+
+                            <a href="#0" class="close">Close</a>
+                            </div>
+
+                            <div class="cover-layer"></div>
+                        </div>
                         </div>
 
                         <div id="Day1" class="tabcontent">
@@ -286,7 +355,7 @@
         </div>
 
         <script>
-            function openCity(evt, cityName) {
+            function openDay(evt, cityName) {
             // Declare all variables
             var i, tabcontent, tablinks;
 
