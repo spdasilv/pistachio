@@ -1,4 +1,4 @@
-{% extends "api/index.html" %}
+ {% extends "api/index.html" %}
 {% block content %}
 {% if trip.stage == 3 %}
     {% load static %}
@@ -10,153 +10,6 @@
         <script src="{% static "api/js/fontawesome-all.js" %}"></script>
         <script src="{% static "api/js/modernizr.js" %}"></script>
         <script src="{% static "api/js/main.js" %}"></script>
-
-        <style>
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 11px 50px;
-            transition: 0.3s;
-        }
-
-        .tab button h4 {
-            color:var(--darkergrey);
-            text-transform: uppercase;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover h4 {
-            color:var(--green);
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active h4{
-            color:var(--green);
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            border-top: none;
-            padding: 20px 50px;
-        }
-        .dayContent {
-            border-top: none;
-            margin-top: -20px;
-            margin-bottom: -20px;
-            margin-left:-50px;
-            margin-right:-50px;
-        }
-        .tabcontent h2 {
-            text-transform: uppercase;
-            color:var(--darkwriting);
-            letter-spacing:1.5px;
-            padding-bottom:20px;
-            border-bottom:1px solid var(--darkergrey);
-            margin-bottom:20px;
-        }
-
-        .half-tab {
-            width:50%;
-            float: left;
-            display:inline-block;
-            padding: 20px 50px;
-        }
-
-       #map {
-            height: 87%;
-            float: left;
-            width:50%;
-            border: none;
-            display:inline-block;
-       }
-       #directions-panel {
-            border:none;
-            overflow-y:scroll;
-            height: 65%;
-            padding-top:10px;
-            padding-bottom:10px;
-       }
-       .LocationDesc{
-            padding-top:0px;
-            padding-bottom:0px;
-            float: left;
-            width:20%;
-            border: none;
-            display:inline-block;
-       }
-       .ptLetter{
-            font-size:14px;
-            color: var(--gold);
-            margin-bottom:-14px;
-       }
-       .ptTime{
-            font-size:17px;
-            color: var(--darkwriting);
-            font-weight:bold;
-            margin-bottom:-12px;
-       }
-       .ptName{
-            font-size:13px;
-            color: var(--darkergrey);
-            font-weight:lighter;
-       }
-       .locDivider{
-            float: left;
-            width:18%;
-            display:inline-block;
-            height:83px;
-            padding-top:35px;
-            position:absoluate;
-       }
-       .TransMode{
-            font-size:11px;
-            color: var(--darkergrey);
-            font-weight:normal;
-            float: left;
-            width:20%;
-            display:inline-block;
-            padding-top:24px;
-            padding-bottom:24px;
-            text-align:center;
-       }
-       .lenStay{
-            background-color:var(--silver);
-            text-align:center;
-            padding-bottom:2px;
-            border-color:var(--darkergrey);
-            border-style: solid;
-            border-width: 1px;
-       }
-       .suggTime{
-            font-size:11px;
-            color: var(--darkergrey);
-            font-weight:lighter;
-            margin-bottom:-12px;
-       }
-       .depTime{
-            font-size:11px;
-            color: var(--gold);
-       }
-       .Suggestion{
-            height:83px;
-            float: left;
-            width:100%;
-            padding-left:20%;
-            padding-right:20%;
-            padding-top:16px;
-       }
-</style>
     </head>
     <body>
         <!------- -->
@@ -172,19 +25,20 @@
             <div>
                 
                 <hr>
-                    <div class="box-container">
-
-                            <!-- Tab links -->
-                        <div class="tab box-header schedule-header">
-                          <button class="tablinks" onclick="openDay(event, 'Overview')"><h4>Overview</h4></button>
+                <div class="tab schedule-header">
+                          <button class="tablinks" onclick="openDay(event, 'Overview')" id="defaultOpen"><h4>Overview</h4></button>
                           <button class="tablinks" onclick="openDay(event, 'Day1')" id="submit"><h4>Day 1</h4></button>
                           <button class="tablinks" onclick="openDay(event, 'Day2')"><h4>Day 2</h4></button>
                           <button class="tablinks" onclick="openDay(event, 'Day3')"><h4>Day 3</h4></button>
                         </div>
+                    <div class="schedule-container">
+
+                            <!-- Tab links -->
+                        
 
                         <!-- Tab content -->
                         <div id="Overview" class="tabcontent">
-                          <h2>Overview</h2>
+                          <!-- <h2>Overview</h2> -->
                           <div class="cd-schedule loading">
                             <div class="timeline">
                             <ul><li><span>08:00</span></li>
@@ -375,6 +229,8 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        document.getElementById("defaultOpen").click();
         </script>
     </body>
 </html>
