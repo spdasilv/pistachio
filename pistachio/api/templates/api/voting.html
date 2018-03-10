@@ -33,21 +33,16 @@
                     <hr>
             </div>
             <!-- MAIN (Center Gallery) -->
-            <div class="parent-container1">
             <div class="voting-main">
-
-                <ul class="voting-legend">
-                    <li>
-                        <p> <i class="material-icons">&#xE838;</i>Must Have</p>
-                    </li>
-                    <li>
-                        <p><i class="material-icons">&#xE839;</i> Interested, If there's time</p>
-                    </li>
-                    <li>
-                        <p> <i class="material-icons">&#xE83A;</i>Not Interested</p>
-                    </li>
-                </ul>
-
+            <label class="material-icons"> <p>Must Have</p> </label>
+                <input type="radio"/>
+                <span> &#xE838; </span>
+            <label class="material-icons"><p>Interested, If there's time</p></label>
+                <input type="radio"/>
+                <span> &#xE839; </span>
+            <label class="material-icons"><p>Not Interested</p></label>
+                <input type="radio"/>
+                <span> &#xE83A; </span>
             <!-- Gallery Grid -->
                 <div class="polaroid-row">
                     {% for act in actDetails.all %}
@@ -55,12 +50,10 @@
                             <div class="polaroid-column">
                                 <div class="content">
                                     <img src="{{ act.img_url }}" alt="image" style="width:100%">
-                                    <div class="content-text-container">
                                     <div class="content-text">
                                         <h3>{{act.name}}</h3>
                                         <p>{{act.types}}</p>
                                     </div>
-                                </div>
                                     <div class="tile-ratings">
                                         <span class="stars" data-rating="{{ act.stars }}" data-num-stars="5"></span>
                                         <h5></h5>
@@ -119,7 +112,6 @@
                     </h3>
                 </button>
             </div>
-        </div>
         </body>
         <script>
             function submitActivities() {

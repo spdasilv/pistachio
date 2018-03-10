@@ -185,10 +185,7 @@ FRAMES FOR PAGES
     height: 600px;
     border: 1px solid var(--darkgrey);
     margin-top: 50px;
-    /*margin-top:-1px;*/
     background: white;
-    overflow-y: scroll;
-    overflow-x:scroll;
 }
 .left-box {
     float: left;
@@ -204,16 +201,20 @@ FRAMES FOR PAGES
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid var(--darkgrey);
     border-right: 1px solid var(--darkgrey);
-    width: 29.2%;
+    width: 100.5%;
     padding: 0;
     display: table;
-    position:fixed;
 }
 .box-header h4 {
     letter-spacing: 1px;
     color: var(--darkergrey);
     text-decoration: none;
 }
+/*.box-header h4 a:hover, .box-header h4 a:active {
+    cursor: pointer;
+    color: var(--green) !important;
+    -webkit-transition: all 0.25s ease;
+}*/
 
 .box-header ul {
     before: none;
@@ -244,89 +245,38 @@ FRAMES FOR PAGES
     border-radius: 100px;
     z-index: 2;
     position: absolute;
-    margin-left: 430px;
+    margin-left: 380px;
     margin-top: 20px;
 }
-
-.schedule-header h4 {
-    letter-spacing: 1px;
-    color: var(--darkergrey);
-    text-decoration: none;
-}
-
-.schedule-header ul {
-    before: none;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    padding: 0;
-    /*margin-top:20px;*/
-    display: table-cell;
-    vertical-align: middle;
-    padding-top: 20px;
-    width: 100%;
-    /*background:blue;*/
-    text-align: center;
-    height: 100%;
-}
-.schedule-header ul li {
-    display: inline;
-    /*padding:5px 40px;*/
-    text-transform: uppercase;
-    /*background:pink;*/
-    padding: 0 40px;
-}
-
 .schedule-header {
-    width: calc(100% + 1px);
-    margin-top:50px;
-    /*margin-left:1px;*/
-    height: 75px;
-    /*background: rgba(245, 245, 245, 0.95);*/
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid var(--darkgrey);
-    border-right: 1px solid var(--darkgrey);
-    width: 100%;
-    padding: 0;
-    display: table;
+    width: calc(100% + 3px);
+    border-right: 0px;
+    margin-top:-1px;
+    margin-left:-1px;
+
+}
+./*schedule-header ul {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 150px;
+    padding-top:25px;
+    
+}
+.schedule-header a {
+    color:var(--darkergrey);
+     margin-right: 50px;
+     margin-left:10px;
 }
 
-.schedule-container {
-    height: 550px;
-    border: 1px solid var(--darkgrey);
-    margin-top: -1px;
-    background: white;
-    overflow-y: scroll;
-    overflow-x:scroll;
-}
-
-.timeline ul {
-    list-style-type: none;
-    color: var(--darkergrey);
-}
-
-.events ul {
-    list-style-type:none;
-}
-
-.events .top-info >span {
-font-weight:700 !important;
-color:var(--darkwriting) !important;
-font-size:1.2em;
-}
-
-
-
-/*===================================
-ATTRACTIONS
-==================================== */
+.schedule-header a:hover, .schedule-header a:focus {
+    color: var(--green) !important;
+}*/
 .tile {
     background: var(--silver);
     height: 150px;
     width: 100%;
     border-bottom: 0.25px solid var(--darkgrey);
     color: var(--darkwriting);
-    position:relative;
 }
 .tile-selected {
     /*background:var(--darkgrey);*/
@@ -353,7 +303,7 @@ ATTRACTIONS
     /*padding:22px;*/
     margin: 20px;
     height: 110px;
-    /*background: pink;*/
+    background: pink;
     width: 20%;
     float: left;
 }
@@ -675,39 +625,11 @@ a {
 VOTING PAGE
 ================================ */
 
-
-.voting-legend{
-    list-style-type: none !important;
-    display:inline;
-}
-
-.voting-legend li {
-    display:inline-block;
-    list-style-type: none;
-    padding:0 30px;
-    line-height:30px;
-}
-
-.voting-legend i {
-    top:40px;
-    font-size:30px;
-    margin-right:7px;
-    vertical-align: bottom;
-}
-
-
 .voting-main{
     max-width: 1400px;
     margin: auto;
-    font-family: Lato, sans-serif;
+    font-family: Roboto, -apple-system, sans-serif;
     text-align: center;
-}
-
-
-.voting-main p {
-    font-size:18px;
-    color:var(--darkwriting);
-
 }
 
 h1 {
@@ -740,38 +662,19 @@ h1 {
 /* content */
 .content {
 background: #e8ebee;
-border-radius: 5px;
-/*border: 1px solid var(--darkgrey);*/
-      -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.25));
-      filter: drop-shadow(1px 2px 5px rgba(0,0,0,.25));
+border-radius: .75em;
+      -webkit-filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
+      filter: drop-shadow(1px 2px 5px rgba(0,0,0,.3));
 padding: 10px;
 text-align: center;
-}
-
-.content-text-container {
-    display:table;
-    min-height:100px;
-    max-height:150px;
-    /*background-color:pink;*/
-    position:relative;
-        margin-right:auto;
-    margin-left:auto;
-}
-
-.content-text {
-    display:table-cell;
-    vertical-align: middle;
 }
 .content-text h3 {
     text-transform: uppercase;
     letter-spacing:0.5px;
-    font-size:18px;
-    color:var(--darkwriting);
 }
 .content-text p {
 font-size:0.9em;
 font-style:italic;
-color:var(--darkergrey);
 }
 .label{
 font-size:0.9em;
@@ -829,59 +732,3 @@ input[type="radio"]:focus + span {
 .checked {
         color: orange;
 }
-
-/* =============================================
-* SCHEDULING, CALENDAR PAGE
-=============================================== */
-
-.tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 11px 50px;
-            transition: 0.3s;
-        }
-
-        .tab button h4 {
-            color:var(--darkergrey);
-            text-transform: uppercase;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover h4 {
-            color:var(--green);
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active h4{
-            color:var(--green);
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 20px 50px;
-            border-top: none;
-        }
-
-        .tabcontent h2 {
-            text-transform: uppercase;
-            color:var(--darkwriting);
-            letter-spacing:1.5px;
-            padding-bottom:20px;
-            border-bottom:1px solid var(--darkergrey);
-            margin-bottom:50px;
-        }
-
-        .half-tab {
-            width:50%;
-        }
