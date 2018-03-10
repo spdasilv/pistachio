@@ -79,9 +79,9 @@
                         {% with y=forloop.counter|stringformat:"s" %}
                             <div class="attraction" id = '{{ "object_"|add:y }}' style="display:none;">
                                     <!--title-->
-                                    <h1 class="attraction-title" style="float:left">
+                                    <h2 class="attraction-title" style="float:left">
                                         {{ act.name }}
-                                    </h1>
+                                    </h2>
                                     <!-- for remove button, use grey-button class-->
                                     <button class="green-button" style="float:right" value="{{ act.id }}">
                                         <h3>
@@ -95,8 +95,8 @@
                                             <img src="{{ act.img_url }}" width="300" height="200"></img>
                                         </div>
                                         <div class="col-5">
-                                            <h4>{{act.schedule}}</h4>
                                             <p>Hours</p>
+                                            <p>{{act.schedule}}</p>
                                             <p>Price</p>
                                         </div>
                                     </div>
