@@ -39,16 +39,16 @@
                     {% csrf_token %}
                     {% for field in form %}
                       <p>
-                        <h4 class="main-title login-title">{{ field.label_tag }}</h4>
+                        <h4 class="headline">{{ field.label_tag }}</h4>
                         {{ field }}
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
                         {% endfor %}
                       </p>
                     {% endfor %}
-                    <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
                   </form>
                 </div>
+                 <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
                 </form>
             </div>
         </div>
