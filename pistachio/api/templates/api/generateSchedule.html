@@ -5,6 +5,8 @@
     <html>
     <head>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
         <script src="../js/fontawesome/fontawesome-all.js"></script>
 
         <style>
@@ -43,10 +45,16 @@
         /* Style the tab content */
         .tabcontent {
             display: none;
-            padding: 20px 50px;
             border-top: none;
+            padding: 20px 50px;
         }
-
+        .dayContent {
+            border-top: none;
+            margin-top: -20px;
+            margin-bottom: -20px;
+            margin-left:-50px;
+            margin-right:-50px;
+        }
         .tabcontent h2 {
             text-transform: uppercase;
             color:var(--darkwriting);
@@ -58,7 +66,26 @@
 
         .half-tab {
             width:50%;
+            float: left;
+            display:inline-block;
+            padding: 20px 50px;
         }
+
+       #map {
+            height: 87%;
+            float: left;
+            width:50%;
+            border: none;
+            float: left;
+            display:inline-block;
+       }
+       #directions-panel {
+            margin-top: 10px;
+            background-color: #FFEE77;
+            padding: 10px;
+            overflow: scroll;
+            height: 174px;
+       }
 </style>
     </head>
     <body>
@@ -80,7 +107,7 @@
                             <!-- Tab links -->
                         <div class="tab box-header schedule-header">
                           <button class="tablinks" onclick="openCity(event, 'Overview')"><h4>Overview</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day1')"><h4>Day 1</h4></button>
+                          <button class="tablinks" onclick="openCity(event, 'Day1')" id="submit"><h4>Day 1</h4></button>
                           <button class="tablinks" onclick="openCity(event, 'Day2')"><h4>Day 2</h4></button>
                           <button class="tablinks" onclick="openCity(event, 'Day3')"><h4>Day 3</h4></button>
                         </div>
@@ -92,24 +119,88 @@
                         </div>
 
                         <div id="Day1" class="tabcontent">
+                            <div class="dayContent">
                             <div class="half-tab">
-                          <h2>Day 1</h2>
-                          <p>London is the capital city of England.</p>
-                        </div>
-                        </div>
+                              <h2>Day 1</h2>
+                              <p>London is the capital city of England.</p>
+                            </div>
+
+                                                                        <div id="map"></div>
+                                                                        <script>
+                                                                          function initMap() {
+                                                                            var directionsService = new google.maps.DirectionsService;
+                                                                            var directionsDisplay = new google.maps.DirectionsRenderer;
+                                                                            var map = new google.maps.Map(document.getElementById('map'), {
+                                                                              zoom: 6,
+                                                                              center: {lat: 41.85, lng: -87.65}
+                                                                            });
+                                                                            directionsDisplay.setMap(map);
+
+                                                                            document.getElementById('submit').addEventListener('click', function() {
+                                                                              calculateAndDisplayRoute(directionsService, directionsDisplay);
+                                                                            });
+                                                                          }
+
+                                                                          function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                                                                            var waypts = [];
+                                                                            var checkboxArray = [{lat: 43.70, lng: -79.42},{lat: 45.52, lng: -73.66}];
+                                                                            for (var i = 0; i < checkboxArray.length; i++) {
+                                                                                waypts.push({
+                                                                                  location: checkboxArray[i],
+                                                                                  stopover: true
+                                                                                });
+                                                                            }
+
+                                                                            directionsService.route({
+                                                                              origin: {lat: 41.85, lng: -87.65},
+                                                                              destination: {lat: 45.85, lng: -87.65},
+                                                                              waypoints: waypts,
+                                                                              optimizeWaypoints: true,
+                                                                              travelMode: 'DRIVING'
+                                                                            }, function(response, status) {
+                                                                              if (status === 'OK') {
+                                                                                directionsDisplay.setDirections(response);
+                                                                                var route = response.routes[0];
+                                                                                var summaryPanel = document.getElementById('directions-panel');
+                                                                                summaryPanel.innerHTML = '';
+                                                                                // For each route, display summary information.
+                                                                                for (var i = 0; i < route.legs.length; i++) {
+                                                                                  var routeSegment = i + 1;
+                                                                                  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                                                                                      '</b><br>';
+                                                                                  summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                                                                                  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                                                                                  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+                                                                                }
+                                                                              } else {
+                                                                                window.alert('Directions request failed due to ' + status);
+                                                                              }
+                                                                            });
+                                                                          }
+                                                                        </script>
+                                                                    <script async defer
+                                                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbUR_7faWzM6YBbcDtBXBLOfvpGc6L_Iw&callback=initMap">
+                                                                    </script>
+                                    </div>
+                            </div>
 
                         <div id="Day2" class="tabcontent">
-                           <div class="half-tab">
-                          <h2>Day 2</h2>
-                          <p>Paris is the capital of France.</p>
-                        </div>
+                            <div class="dayContent">
+                               <div class="half-tab">
+                                  <h2>Day 2</h2>
+                                  <p>Paris is the capital of France.</p>
+                                </div>
+                            </div>
+                            <div id="map"></div>
                         </div>
 
                         <div id="Day3" class="tabcontent">
-                           <div class="half-tab">
-                          <h2>Day 3</h2>
-                          <p>Tokyo is the capital of Japan.</p>
-                        </div>
+                            <div class="dayContent">
+                               <div class="half-tab">
+                                  <h2>Day 3</h2>
+                                  <p>Tokyo is the capital of Japan.</p>
+                                </div>
+                            </div>
                         </div>
 
                 </hr>
