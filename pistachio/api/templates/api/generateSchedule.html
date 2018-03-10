@@ -12,7 +12,6 @@
         <script src="{% static "api/js/main.js" %}"></script>
     </head>
     <body>
-        <!------- -->
         <div class="parent-container1">
             <h5 class="sub-title">
                 <a href="{% url 'api:home' %}">
@@ -25,11 +24,12 @@
             <div>
                 
                 <hr>
-                <div class="tab schedule-header">
-                          <button class="tablinks" onclick="openCity(event, 'Overview')" id="defaultOpen"><h4>Overview</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day1')"><h4>Day 1</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day2')"><h4>Day 2</h4></button>
-                          <button class="tablinks" onclick="openCity(event, 'Day3')"><h4>Day 3</h4></button>
+                            <!-- Tab links -->
+                        <div class="tab box-header schedule-header">
+                          <button class="tablinks" onclick="openDay(event, 'Overview')"><h4>Overview</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day1')"><h4>Day 1</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day2')"><h4>Day 2</h4></button>
+                          <button class="tablinks" onclick="openDay(event, 'Day3')"><h4>Day 3</h4></button>
                         </div>
                     <div class="schedule-container">
 
@@ -138,7 +138,7 @@
         </div>
 
         <script>
-            function openCity(evt, cityName) {
+            function openDay(evt, cityName) {
             // Declare all variables
             var i, tabcontent, tablinks;
 
