@@ -566,6 +566,7 @@ input, select, textarea {
     margin-bottom: 15px;
     padding: 0 20px;
     border-radius: 3px;
+    border: none;
     background: var(--green);
     color: white;
     letter-spacing: 2px;
@@ -587,6 +588,7 @@ input, select, textarea {
     border-radius: 3px;
     background: var(--gold);
     color: white;
+    border: none;
     letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.10);
@@ -606,6 +608,7 @@ input, select, textarea {
     border-radius: 3px;
     background: darkgrey;
     color: white;
+    border: none;
     letter-spacing: 2px;
     text-transform: uppercase;
     box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.10);
