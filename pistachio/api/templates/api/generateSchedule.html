@@ -10,60 +10,6 @@
         <script src="{% static "api/js/fontawesome-all.js" %}"></script>
         <script src="{% static "api/js/modernizr.js" %}"></script>
         <script src="{% static "api/js/main.js" %}"></script>
-
-        <style>
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 11px 50px;
-            transition: 0.3s;
-        }
-
-        .tab button h4 {
-            color:var(--darkergrey);
-            text-transform: uppercase;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover h4 {
-            color:var(--green);
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active h4{
-            color:var(--green);
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 20px 50px;
-            border-top: none;
-        }
-
-        .tabcontent h2 {
-            text-transform: uppercase;
-            color:var(--darkwriting);
-            letter-spacing:1.5px;
-            padding-bottom:20px;
-            border-bottom:1px solid var(--darkergrey);
-            margin-bottom:50px;
-        }
-
-        .half-tab {
-            width:50%;
-        }
-</style>
     </head>
     <body>
         <!------- -->
@@ -79,22 +25,24 @@
             <div>
                 
                 <hr>
-                    <div class="box-container">
-
-                            <!-- Tab links -->
-                        <div class="tab box-header schedule-header">
-                          <button class="tablinks" onclick="openCity(event, 'Overview')"><h4>Overview</h4></button>
+                <div class="tab schedule-header">
+                          <button class="tablinks" onclick="openCity(event, 'Overview')" id="defaultOpen"><h4>Overview</h4></button>
                           <button class="tablinks" onclick="openCity(event, 'Day1')"><h4>Day 1</h4></button>
                           <button class="tablinks" onclick="openCity(event, 'Day2')"><h4>Day 2</h4></button>
                           <button class="tablinks" onclick="openCity(event, 'Day3')"><h4>Day 3</h4></button>
                         </div>
+                    <div class="schedule-container">
+
+                            <!-- Tab links -->
+                        
 
                         <!-- Tab content -->
                         <div id="Overview" class="tabcontent">
-                          <h2>Overview</h2>
+                          <!-- <h2>Overview</h2> -->
                           <div class="cd-schedule loading">
                             <div class="timeline">
-                            <ul><li><span>08:00</span></li>
+                            <ul>
+                                <li><span>08:00</span></li>
                             <li><span>08:30</span></li>
                             <li><span>09:00</span></li>
                             <li><span>09:30</span></li>
@@ -166,6 +114,8 @@
                             <div class="half-tab">
                           <h2>Day 1</h2>
                           <p>London is the capital city of England.</p>
+
+
                         </div>
                         </div>
 
@@ -208,6 +158,8 @@
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        document.getElementById("defaultOpen").click();
         </script>
     </body>
 </html>
