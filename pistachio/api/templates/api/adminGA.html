@@ -1,5 +1,4 @@
-{% if user.is_superuser %}
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     {% csrf_token %}
     <form method='post' id ='runGA'>
     <p>
@@ -61,6 +60,3 @@
         return result;
     }
     </script>
-{% else %}
-    <p>Only administrators can access this page.</p>
-{% endif %}
