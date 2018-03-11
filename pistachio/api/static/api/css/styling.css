@@ -853,7 +853,7 @@ GENERATE SCHEDULE PAGE
      display: inline-block;
      padding: 20px 50px;
  }
- #map {
+ .map {
      height: 100%;
      float: left;
      width: 50%;
@@ -861,7 +861,7 @@ GENERATE SCHEDULE PAGE
      display: inline-block;
      position:fixed;
  }
- #directions-panel {
+ .directions-panel {
      border: none;
      overflow-y: scroll;
      height: 75%;
