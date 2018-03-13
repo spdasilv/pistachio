@@ -28,7 +28,9 @@
                 <div class="tab schedule-header">
                           <button class="tablinks" onclick="openDay(event, 'Overview')" id="defaultOpen"><h4>Overview</h4></button>
                           {% for schedule in trip.schedules_set.all %}
-                              <button class="tablinks" onclick="openDay(event, 'Day_{{ forloop.counter }}')" id="getDay_{{ forloop.counter }}"><h4>Day {{ forloop.counter }}</h4></button>
+                              {% if schedule.scheduledetails_set.count > 0 %}
+                                  <button class="tablinks" onclick="openDay(event, 'Day_{{ forloop.counter }}')" id="getDay_{{ forloop.counter }}"><h4>Day {{ forloop.counter }}</h4></button>
+                              {% endif %}
                           {% endfor %}
                         </div>
                     <div class="schedule-container">
@@ -89,15 +91,17 @@
                             </div>
                         </div>
                         {% for schedule in trip.schedules_set.all %}
-                            <div id="Day_{{ forloop.counter }}" class="tabcontent">
-                                <div class="dayContent">
-                                    <div class="half-tab">
-                                      <h2>Day {{ forloop.counter }}</h2>
-                                      <div id="directions-panel_{{ forloop.counter }}" class="directions-panel"></div>
+                            {% if schedule.scheduledetails_set.count > 0 %}
+                                <div id="Day_{{ forloop.counter }}" class="tabcontent">
+                                    <div class="dayContent">
+                                        <div class="half-tab">
+                                          <h2>Day {{ forloop.counter }}</h2>
+                                          <div id="directions-panel_{{ forloop.counter }}" class="directions-panel"></div>
+                                        </div>
+                                        <div id="map_{{ forloop.counter }}" class="map"></div>
                                     </div>
-                                    <div id="map_{{ forloop.counter }}" class="map"></div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
 
 
@@ -108,36 +112,38 @@
         <script>
             function initMap() {
                 {% for schedule in trip.schedules_set.all %}
-                    var directionsService_{{ forloop.counter }} = new google.maps.DirectionsService;
-                    var directionsDisplay_{{ forloop.counter }} = new google.maps.DirectionsRenderer;
-                    var map_{{ forloop.counter }} = new google.maps.Map(document.getElementById("map_{{ forloop.counter }}"), {
-                      zoom: 6,
-                      center: {lat: {{ trip.hotel.lat }}, lng: {{ trip.hotel.lon }}}
-                    });
-                    directionsDisplay_{{ forloop.counter }}.setMap(map_{{ forloop.counter }});
-                    directionsDisplay_{{ forloop.counter }}.setOptions( { suppressMarkers: true });
-                    var activities_{{ forloop.counter }} = [];
-                    var schedule_{{ forloop.counter }} = [];
-                    var marker = new google.maps.Marker({
-                          position: {lat: {{ trip.hotel.lat }}, lng: {{ trip.hotel.lon }}},
-                          map: map_{{ forloop.counter  }},
-                          title: 'Hotel',
-                          label: 'H'
+                    {% if schedule.scheduledetails_set.count > 0 %}
+                        var directionsService_{{ forloop.counter }} = new google.maps.DirectionsService;
+                        var directionsDisplay_{{ forloop.counter }} = new google.maps.DirectionsRenderer;
+                        var map_{{ forloop.counter }} = new google.maps.Map(document.getElementById("map_{{ forloop.counter }}"), {
+                          zoom: 6,
+                          center: {lat: {{ trip.hotel.lat }}, lng: {{ trip.hotel.lon }}}
                         });
-                    {% for detail in schedule.scheduledetails_set.all %}
+                        directionsDisplay_{{ forloop.counter }}.setMap(map_{{ forloop.counter }});
+                        directionsDisplay_{{ forloop.counter }}.setOptions( { suppressMarkers: true });
+                        var activities_{{ forloop.counter }} = [];
+                        var schedule_{{ forloop.counter }} = [];
                         var marker = new google.maps.Marker({
-                          position: {lat: {{ detail.activity_lat }}, lng: {{ detail.activity_lon }}},
-                          map: map_{{ forloop.parentloop.counter  }},
-                          title: '{{ detail.activity_name }}',
-                          label: '{{ forloop.counter }}'
+                              position: {lat: {{ trip.hotel.lat }}, lng: {{ trip.hotel.lon }}},
+                              map: map_{{ forloop.counter  }},
+                              title: 'Hotel',
+                              label: 'H'
+                            });
+                        {% for detail in schedule.scheduledetails_set.all %}
+                            var marker = new google.maps.Marker({
+                              position: {lat: {{ detail.activity_lat }}, lng: {{ detail.activity_lon }}},
+                              map: map_{{ forloop.parentloop.counter  }},
+                              title: '{{ detail.activity_name }}',
+                              label: '{{ forloop.counter }}'
+                            });
+                            activities_{{ forloop.parentloop.counter }}.push({lat: {{ detail.activity_lat }}, lng: {{ detail.activity_lon }}});
+                            schedule_{{ forloop.parentloop.counter }}.push({name: '{{ detail.activity_name }}', starts: '{{ detail.activity_starts }}', ends: '{{ detail.activity_ends }}'});
+                        {% endfor %}
+                        document.getElementById('getDay_{{ forloop.counter }}').addEventListener('click', function() {
+                          calculateAndDisplayRoute(directionsService_{{ forloop.counter }}, directionsDisplay_{{ forloop.counter }}, activities_{{ forloop.counter }}, {{ forloop.counter }}, schedule_{{ forloop.counter }});
+                          $(this).attr("id", "getDay_0");
                         });
-                        activities_{{ forloop.parentloop.counter }}.push({lat: {{ detail.activity_lat }}, lng: {{ detail.activity_lon }}});
-                        schedule_{{ forloop.parentloop.counter }}.push({name: '{{ detail.activity_name }}', starts: '{{ detail.activity_starts }}', ends: '{{ detail.activity_ends }}'});
-                    {% endfor %}
-                    document.getElementById('getDay_{{ forloop.counter }}').addEventListener('click', function() {
-                      calculateAndDisplayRoute(directionsService_{{ forloop.counter }}, directionsDisplay_{{ forloop.counter }}, activities_{{ forloop.counter }}, {{ forloop.counter }}, schedule_{{ forloop.counter }});
-                      $(this).attr("id", "getDay_0");
-                    });
+                    {% endif %}
                 {% endfor %}
             }
 
