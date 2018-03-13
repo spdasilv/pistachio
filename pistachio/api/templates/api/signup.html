@@ -31,8 +31,6 @@
         </img>
         <div class="col-4 offset-4">
             <div class="parent-container1">
-                <form method="post">
-                {% csrf_token %}
                 <div class="login-container" >
                     <h4 class="headline" style="text-align: center;">Ready to make trip planning easier!</h4>
                     <form method="post">
@@ -46,10 +44,9 @@
                         {% endfor %}
                       </p>
                     {% endfor %}
+                    <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
                   </form>
                 </div>
-                 <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
-                </form>
             </div>
         </div>
     </body>

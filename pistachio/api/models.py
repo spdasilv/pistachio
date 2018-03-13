@@ -223,6 +223,7 @@ class Trip(models.Model):
     stage = models.IntegerField(blank=True, null=True)
 
     class Meta:
+        ordering = ['created_at']
         managed = False
         db_table = 'trip'
 

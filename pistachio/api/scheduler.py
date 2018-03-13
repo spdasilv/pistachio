@@ -1,6 +1,5 @@
-import random, json, requests, textwrap
+import random, json
 from urllib.request import urlopen
-from string import ascii_uppercase
 from math import radians, cos, sin, asin, sqrt
 
 # Let W be the normalized weight of the interest point.
