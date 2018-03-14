@@ -7,6 +7,16 @@
         {% load static %}
         <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
         <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+        <style type="text/css">
+            .headline{
+                padding-bottom: 2px;
+                background: transparent;
+                font-size: 20px;
+                font-weight: normal;
+                font-style: italic;
+                color: var(--darkergrey);
+            }
+        </style>
     </head>
 <div class="col-4 offset-4">
     <div class="parent-container1">
@@ -23,6 +33,10 @@
             </div>
             <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Log into Pistachio</h3></button>
         </form>
+        <div> <h3 class="headline" style="text-align: center;">OR</h3> </div>
+        <a href="{% url 'api:signup' %}">
+        <button class="gold-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
+        </a>
     </div>
 </div>
 {% endblock %}
