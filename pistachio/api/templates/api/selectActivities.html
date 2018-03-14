@@ -108,8 +108,7 @@
                                             </div>
                                             <div class="col-5">
                                                 <h4>Hours</h4>
-                                                <p id = "demo"></p>
-                                                <!-- <p>Price</p> -->
+                                                <p class="location_schedule">{{ act.schedule }}</p>
                                             </div>
                                         </div>
                                         <p>{{act.description}}</p>
@@ -229,31 +228,37 @@
             $('.stars').stars();
 
             $(document).ready(function(){
-                        var sch =  "(2, '1000', '1730'); (4, '1000', '1730'); (5, '1000', '1730'); (6, '1000', '1730'); (7, '1000', '1730'); (3, '1000', '2030')";
-                        sch = sch.replace(/[''()+]/g, '');
-                        var hours = new Array();
-                        hours = sch.split(";");
-                        var ven_hour = new Array ();
-                        for (var i = 0; i < hours.length; i++) {
-                            var temp = hours[i].split(",");
-                            day = dayOfWeekAsString(parseInt(temp[0]));
-                            temp[1] = temp[1].replace(/(.{2})$/,':$1');
-                            var open = temp[1];
-                            temp[2] = temp[2].replace(/(.{2})$/,':$1');
-                            var close = temp[2];
-                            var ven_hour_temp = day.concat(" -  ",open," ", "to", " ", close);
-                            ven_hour.push(ven_hour_temp);
-                        }
-                        var $table = $( "<table></table>" );
-                        for ( var i = 0; i < ven_hour.length; i++ ) {
-                            var $line = $( "<tr></tr>" );
-                            $line.append( $( "<td></td>" ).html( ven_hour[i] ) );
-                            $table.append( $line );
-                        }
-                        $table.appendTo( $( "#demo" ));
-                       function dayOfWeekAsString(dayIndex) {
-                          return ["","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][dayIndex];
-                        }
+                $(".location_schedule").each(function(i) {
+                    var sch = $(this).text();
+                    if (sch == "") {
+                        return true;
+                    }
+                    $(this).empty();
+                    sch = sch.replace(/[''()+]/g, '');
+                    var hours = new Array();
+                    hours = sch.split(";");
+                    var ven_hour = new Array ();
+                    for (var i = 0; i < hours.length; i++) {
+                        var temp = hours[i].split(",");
+                        day = dayOfWeekAsString(parseInt(temp[0]));
+                        temp[1] = temp[1].replace(/(.{2})$/,':$1');
+                        var open = temp[1];
+                        temp[2] = temp[2].replace(/(.{2})$/,':$1');
+                        var close = temp[2];
+                        var ven_hour_temp = day.concat(" - ",open," ", "to", " ", close);
+                        ven_hour.push(ven_hour_temp);
+                    }
+                    var $table = $( "<table></table>" );
+                    for ( var i = 0; i < ven_hour.length; i++ ) {
+                        var $line = $( "<tr></tr>" );
+                        $line.append( $( "<td></td>" ).html( ven_hour[i] ) );
+                        $table.append( $line );
+                    }
+                    $table.appendTo($(this));
+                });
+                function dayOfWeekAsString(dayIndex) {
+                      return ["","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"][dayIndex];
+                    }
             });
         </script>
     </html>
