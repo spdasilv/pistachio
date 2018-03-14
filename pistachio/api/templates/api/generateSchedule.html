@@ -170,12 +170,12 @@
                     // For each route, display summary information.
                     for (var i = 0; i < route.legs.length; i++) {
                       if (i == 0) {
-                          var startTime = new Date("1970-1-1 " + schedule[i]['starts']);
-                          var endTime = new Date("1970-1-1 " + schedule[i]['ends']);
+                          var startTime = new Date(Date.parse("January 01, 1970 " + schedule[i]['starts'] + ":00"));
+                          var endTime = new Date(Date.parse("January 01, 1970 " + schedule[i]['ends'] + ":00"));
                           var hotelStart = startTime
-                          hotelStart.setSeconds(startTime.getSeconds() - route.legs[i].duration.value);
-                          var diff = Math.abs(startTime - endTime);
+                          var diff = Math.abs(endTime - startTime);
                           var minutes = Math.floor((diff/1000)/60);
+                          hotelStart.setSeconds(startTime.getSeconds() - route.legs[i].duration.value);
                           summaryPanel.innerHTML += '<div class="LocationDesc"> <p class="ptLetter">Start</p><p class="ptTime">' + hotelStart.getHours() + ':' + (hotelStart.getMinutes()<10?'0':'') + hotelStart.getMinutes() + '</p><p class="ptName">Hotel</p></div>';
                           summaryPanel.innerHTML += '<div class="locDivider"> <hr/> </div>';
                           summaryPanel.innerHTML += '<div class="TransMode"> <p>' + route.legs[i].duration.text + '</div>';
@@ -184,7 +184,7 @@
                           summaryPanel.innerHTML += '<div class="Suggestion"><div class="lenStay"> <p class="suggTime">Suggested: ' + minutes + ' minutes</p> <p class="depTime">Suggested departure: ' + schedule[i]['ends'] + '</p></div></div>';
                       }
                       else if (i == route.legs.length - 1) {
-                          var endTime = new Date("1970-1-1 " + schedule[i - 1]['ends']);
+                          var endTime = new Date(Date.parse("January 01, 1970 " + schedule[i - 1]['ends'] + ":00"));
                           var hotelEnd = endTime
                           hotelEnd.setSeconds(endTime.getSeconds() + route.legs[i].duration.value)
                           summaryPanel.innerHTML += '<div class="LocationDesc"> <p class="ptLetter">Activity ' + i + '</p><p class="ptTime">' + schedule[i - 1]['ends'] + '</p><p class="ptName">' + schedule[i - 1]['name'] + '</p></div>';
@@ -194,8 +194,8 @@
                           summaryPanel.innerHTML += '<div class="LocationDesc" style="text-align:right;"> <p class="ptLetter"> End</p><p class="ptTime">' + hotelEnd.getHours() + ':'+ (hotelEnd.getMinutes()<10?'0':'') + hotelEnd.getMinutes() + '</p><p class="ptName">Hotel</p></div>';
                       }
                       else {
-                          var startTime = new Date("1970-1-1 " + schedule[i]['starts']);
-                          var endTime = new Date("1970-1-1 " + schedule[i]['ends']);
+                          var startTime = new Date(Date.parse("January 01, 1970 " + schedule[i]['starts'] + ":00"));
+                          var endTime = new Date("January 01, 1970 " + schedule[i]['ends'] + ":00");
                           var diff = Math.abs(startTime - endTime);
                           var minutes = Math.floor((diff/1000)/60);
                           summaryPanel.innerHTML += '<div class="LocationDesc"> <p class="ptLetter">Activity ' + i + '</p><p class="ptTime">' + schedule[i - 1]['ends'] + '</p><p class="ptName">' + schedule[i - 1]['name'] + '</p></div>';
