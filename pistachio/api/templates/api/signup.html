@@ -25,19 +25,33 @@
                 font-style: italic;
                 color: var(--darkergrey);
             }
+            .sign-ups-p {
+                font-size:90%;
+                margin-top:30px;
+                text-align:center;
+                color:var(--darkergrey);
+                margin-bottom:100px;
+            }
+            .sign-ups {
+                color:var(--gold);
+                text-decoration:underline;
+            }
+            .sign-ups:hover, .sign-ups:active, .sign-ups:focus {
+                color:var(--darkgold);
+                transition:0.3s;
+            }
         </style>
     </head>
     <body>
         </img>
         <div class="col-4 offset-4">
             <div class="parent-container1">
-                <div class="login-container" >
-                    <h4 class="headline" style="text-align: center;">Ready to make trip planning easier!</h4>
+                <div class="login-container">
                     <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
                       <p>
-                        <h4 class="headline">{{ field.label_tag }}</h4>
+                         <h4 class="main-title login-title">{{ field.label_tag }}</h4>
                         {{ field }}
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
@@ -46,8 +60,17 @@
                     {% endfor %}
                   </form>
             </div>
-            <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
+            <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Create New Account</h3></button>
             </div>
+
+            <div> 
+            <p class="sign-ups-p">
+            Have an account? &nbsp;
+                <a href="{% url 'api:login' %}" class="sign-ups">
+                    Login here
+                </a>
+            </p>
+        </div>
         </div>
     </body>
 </html>

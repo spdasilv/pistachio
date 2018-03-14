@@ -8,13 +8,19 @@
         <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
         <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
         <style type="text/css">
-            .headline{
-                padding-bottom: 2px;
-                background: transparent;
-                font-size: 20px;
-                font-weight: normal;
-                font-style: italic;
-                color: var(--darkergrey);
+            .sign-ups-p {
+                font-size:90%;
+                margin-top:30px;
+                text-align:center;
+                color:var(--darkergrey);
+            }
+            .sign-ups {
+                color:var(--gold);
+                text-decoration:underline;
+            }
+            .sign-ups:hover, .sign-ups:active, .sign-ups:focus {
+                color:var(--darkgold);
+                transition:0.3s;
             }
         </style>
     </head>
@@ -33,10 +39,17 @@
             </div>
             <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Log into Pistachio</h3></button>
         </form>
-        <div> <h3 class="headline" style="text-align: center;">OR</h3> </div>
-        <a href="{% url 'api:signup' %}">
-        <button class="gold-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
-        </a>
+        <div> 
+            <p class="sign-ups-p">
+            Don't have an account? &nbsp;
+                <a href="{% url 'api:signup' %}" class="sign-ups">
+                    Sign up here
+                </a>
+            </p>
+        </div>
+        
+        <!-- <button class="gold-button" style="width:100%" type="submit"><h3 class="main-title">Sign Up</h3></button>
+        </a> -->
     </div>
 </div>
 {% endblock %}
