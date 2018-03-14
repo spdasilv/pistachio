@@ -6,7 +6,7 @@ from .models import Cities, Trip, Locations, Bid, UsersTrip, AuthUser, SelectedA
 from .forms import SignUpForm, NewTripForm
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
-from django.db.models import Sum, Min, Max, Avg
+from django.db.models import Sum, Min
 from django.views.generic.base import TemplateView
 import json
 import datetime
@@ -29,7 +29,7 @@ def signup(request):
 
 
 def parseFriends(friends):
-    friendList = friends.split(';')
+    friendList = friends.split(',')
     return friendList
 
 
@@ -48,11 +48,11 @@ def newTrip(request):
                             bidding_ends=bidding_ends, created_at=created_at, hotel_id=hotel_id, stage=1)
             new_trip.save()
 
-            new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True)
+            new_usertrip = UsersTrip(user_id=owner_id, trip_id=new_trip.id, is_owner=True, stage=1)
             new_usertrip.save()
             friends = parseFriends(form.cleaned_data.get('emails'))
             for friend in friends:
-                user = AuthUser.objects.filter(email=friend).values('id').first()
+                user = AuthUser.objects.filter(username=friend).values('id').first()
                 if user is not None:
                     new_usertrip = UsersTrip(user_id=user['id'], trip_id=new_trip.id, is_owner=False, stage=1)
                     new_usertrip.save()
@@ -72,7 +72,9 @@ class votingView(generic.DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(votingView, self).get_context_data(**kwargs)
-        context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).all()
+        context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).distinct().all()
+        context['stage'] = UsersTrip.objects.filter(trip_id=self.kwargs['pk']).filter(
+            user_id=self.request.user.id).values('stage').first()
         return context
 
 
@@ -85,6 +87,8 @@ class selectActivitiesView(generic.DetailView):
         context = super(selectActivitiesView, self).get_context_data(**kwargs)
         context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).exclude(
             description='NA').all().order_by('-rating')
+        context['stage'] = UsersTrip.objects.filter(trip_id=self.kwargs['pk']).filter(
+            user_id=self.request.user.id).values('stage').first()
         return context
 
 
@@ -196,6 +200,8 @@ def runGA(request):
                 }
         schedule = scheduleRun(dict, days)
         results = generateResponse(schedule, locations, tripStart, obj['trip_id'])
+        tripInfo.stage = 4
+        tripInfo.save(update_fields=['stage'])
     return JsonResponse(results)
 
 
@@ -272,6 +278,7 @@ def convertToDict(list):
 
 def generateResponse(schedule, locations, start_date, trip_id):
     response = {}
+    Schedules.objects.filter(trip_id=trip_id).delete()
     for i, bucket in enumerate(schedule):
         schedule = Schedules(trip_id=trip_id, day=start_date + datetime.timedelta(days=i))
         schedule.save()

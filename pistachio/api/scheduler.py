@@ -1,6 +1,5 @@
-import random, json, requests, textwrap
+import random, json
 from urllib.request import urlopen
-from string import ascii_uppercase
 from math import radians, cos, sin, asin, sqrt
 
 # Let W be the normalized weight of the interest point.
@@ -144,6 +143,7 @@ class Tour:
     def getScore(self):
         if self.score == 0:
             tourScore = 0
+            travelTime = 0
             buckets = []
             for key, value in self.days.items():
                 buckets.append(Bucket(value['weekday'], value['start'], value['end']))
@@ -155,18 +155,21 @@ class Tour:
                     if currentPoint.id in removed:
                         continue
                     activity_start = bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)]
-                    activity_end = activity_start + currentPoint.t
+                    activity_end = activity_start + currentPoint.t + 0
                     if activity_end + self.timeCosts[(currentPoint.id, self.base.id)] <= bucket.end_time \
                             and currentPoint.t_open[bucket.week_day] <= activity_start \
                             and activity_end <= currentPoint.t_close[bucket.week_day]:
                         bucket.incrementWeight(currentPoint.w)
                         bucket.addToPlan(currentPoint.id, bucket.start_time + bucket.timeUsed + self.timeCosts[(previousPoint.id, currentPoint.id)], currentPoint.t, currentPoint.lat, currentPoint.lon)
                         bucket.incrementTime(currentPoint.t + self.timeCosts[(previousPoint.id, currentPoint.id)])
+                        travelTime = travelTime + self.timeCosts[(previousPoint.id, currentPoint.id)]
                         previousPoint = currentPoint
                         removed.add(currentPoint.id)
                     else:
                         continue
                 tourScore += bucket.totalWeight
+            if len(removed) == self.tourSize():
+                tourScore = tourScore + (10000/travelTime + 1)
             self.score = tourScore
             self.plan = buckets
         return self.score
