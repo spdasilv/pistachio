@@ -36,7 +36,8 @@
      display: table-cell;
      vertical-align: middle;
      margin-top: 15px;
-     margin-right:20px;
+     /*margin-right:20px;*/
+     margin-left:25px;
      border: none;
      letter-spacing: 2px;
      color: var(--darkgrey);
