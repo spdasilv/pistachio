@@ -241,6 +241,30 @@
     </body>
 </html>
 {% else %}
-    ACCESS DENIED
+    {% load static %}
+    <html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <title>
+        </title>
+        {% load static %}
+        <link href="{% static "api/css/style.css" %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
+    </head>
+    <div class="col-4 offset-4">
+        <div class="parent-container1">
+            <div class="login-container" >
+                <div>
+                    <h4 class="main-title login-title" style="text-align: center;">Access Denied</h4>
+                </div>
+            </div>
+
+            <a href="{% url 'api:home' %}">
+            	<button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Back to home</h3></button>
+            </a>
+
+        </div>
+    </div>
+    </html>
 {% endif %}
 {% endblock %}

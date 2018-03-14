@@ -73,6 +73,8 @@ class votingView(generic.DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(votingView, self).get_context_data(**kwargs)
         context['actDetails'] = Locations.objects.filter(selectedactivities__trip_id=self.kwargs['pk']).distinct().all()
+        context['stage'] = UsersTrip.objects.filter(trip_id=self.kwargs['pk']).filter(
+            user_id=self.request.user.id).values('stage').first()
         return context
 
 
@@ -85,6 +87,8 @@ class selectActivitiesView(generic.DetailView):
         context = super(selectActivitiesView, self).get_context_data(**kwargs)
         context['actDetails'] = Locations.objects.filter(city_id=trip['city_id']).filter(rating__gte=6).exclude(
             description='NA').all().order_by('-rating')
+        context['stage'] = UsersTrip.objects.filter(trip_id=self.kwargs['pk']).filter(
+            user_id=self.request.user.id).values('stage').first()
         return context
 
 
