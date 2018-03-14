@@ -6,15 +6,24 @@
     <link href="{% static "api/css/styling.css" %}" rel="stylesheet" type="text/css"/>
 </head>
 <div class="header-container">
+    
     <div class="logo">
+        <a href="{% url 'api:home' %}">
         <img class="img-responsive" src="{% static "api/assets/pistachio.png" %}">
         </img>
+    </a>
     </div>
+    <a href="{% url 'api:about' %}" class="logout-button">
+        <h4>
+            ABOUT
+        </h4>
+    </a>
     <a href="{% url 'api:logout' %}" class="logout-button">
         <h4>
             LOGOUT
         </h4>
     </a>
+   <div style="width:100px"></div>
 </div>
 </header>
     {% block content %}{% endblock %}
