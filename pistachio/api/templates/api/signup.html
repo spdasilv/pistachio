@@ -46,9 +46,9 @@
         </img>
         <div class="col-4 offset-4">
             <div class="parent-container1">
+            <form method="post">
+                {% csrf_token %}
                 <div class="login-container">
-                    <form method="post">
-                    {% csrf_token %}
                     {% for field in form %}
                       <p>
                          <h4 class="main-title login-title">{{ field.label_tag }}</h4>
@@ -58,9 +58,9 @@
                         {% endfor %}
                       </p>
                     {% endfor %}
-                  </form>
-            </div>
-            <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Create New Account</h3></button>
+                </div>
+                <button class="green-button" style="width:100%" type="submit"><h3 class="main-title">Create New Account</h3></button>
+            </form>
             </div>
 
             <div> 
