@@ -11,6 +11,7 @@ from django.views.generic.base import TemplateView
 import json
 import datetime
 from ast import literal_eval as make_tuple
+from .tasks import checkTrips
 
 
 def signup(request):
@@ -111,6 +112,15 @@ class homeView(generic.ListView):
         context = super(homeView, self).get_context_data(**kwargs)
         context['trips'] = Trip.objects.filter(userstrip__user=self.request.user.id).all()
         return context
+
+
+@csrf_exempt
+def tasks(request):
+    if request.method == 'POST':
+        checkTrips(repeat=30)
+        return JsonResponse({}, status=200)
+    else:
+        return JsonResponse({}, status=405)
 
 
 def hourTomin(date):
