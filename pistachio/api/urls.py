@@ -19,4 +19,5 @@ urlpatterns = [
     path('bidAjax/', views.bidAjax, name='bidAjax'),
     path('addActivitiesAjax/', views.addActivitiesAjax, name='addActivitiesAjax'),
     path('runGA/', views.runGA, name='runGA'),
-]
+    path('about/', views.aboutView.as_view(), name='about'),
+] 

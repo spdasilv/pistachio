@@ -1,0 +1,179 @@
+{% extends "api/index.html" %}
+{% block content %}
+
+    {% load static %}
+<html>
+    <head>
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <link %}"="" api="" css="" href="{% static " rel="stylesheet" style_calendar.css"="" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script %}"="" api="" fontawesome-all.js"="" js="" src="{% static ">
+        </script>
+        <script %}"="" api="" js="" modernizr.js"="" src="{% static ">
+        </script>
+        <script %}"="" api="" js="" main.js"="" src="{% static ">
+        </script>
+        <style>
+            .about-top {
+          margin-bottom:50px;
+        }
+        .about-title {
+          color:var(--green);
+          font-family:Lato;
+          /*font-weight:400;*/
+          font-size:2em;
+          /*text-align:center;*/
+        }
+
+        .about-p {
+          line-height:1.4em;
+          font-size:1.1em;
+          color:var(--darkwriting);
+          letter-spacing:0.3px;
+
+        }
+        .about-line {
+          height:240px;
+          width:2px;
+          background:var(--darkgrey);
+          padding-right:7px;
+          margin-left:30px;
+        }
+
+        .step-list{
+          before:none;
+          list-style-type: none;
+          padding-left:0;
+          /*background:blue;*/
+          margin-left:0;
+        }
+
+        .step-list h3 {
+          color:var(--darkwriting);
+          letter-spacing:0.3px;
+        }
+
+        .step-p {
+          line-height:1.4em;
+          font-size:1.05em;
+          color:var(--darkergrey);
+          letter-spacing:0.2px;
+          padding-left:30px;
+          margin-top:-10px;
+          margin-bottom:10px;
+        }
+
+        .about-pic {
+          box-shadow: 1px 2px 4px rgba(0, 0, 0, .3);
+          width:80%;
+          margin-left:auto;
+          margin-right:auto;
+          display:block;
+        }
+        .about-row {
+          margin-bottom:50px;
+        }
+        </style>
+    </head>
+    <body>
+        <!------- -->
+        <div class="parent-container1">
+            <!-- <div class="col-1">
+          <div class="about-line"></div>
+
+          </div> -->
+            <div class="row">
+                <div class="col-9">
+                    <div class="about-top">
+                        <h2 class="about-title">
+                            What is Pistachio?
+                        </h2>
+                        <p class="about-p">
+                            Pistachio is a consensus-based group travel planning solution. We help you plan by taking account everyone’s choices to create not only a list of attractions to visit (based on what you want), but also for everyone to come together to vote/bid on them.
+                            <br/>
+                            <br/>
+                            At the end, we output a sample itinerary optimized for what everyone wants, and also based on distances and how much the team wants to do these activities.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <h2 class="about-title">
+                Let's get started.
+            </h2>
+            <div class="row about-row">
+                <div class="col-7">
+                    <ul class="step-list">
+                        <li>
+                            <h3>
+                                1. &nbsp; Start planning by creating a new trip.
+                            </h3>
+                            <p class="step-p">
+                                Either you or your friend can create this trip, but make sure to add your friends’ usernames in so everyone is included. Here, you can fill out details such as your intended location, your hotel, your day length, trip duration etc. There’s also time you can specify for the bidding window to start.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-5">
+                  <img class="img-responsive about-pic" src="{% static "api/img/1-start.png" %}">
+                </img>
+                </div>
+            </div>
+            <div class="row about-row">
+                <div class="col-7">
+                    <ul class="step-list">
+                        <li>
+                            <h3>
+                                2. &nbsp; Choose what <i>you</i> want to see.
+                            </h3>
+                            <p class="step-p">
+                                At this phase, you choose what attractions you want to see. Simply bookmark the attraction using the “Add” button.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-5">
+                  <img class="img-responsive about-pic" src="{% static "api/img/2-choose.png" %}">
+                </img>
+                </div>
+            </div>
+            <div class="row about-row">
+                <div class="col-7">
+                    <ul class="step-list">
+                        <li>
+                            <h3>
+                                3. &nbsp; Let's start voting!
+                            </h3>
+                            <p class="step-p">
+                                Stage 3 requires some team effort and coordination, but no worries—we’ve got you covered here. After everyone submits their individual preferences, Pistachio pulls these attractions into a group list, to create a pool for everyone to rate. You choose how badly you want to see/do this activity and we take your responses to generate a schedule.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-5">
+                  <img class="img-responsive about-pic" src="{% static "api/img/3-star.png" %}">
+                </img>
+                </div>
+            </div>
+            <div class="row about-row">
+                <div class="col-7">
+                    <ul class="step-list">
+                        <li>
+                            <h3>
+                                4. &nbsp; Are you ready?
+                            </h3>
+                            <p class="step-p">
+                                Take a look at the schedule (feel free to mix & match, shuffle around some things) and let’s get travelling!
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-5">
+                  <img class="img-responsive about-pic" src="{% static "api/img/4-calendar1.png" %}">
+                </img>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}

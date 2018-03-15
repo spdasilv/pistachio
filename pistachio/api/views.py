@@ -91,6 +91,8 @@ class selectActivitiesView(generic.DetailView):
             user_id=self.request.user.id).values('stage').first()
         return context
 
+class aboutView(TemplateView):
+    template_name = 'api/about.html'
 
 class adminGAView(TemplateView):
     template_name = 'api/adminGA.html'
